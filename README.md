@@ -1,1 +1,1 @@
-# aws-fargate-eks-masterclass
+# AWS Fargate & EKS (Elastic Kubernetes Service) - Masterclass
