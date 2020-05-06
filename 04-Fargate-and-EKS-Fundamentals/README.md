@@ -1,1 +1,0 @@
-# AWS Fargate & EKS Fundamentals
