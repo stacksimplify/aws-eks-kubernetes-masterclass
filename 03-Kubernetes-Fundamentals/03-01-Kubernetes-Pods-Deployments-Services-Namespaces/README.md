@@ -59,14 +59,17 @@ docker push <your-docker-hub-id>/kubenginx:1.0.0
 # Get Current Namespaces
 kubectl get namespace
 
+# Verify Current Namespace kubectl using 
+kubectl config view --minify | grep namespace:
+
 # Create Namespace
 kubectl create namespace firstdemo
 
-# Set the namespace
+# Set the namespace to newly created
 kubectl config set-context --current --namespace=<insert-namespace-name-here>
 kubectl config set-context --current --namespace=firstdemo
 
-# Validate it
+# Verify the Current Namespace kubectl using 
 kubectl config view --minify | grep namespace:
 ```
 
@@ -77,14 +80,16 @@ kubectl config view --minify | grep namespace:
 - Describe Pod and Understand
 ```
 # Create Deployment
-kubectl create deployment kubenginx-dep --image=stacksimplify/kubenginx:1.0.0
+kubectl create deployment kubenginx --image=stacksimplify/kubenginx:1.0.0
 
-# Verify Deployment & Pods
+# Verify & Describe Deployment
 kubectl get deployments
-kubectl get pods
-
-# Describe Deployment & Pod
 kubectl describe deployment <deployment-name>
+kubectl describe deployment kubenginx
+
+# Verify & Describe Pod
+kubectl get pods
+kubectl get po
 kubectl describe pod <pod-name>
 ```
 
@@ -94,14 +99,15 @@ kubectl describe pod <pod-name>
 - Describe the Service and Understand 
 ```
 # Create Service
-kubectl expose deployment kube-nginx-dep --type="NodePort" --port 80 --name=kubenginx-svc
+kubectl get deployments
+kubectl expose deployment kubenginx --type="NodePort" --port 80 --name=kubenginx-svc
 
 # Verify Service
-kubectl get services
+kubectl get service
 kubectl get svc
 
 # Describe Service
-kubectl describe service mynginx
+kubectl describe service kubenginx-svc
 ```
 
 ## Step-05: Test by accessing the NGINX Application via Internet
@@ -109,16 +115,27 @@ kubectl describe service mynginx
     - Security Group Name: eks-remoteAccess-(some-id)
     - Example Security Group name: eks-remoteAccess-08b8f410-774d-9a68-ebe3-34586336c2df
     - Create a Rule
-        - Type: HTTP
-        - Protocol: TCP
-        - Port Range: 80
+        - Type: All Traffic
+        - Protocol: All
+        - Port Range: All
         - Source: Anywhere (0.0.0.0/0)
-        - Description: Allow access from internet to port 80 on Kubernetes Worker Node
+        - Description: Allow access from internet to All Ports on Kubernetes Worker Node
 
 - Access the NGINX Application
 ```
+# Get the Node Port from Service
+kubectl get svc
+
+# Sample Output
+[root@ip-10-0-12-106 ~]# kubectl get svc
+NAME            TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+kubenginx-svc   NodePort   10.100.52.95   <none>        80:31507/TCP   3m39s
+[root@ip-10-0-12-106 ~]#
+
+
 # Application URL 
-http://<EKS-Worker-NodeIP:Port>
+http://<EKS-Worker-NodeIP>:<Port-from-kubectl-get-svc-output>
+http://54.91.88.200:31507
 ```
 
 
@@ -126,16 +143,66 @@ http://<EKS-Worker-NodeIP:Port>
 - Verify POD logs
 ```
 # Pod logs
+kubectl get po
 kubectl logs <pod-name>
-kubectl logs 
 ```
+- **Important Notes**
+    - Refer below link and search for **Interacting with running Pods** for additional log options
+    - Troubleshooting skills are very important. So please go through all logging options available and master them.
+    - Reference: https://kubernetes.io/docs/reference/kubectl/cheatsheet/
 
 ## Step-07: Connect to Container in a POD
+- **Connect to a Container in POD and execute commands**
 ```
-kubectl exec -ti <pod-name> bash
+# Connect to Nginx Container in a POD
+kubectl exec -it <pod-name> -- /bin/bash
+
+# Execute some commands in Nginx container
+ls
+cd /etc/nginx
+ls
+exit
 ```
-
-
+- **Running individual commands in a Container**
+```
+kubectl exec -it <pod-name> env
+```
 ## Step-08: Namespaces - Advanced
+- **Delete all resources by deleting Namespace**
+```
+kubectl delete namespace firstdemo
+```
 
+- **Recreate them back**
+```
+kubectl create namespace firstdemo
+kubectl create deployment kubenginx --image=stacksimplify/kubenginx:1.0.0
+kubectl expose deployment kubenginx --type="NodePort" --port 80 --name=kubenginx-svc
+kubectl get svc
+
+# Test Application URL 
+http://<EKS-Worker-NodeIP>:<Port-from-kubectl-get-svc-output>
+http://54.91.88.200:31507
+```
+
+- **Switch Contexts**
+    - Switch to default context
+```
+# Set the namespace to default created
+kubectl config set-context --current --namespace=<insert-namespace-name-here>
+kubectl config set-context --current --namespace=default
+
+# Verify the Current Namespace kubectl using 
+kubectl config view --minify | grep namespace:
+```
+
+- **Namespace & Non-Namespace Resources**
+    - Understand about Namespace and Non-Namespace resources in Kubernetes
+```
+# In a namespace
+kubectl api-resources --namespaced=true
+
+# Not in a namespace
+kubectl api-resources --namespaced=false
+```
 
