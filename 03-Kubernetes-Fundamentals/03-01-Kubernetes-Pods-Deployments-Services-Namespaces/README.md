@@ -171,6 +171,9 @@ kubectl exec -it <pod-name> env
 - **Delete all resources by deleting Namespace**
 ```
 kubectl delete namespace firstdemo
+kubectl get po
+kubectl get deployment
+kubectl get svc
 ```
 
 - **Recreate them back**
@@ -182,11 +185,11 @@ kubectl get svc
 
 # Test Application URL 
 http://<EKS-Worker-NodeIP>:<Port-from-kubectl-get-svc-output>
-http://54.91.88.200:31507
+http://54.91.88.200:31107
 ```
 
-- **Switch Contexts**
-    - Switch to default context
+- **Switch Namespace Contexts - To default**
+
 ```
 # Set the namespace to default created
 kubectl config set-context --current --namespace=<insert-namespace-name-here>
@@ -194,8 +197,26 @@ kubectl config set-context --current --namespace=default
 
 # Verify the Current Namespace kubectl using 
 kubectl config view --minify | grep namespace:
-```
 
+# Verify Pods, Deployments and Services in Default Namespace (Nothing should be there related to firstdemo namespace)
+kubectl get po
+kubectl get deployment
+kubectl get svc
+```
+- **Switch Namespace Contexts - To firstdemo**
+```
+# Set the namespace to default created
+kubectl config set-context --current --namespace=<insert-namespace-name-here>
+kubectl config set-context --current --namespace=firstdemo
+
+# Verify the Current Namespace kubectl using 
+kubectl config view --minify | grep namespace:
+
+# Verify Pods, Deployments and Services in Default Namespace (Nothing should be there related to firstdemo namespace)
+kubectl get po
+kubectl get deployment
+kubectl get svc
+```
 - **Namespace & Non-Namespace Resources**
     - Understand about Namespace and Non-Namespace resources in Kubernetes
 ```
