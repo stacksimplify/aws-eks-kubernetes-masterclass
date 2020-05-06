@@ -1,7 +1,8 @@
 # Kubernetes - Namespaces, Pods, Deployments & Services
 
 ## Step-01: Introduction
-- Create Docker Image
+- Create Docker Image for this Demo
+    - Journey from Docker to Kubernetes
 - Understand Kubernetes core fundamental items
     - Namespaces
     - Pods
