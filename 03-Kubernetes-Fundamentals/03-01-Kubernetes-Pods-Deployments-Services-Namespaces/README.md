@@ -1,8 +1,9 @@
-# Kubernetes Fundamentals
+# Kubernetes - Namespaces, Pods, Deployments & Services
 
 ## Step-01: Introduction
 - Create Docker Image
 - Understand Kubernetes core fundamental items
+    - Namespaces
     - Pods
     - Deployments
     - Services
