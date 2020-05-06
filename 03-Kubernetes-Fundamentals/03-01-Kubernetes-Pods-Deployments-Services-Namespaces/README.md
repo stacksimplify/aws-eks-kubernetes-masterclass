@@ -8,6 +8,9 @@
     - Pods
     - Deployments
     - Services
+- Scaling our Apps seamlessly
+- Rolling Updates to Apps
+- Rollback the updates to Apps        
 
 ## Step-02: Create a Docker Image Locally & Push to Docker Hub
 - Navigate to folder **03-Kubernetes-Fundamentals\03-01-Kubernetes-Pods-Deployments-Services\kube-nginx** from course github content download.
@@ -229,3 +232,40 @@ kubectl api-resources --namespaced=true
 kubectl api-resources --namespaced=false
 ```
 
+## Step-09: Scaling our Application
+- Scaling our Application
+```
+# Scale Up 
+kubectl scale deployments/kubenginx --replicas=4
+kubectl get deployment
+kubectl get po
+kubectl get po -o wide
+kubectl describe deployment kubenginx
+
+# Scale Down
+kubectl scale deployments/kubenginx --replicas=4
+kubectl get po -o wide
+kubectl describe deployment kubenginx
+```
+## Step-10: Rolling Updates
+- **Update the version of the App**
+```
+kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2
+kubectl get deployments
+kubectl get pods
+```
+- **Rollback an Update to previous version**
+```
+kubectl rollout undo deployments/kubernetes-bootcamp
+kubectl get deployments
+```
+
+## Conclusion
+- We have learned the following Kubernetes Resources by implementing them practically. 
+    - Namespaces
+    - Pods
+    - Deployments
+    - Services
+- Scaling our Apps
+- Rolling Updates to Apps
+- Rollback the updates to Apps   
