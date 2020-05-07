@@ -21,6 +21,8 @@
 12. AWS CloudFormation
 13. AWS CloudWatch
 14. AWS CloudTrial
+15. AWS Parameter Store (for secrets - CICD)
+16. AWS Lambda (For secrets - CICD)
 
 
 
@@ -88,7 +90,7 @@
 
 ## Monitoring & Logging
 - CloudWatch
-- CloudTrail
+- CloudTrail 
 - AWS X-Ray
 
 ## Kube Tools
@@ -98,6 +100,9 @@
     - https://docs.aws.amazon.com/eks/latest/userguide/helm.html 
     - https://helm.sh/docs/intro/quickstart/
 - Kubeadm
+- Grafana, Prometheus
+- Istio
+- Kiali
 
 
 
