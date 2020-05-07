@@ -102,3 +102,36 @@
 
 
 
+# Kube Topics List
+
+## Series -1
+- Cluster Setup (AWS)
+- Architecture
+- PODS
+- Deployments
+- Services
+- ReplicaSets
+- YAML
+
+## Series-2
+- ConfigMaps
+- Resources
+- Containers
+- P Volume Claims
+- Networking
+- Taints & 
+- 
+
+## Series-3
+- Ingress
+- Secrets
+- Persistent Volumes
+- Security
+- 
+
+## Series-4
+- StatefulSets
+- Storage
+- Administration
+- Federation
+- Jobs
