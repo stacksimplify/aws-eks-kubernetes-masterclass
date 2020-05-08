@@ -4,11 +4,10 @@
 - Understand about components present in Master and Worker Nodes
 - Understand what AWS EKS will solve when using Kubernetes
 
-# Module-2: Pre-requisites on Local Desktops
+# Module-2: Pre-requisites on Local Desktops (Windows & Mac)
 ## Step-01: Pre-requisite-1: Install and configure AWS CLI
 - Reference-1: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html
 - Reference-2: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
-
 ### Step-01-01: Windows 10 - Install and configure AWS CLI
 - The AWS CLI version 2 is supported on Windows XP or later.
 - The AWS CLI version 2 supports only 64-bit versions of Windows.
@@ -121,6 +120,8 @@ https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-03-23/amazon-e
     - Template source: Amazon S3 URL
     - Amazon S3 URL: https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-03-23/amazon-eks-vpc-sample.yaml
     - Click Next
+    - **Important Note:** Always verify this link for any new cloudformation templates related to VPC for EKS is provided. 
+        - https://docs.aws.amazon.com/eks/latest/userguide/create-public-private-vpc.html
 - **Specify stack details**
     - Stack Name: eks-vpc-public
     - Parameters: 
