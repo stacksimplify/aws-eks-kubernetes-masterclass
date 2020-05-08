@@ -26,14 +26,14 @@ aws-cli/2.0.8 Python/3.7.5 Windows/10 botocore/2.0.0dev12
 ### Step-01-03: Configure AWS Command Line using Security Credentials
 - Go to AWS Management Console --> Services --> IAM
 - Select the IAM User: kalyan 
-- **Important Note:** Use only IAM user to generate **Security Credentials**. Never ever use Root User. Highly not recommended)
+- **Important Note:** Use only IAM user to generate **Security Credentials**. Never ever use Root User. (Highly not recommended)
 - Click on **Security credentials** tab
 - Click on **Create access key**
 - Copy Access ID and Secret access key
 - Go to command line and provide the required details
 ```
 aws configure
-AWS Access Key ID [None]: ABCDEFGHIKKLAKJKUNGG  (Replace your creds when prompted)
+AWS Access Key ID [None]: ABCDEFGHIAZBERTUCNGG  (Replace your creds when prompted)
 AWS Secret Access Key [None]: uMe7fumK1IdDB094q2sGFhM5Bqt3HQRw3IHZzBDTm  (Replace your creds when prompted)
 Default region name [None]: us-east-1
 Default output format [None]: json
@@ -43,7 +43,7 @@ Default output format [None]: json
 aws ec2 describe-vpcs
 ```
 ## Step-02: Install and configure kubectl 
-- Kubectl binaries for EKS please prefer to use from Amazon (Amazon EKS-vended kubectl binary)
+- Kubectl binaries for EKS please prefer to use from Amazon (**Amazon EKS-vended kubectl binary**)
 - This will help us to get the exact Kubectl client version based on our EKS Cluster version. You can use the below documentation link to download the binary.
 - Reference: https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html
 
@@ -88,6 +88,7 @@ kubectl version --client
         - Per Day: $0.9984 - Approximately $1
         - Per Month: $30 per 1 t3.medium server
     - Reference: https://aws.amazon.com/ec2/pricing/on-demand/
+    - In short, if we run 1 EKS Cluster and 1 t3.medium worker node **continuously** for 1 month, our bill is going to be around $102 to $110
 - **EKS Fargate Profile**
     - AWS Fargate pricing is calculated based on the **vCPU and memory** resources used from the time you start to download your container image until the EKS Pod terminates.
     - **Reference:** https://aws.amazon.com/fargate/pricing/    
@@ -205,8 +206,12 @@ kubectl get svc
     - Desired size: 2 (leave to defaults)  
 - **Review and create**
     - Click on **Create**        
-
+- **Important Note:** 
+    - Worker Node provisioning usually takes between 10 to 15 minutes.
+    - Wait till the worker node status shows **ACTIVE**
 - Verify whether the nodes are ready using below command. 
 ```
+kubectl get nodes
 kubectl get nodes --watch
+kubectl get nodes -o wide
 ```
