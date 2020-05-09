@@ -138,7 +138,7 @@ Output: Client Version: v1.16.8-eks-e16311
         - Select your Usecase: EKS (Allows EKS to manage clusters on your behalf.)
     - Click Next:Permissions, Next:Tags, Next:Review
     - Review
-        - Role Name: eksClusterRole         
+        - Role Name: AWSServiceRoleForAmazonEKS         
         - Role Description: Allows EKS to manage clusters on your behalf.
         - Click on **Create Role**
 
