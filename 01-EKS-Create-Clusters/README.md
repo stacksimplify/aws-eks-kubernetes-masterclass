@@ -175,7 +175,7 @@ https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-03-23/amazon-e
 - Click on **Clusters** --> **Create Cluster**
 - **General Configuration:**
     - Cluster name: my-first-eks-cluster
-    - Kubernetes version: 1.15 (select default which is latest on that day)
+    - Kubernetes version: 1.16 (select latest on that day when you are creating cluster)
     - Role name: eksClusterRole
 - **Networking:**
     - VPC: eks-vpc-public
