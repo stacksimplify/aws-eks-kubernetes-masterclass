@@ -136,8 +136,8 @@ kubectl exec -it <pod-name> -- /bin/bash
 
 # Execute some commands in Nginx container
 ls
-cd /etc/nginx
-ls
+cd /usr/share/nginx/html
+cat index.html
 exit
 ```
 - **Running individual commands in a Container**
