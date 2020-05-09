@@ -128,33 +128,20 @@ Output: Client Version: v1.16.8-eks-e16311
 - **Important Note-1:** If you are using your personal AWS Account, then ensure you delete and recreate cluster and worker nodes as and when needed. 
 - **Important Note-2:** We cant stop our EC2 Instances which are in Kubernetes cluster unlike regular EC2 Instances. So we need to delete the worker nodes (Node Group) if we are not using it during our learning process.
     
-## Step-03: Create EKS Cluster IAM Role
-- This role allows EKS to manage clusters on our behalf.
-- In simple terms, when a load balancer is created, Kubernetes (EKS) assumes the role to create an Elastic Load Balancing load balancer in our account. 
-- Go to Services --> IAM --> Roles
-- **Create Role**
-    - Select type of trusted entity: AWS Service
-    - Service: EKS
-        - Select your Usecase: EKS (Allows EKS to manage clusters on your behalf.)
-    - Click Next:Permissions, Next:Tags, Next:Review
-    - Review
-        - Role Name: AWSServiceRoleForAmazonEKS         
-        - Role Description: Allows EKS to manage clusters on your behalf.
-        - Click on **Create Role**
-
-## Step-04: Create EKS Cluster VPC - 3 Public Subnets
+## Step-03: Create EKS Cluster VPC - 3 Public Subnets
+- **Important Note:** Always verify this link for any new cloudformation templates related to VPC for EKS is provided. 
+- Reference: https://docs.aws.amazon.com/eks/latest/userguide/create-public-private-vpc.html
 - Create a VPC CloudFormation stack using below URL
 ```
-https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-03-23/amazon-eks-vpc-sample.yaml
+https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-04-21/amazon-eks-vpc-sample.yaml
 ```
 - **Go to Services --> CloudFormation --> Create Stack**
 - **Create stack**
     - Prepare template: template is ready
     - Template source: Amazon S3 URL
-    - Amazon S3 URL: https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-03-23/amazon-eks-vpc-sample.yaml
+    - Amazon S3 URL: https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-04-21/amazon-eks-vpc-sample.yaml
     - Click Next
-    - **Important Note:** Always verify this link for any new cloudformation templates related to VPC for EKS is provided. 
-        - https://docs.aws.amazon.com/eks/latest/userguide/create-public-private-vpc.html
+
 - **Specify stack details**
     - Stack Name: eks-vpc-public
     - Parameters: 
@@ -170,12 +157,26 @@ https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-03-23/amazon-e
 - **Review**
     - Click on **Create Stack**
 
+## Step-04: Create EKS Cluster IAM Role
+- This role Allows access to other AWS service resources that are required to operate clusters managed by EKS.
+- Go to Services --> IAM --> Roles
+- **Create Role**
+    - Select type of trusted entity: AWS Service
+    - Service: EKS
+        - Select your Usecase: **EKS - Cluster**
+    - Click Next:Permissions, Next:Tags, Next:Review
+    - Review
+        - Role Name: eksClusterRole         
+        - Role Description: Allows EKS to manage clusters on your behalf.
+        - Click on **Create Role**
+
+
 ## Step-05: Create EKS Cluster
 - Go to Services --> Elastic Kubernetes Service
 - Click on **Clusters** --> **Create Cluster**
 - **General Configuration:**
     - Cluster name: my-first-eks-cluster
-    - Kubernetes version: 1.16 (select latest on that day when you are creating cluster)
+    - Kubernetes version: 1.16 (select latest available on that day when you are creating cluster)
     - Role name: eksClusterRole
 - **Networking:**
     - VPC: eks-vpc-public
@@ -201,7 +202,7 @@ aws eks --region region-code update-kubeconfig --name cluster_name
 aws eks --region us-east-1 update-kubeconfig --name my-first-eks-cluster
 kubectl get svc
 ```
-## Step-05: Create EKS Worker node IAM role
+## Step-07: Create EKS Worker node IAM role
 - The Amazon EKS worker node kubelet daemon (from EC2 Instances) makes calls to AWS APIs on your behalf. 
 - **Important Note:** It is highly recommended that we create a new worker node IAM role for each EKS cluster.
 - Go to Services --> IAM --> Roles
@@ -219,7 +220,7 @@ kubectl get svc
         - Click on **Create Role**
 - **Very Very Important Note:**  **Refresh the browser** to load the new roles created to list when creating Node Groups
 
-## Step-07: Launch Managed Node Group (Kubernetes Worker Nodes)
+## Step-08: Launch Managed Node Group (Kubernetes Worker Nodes)
 - Go to Services --> Elastic Kubernetes Service
 - Click on **my-first-eks-cluster**
 - Click on **Add Node Group**
