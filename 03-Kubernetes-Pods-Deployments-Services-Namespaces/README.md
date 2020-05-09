@@ -8,9 +8,7 @@
     - Pods
     - Deployments
     - Services
-- Scaling our Apps seamlessly
-- Rolling Updates to Apps
-- Rollback the updates to Apps        
+      
 
 ## Step-02: Create a Docker Image Locally & Push to Docker Hub
 - Navigate to folder **03-Kubernetes-Fundamentals\03-01-Kubernetes-Pods-Deployments-Services\kube-nginx** from course github content download.
@@ -29,9 +27,6 @@ docker run --name kubenginx1 -p 80:80 -d <your-docker-hub-id>/kubenginx:1.0.0
 ```
 # Verify Docker Container is running
 docker ps
-
-# Verify by acecsing application in Terminal (Linux or Mac)
-curl http://localhost  
 
 # Verify by accessing application in Browser (local desktop)
 http://localhost  
