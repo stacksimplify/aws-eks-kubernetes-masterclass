@@ -4,6 +4,7 @@
 - Create Docker Image for this Demo
     - Journey from Docker to Kubernetes
 - Understand Kubernetes core fundamental items
+    - Namespaces
     - Pods
     - Deployments
     - Services
@@ -48,6 +49,28 @@ docker push stacksimplify/kubenginx:1.0.0
 
 # Replace your docker hub account Id
 docker push <your-docker-hub-id>/kubenginx:1.0.0
+```
+
+## Step-03: Create Kubernetes Namespaces
+- Create Namespace
+- Switch the context to new namespace
+- **Important Note:** Don't worry much about this for now, in upcoming steps we will discuss in detail.
+```
+# Get Current Namespaces
+kubectl get namespace
+
+# Verify Current Namespace kubectl using 
+kubectl config view --minify | grep namespace:
+
+# Create Namespace
+kubectl create namespace firstdemo
+
+# Set the namespace to newly created
+kubectl config set-context --current --namespace=<insert-namespace-name-here>
+kubectl config set-context --current --namespace=firstdemo
+
+# Verify the Current Namespace kubectl using 
+kubectl config view --minify | grep namespace:
 ```
 
 ## Step-03: Create Kubernetes Deployment
@@ -144,3 +167,64 @@ exit
 ```
 kubectl exec -it <pod-name> env
 ```
+## Step-08: Namespaces - Advanced
+- **Delete all resources by deleting Namespace**
+```
+kubectl delete namespace firstdemo
+kubectl get po
+kubectl get deployment
+kubectl get svc
+```
+
+- **Recreate them back**
+```
+kubectl create namespace firstdemo
+kubectl create deployment kubenginx --image=stacksimplify/kubenginx:1.0.0
+kubectl expose deployment kubenginx --type="NodePort" --port 80 --name=kubenginx-svc
+kubectl get svc
+
+# Test Application URL 
+http://<EKS-Worker-NodeIP>:<Port-from-kubectl-get-svc-output>
+http://54.91.88.200:31107
+```
+
+- **Switch Namespace Contexts - To default**
+
+```
+# Set the namespace to default created
+kubectl config set-context --current --namespace=<insert-namespace-name-here>
+kubectl config set-context --current --namespace=default
+
+# Verify the Current Namespace kubectl using 
+kubectl config view --minify | grep namespace:
+
+# Verify Pods, Deployments and Services in Default Namespace (Nothing should be there related to firstdemo namespace)
+kubectl get po
+kubectl get deployment
+kubectl get svc
+```
+- **Switch Namespace Contexts - To firstdemo**
+```
+# Set the namespace to default created
+kubectl config set-context --current --namespace=<insert-namespace-name-here>
+kubectl config set-context --current --namespace=firstdemo
+
+# Verify the Current Namespace kubectl using 
+kubectl config view --minify | grep namespace:
+
+# Verify Pods, Deployments and Services in Default Namespace (Nothing should be there related to firstdemo namespace)
+kubectl get po
+kubectl get deployment
+kubectl get svc
+```
+- **Namespace & Non-Namespace Resources**
+    - Understand about Namespace and Non-Namespace resources in Kubernetes
+```
+# In a namespace
+kubectl api-resources --namespaced=true
+
+# Not in a namespace
+kubectl api-resources --namespaced=false
+```
+
+  
