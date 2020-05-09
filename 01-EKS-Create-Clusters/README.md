@@ -104,6 +104,7 @@ Output: Client Version: v1.16.8-eks-e16311
     - Cluster (Control-plane)
     - Node Groups
     - Worker Nodes
+    - EKS Roles
 
 ## Step-02: EKS Pricing Note
 - EKS is not free (Unlike other AWS Services)
