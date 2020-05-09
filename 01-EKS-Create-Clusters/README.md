@@ -19,7 +19,21 @@ aws-cli/2.0.8 Python/3.7.5 Windows/10 botocore/2.0.0dev12
 ```
 - Reference: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-windows.html
 ### Step-01-02: MAC - Install and configure AWS CLI
-- Pending
+- Download the binary and install via command line using below two commands. 
+```
+# Download Binary
+curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+
+# Install the binary
+sudo installer -pkg ./AWSCLIV2.pkg -target /
+```
+- Verify the installation 
+```
+aws --version
+aws-cli/2.0.7 Python/3.7.4 Darwin/19.4.0 botocore/2.0.0dev11
+
+which aws
+```
 - Reference: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html
 
 ### Step-01-03: Configure AWS Command Line using Security Credentials
@@ -51,7 +65,7 @@ aws ec2 describe-vpcs
 ```
 mkdir kubectlbinary
 cd kubectlbinary
-curl -o kubectl.exe https://amazon-eks.s3.us-west-2.amazonaws.com/1.15.10/2020-02-22/bin/windows/amd64/kubectl.exe
+curl -o kubectl.exe https://amazon-eks.s3.us-west-2.amazonaws.com/1.16.8/2020-04-16/bin/windows/amd64/kubectl.exe
 ```
 - Update the system **Path** environment variable 
 ```
@@ -63,7 +77,25 @@ kubectl version --short --client
 kubectl version --client
 ```
 ### Step-02-02: MAC - Install and configure kubectl
-- Pending
+- Kubectl version we are using here is 1.16.8 (It may vary based on Cluster version you are planning use in AWS EKS)
+
+```
+# Download the Package
+mkdir kubectlbinary
+cd kubectlbinary
+curl -o kubectl https://amazon-eks.s3.us-west-2.amazonaws.com/1.16.8/2020-04-16/bin/darwin/amd64/kubectl
+
+# Provide execute permissions
+chmod +x ./kubectl
+
+# Set the Path by copying to user Home Directory
+mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
+echo 'export PATH=$PATH:$HOME/bin' >> ~/.bash_profile
+
+# Verify the kubectl version
+kubectl version --short --client
+Output: Client Version: v1.16.8-eks-e16311
+```
 
 # Module-3: Create EKS Cluster using AWS Management Console
 
@@ -88,6 +120,7 @@ kubectl version --client
         - Per Month: $30 per 1 t3.medium server
     - Reference: https://aws.amazon.com/ec2/pricing/on-demand/
     - In short, if we run 1 EKS Cluster and 1 t3.medium worker node **continuously** for 1 month, our bill is going to be around $102 to $110
+    - If we take 5 days to complete this course, and if we run 1 EKS Cluster and 2 t3.medium Worker nodes continuosly for 5 days it will cost us approximately around $25. 
 - **EKS Fargate Profile**
     - AWS Fargate pricing is calculated based on the **vCPU and memory** resources used from the time you start to download your container image until the EKS Pod terminates.
     - **Reference:** https://aws.amazon.com/fargate/pricing/    
