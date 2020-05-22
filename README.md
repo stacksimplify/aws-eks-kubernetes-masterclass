@@ -3,7 +3,7 @@
 ## Course Modules
 
 ## Docker Images 
-| Where used | Docker Image |
+| Topics | Docker Image |
 | ------------- | ------------- |
 | Kube Fundamentals - Pods  | stacksimplify/kubenginx:1.0.0  |
 | Kube Fundamentals - Replica Sets  | stacksimplify/kube-helloworld:1.0.0  |
@@ -33,6 +33,11 @@
 15. AWS Parameter Store (for secrets - CICD)
 16. AWS Lambda (For secrets - CICD)
 
+
+| S.No  | AWS Services | S.No |Kubernetes Concepts |
+| ------------- | ------------- | ------------- | -------------|
+| 1.  | AWS Elastic Kubernetes Service  | 1.  |Pods  |
+| 2.  | AWS EJS Fargate (Serverless)  | 2. |Services  |
 
 
 # Kubernetes Topics - For Preparation
