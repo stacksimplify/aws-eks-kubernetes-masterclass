@@ -2,6 +2,15 @@
 
 ## Course Modules
 
+## Docker Images 
+| Where used | Docker Image |
+| ------------- | ------------- |
+| Kube Fundamentals - Pods  | stacksimplify/kubenginx:1.0.0  |
+| Kube Fundamentals - Replica Sets  | stacksimplify/kube-helloworld:1.0.0  |
+| Kube Fundamentals - Deployments  | stacksimplify/kube-helloworld:1.0.0, 2.0.0, 3.0.0, 4.0.0  |
+| Kube Fundamentals - Services  | stacksimplify/kube-frontend-nginx:1.0.0,  stacksimplify/kube-helloworld:1.0.0  |
+| AWS ECR Integration  | 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-kubenginx:1.0.0  |
+
 ## AWS Services - Covered as part of this course
 1. AWS Elastic Kubernetes Service - EKS
 2. AWS EKS Fargate (Serverless)
