@@ -37,7 +37,10 @@
 | S.No  | AWS Services | S.No |Kubernetes Concepts |
 | ------------- | ------------- | ------------- | -------------|
 | 1.  | AWS Elastic Kubernetes Service  | 1.  |Pods  |
-| 2.  | AWS EJS Fargate (Serverless)  | 2. |Services  |
+| 2.  | AWS EKS Fargate (Serverless)  | 2. |ReplicaSets  |
+| 3.  | AWS ECR Elastic Container Registry  | 3. |Deployments  |
+| 4.  | AWS EBS Elastic Block Store  | 4. |Services - NodePort |  
+| 5.  | AWS EFS Elastic File Store  | 5. |Services - ClusterIp |  |
 
 
 # Kubernetes Topics - For Preparation
