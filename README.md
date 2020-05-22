@@ -36,11 +36,13 @@
 
 | S.No  | AWS Services | S.No |Kubernetes Concepts |
 | ------------- | ------------- | ------------- | -------------|
-| 1.  | AWS Elastic Kubernetes Service  | 1.  |Pods  |
-| 2.  | AWS EKS Fargate (Serverless)  | 2. |ReplicaSets  |
-| 3.  | AWS ECR Elastic Container Registry  | 3. |Deployments  |
-| 4.  | AWS EBS Elastic Block Store  | 4. |Services - NodePort |  
-| 5.  | AWS EFS Elastic File Store  | 5. |Services - ClusterIp |  |
+| 1.  | AWS EKS - Elastic Kubernetes Service  | 1.  |Pods  |
+| 2.  | AWS EKS - Fargate (Serverless)  | 2. |ReplicaSets  |
+| 3.  | AWS ECR - Elastic Container Registry  | 3. |Deployments  |
+| 4.  | AWS EBS - Elastic Block Store  | 4. |Services - NodePort |  
+| 5.  | AWS EFS - Elastic File Store  | 5. |Services - ClusterIp |  
+| 6.  | AWS VPC - Virtual Private Cloud  | 6. |Imperative & Delcarative ways to create k8s objects |
+| 7.  | AWS ELB - Elastic Load Balancer - ALB  | 7. |YAML Basics - for writing k8s manifests |    
 
 
 # Kubernetes Topics - For Preparation
