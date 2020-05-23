@@ -1,4 +1,4 @@
-# EKS Storage - Design DB Tier
+# EKS Storage with EBS - Elastic Block Store
 
 ## Step-00: Introduction
 - Kubernetes Concepts we are introducing as part of this section
@@ -101,6 +101,7 @@ kubectl get sc
 kubectl apply -f kube-manifests/V1/02-persistent-volume-claim.yml 
 kubectl get pvc 
 ```
+- **Dynamic Volume Provisioning:** https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/
 ## Step-03: Create ConfigMap for User Management Service 
 ```
 kubectl apply -f kube-manifests/V1/03-UserManagement-ConfigMap.yml

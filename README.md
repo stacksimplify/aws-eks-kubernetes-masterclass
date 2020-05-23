@@ -164,3 +164,7 @@
 ## CloudFormation References
 - https://github.com/aws-quickstart/quickstart-amazon-eks
 - https://s3.amazonaws.com/aws-quickstart/quickstart-amazon-eks/doc/amazon-eks-architecture.pdf
+
+## Good to Know
+- Ephermal Containers 
+    - https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers/
