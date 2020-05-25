@@ -32,6 +32,8 @@
 14. AWS CloudTrial
 15. AWS Parameter Store (for secrets - CICD)
 16. AWS Lambda (For secrets - CICD)
+17. AWS Datasync
+18. AWS S3 Buckets
 
 
 | S.No  | AWS Services | S.No |Kubernetes Concepts |
@@ -168,3 +170,22 @@
 ## Good to Know
 - Ephermal Containers 
     - https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers/
+
+## Kube workshops
+- https://eksworkshop.com/beginner/050_deploy/deploycrystal/
+
+## Local Dev MySQL Server
+```
+docker run --name mysql-dev -p 3306:3306 -e MYSQL_ROOT_PASSWORD=redhat -d mysql:latest
+docker stop mysql-dev
+docker rm mysql-dev
+docker exec -it mysql-dev bash
+
+# Docker network
+docker network ls
+
+# Connect to MySQL
+docker run -it --network some-network --rm mysql mysql -hsome-mysql -uexample-user -p
+docker run -it --network host --rm mysql mysql -hmysql-dev -uroot -p
+```    
+

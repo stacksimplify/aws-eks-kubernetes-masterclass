@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-nginxapp
+  labels:
+    app: frontend-nginxapp
+    tier: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: frontend-nginxapp
+  template:
+    metadata:
+      labels:
+        app: frontend-nginxapp
+        tier: frontend
+    spec:
+      containers:
+      - name: frontend-nginxapp
+        image: stacksimplify/kube-frontend-nginx:1.0.0
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /usr/share/nginx/html     
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: efs-claim        
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-nginxapp-nodeport-service
+  labels:
+    app: frontend-nginxapp
+    tier: frontend
+spec:
+  type: NodePort
+  selector:
+    app: frontend-nginxapp
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 31232
