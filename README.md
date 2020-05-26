@@ -32,8 +32,12 @@
 14. AWS CloudTrial
 15. AWS Parameter Store (for secrets - CICD)
 16. AWS Lambda (For secrets - CICD)
+
+## AWS EFS with EKS
 17. AWS Datasync
 18. AWS S3 Buckets
+19. AWS EFS
+    - https://docs.aws.amazon.com/datasync/latest/userguide/creating-task.html#in-coud-setup
 
 
 | S.No  | AWS Services | S.No |Kubernetes Concepts |
@@ -163,16 +167,6 @@
 - Jobs
 
 
-## CloudFormation References
-- https://github.com/aws-quickstart/quickstart-amazon-eks
-- https://s3.amazonaws.com/aws-quickstart/quickstart-amazon-eks/doc/amazon-eks-architecture.pdf
-
-## Good to Know
-- Ephermal Containers 
-    - https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers/
-
-## Kube workshops
-- https://eksworkshop.com/beginner/050_deploy/deploycrystal/
 
 ## Local Dev MySQL Server
 ```

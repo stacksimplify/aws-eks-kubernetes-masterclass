@@ -38,7 +38,7 @@ spec:
           - name: DB_NAME
             value: "usermgmt"
           - name: DB_USERNAME
-            value: "root"
+            value: "dbadmin"
           - name: DB_PASSWORD
             valueFrom:
               secretKeyRef:

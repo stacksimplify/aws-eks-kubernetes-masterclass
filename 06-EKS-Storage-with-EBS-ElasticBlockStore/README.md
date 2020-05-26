@@ -114,15 +114,15 @@ kubectl get pods -l app=mysql
 kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppassword
 ```
 
-## Step-06: Create User Management Deployment & Service
+## Step-05: Create User Management Deployment & Service
 - **Environment Variables of User Management Microservice**
 | First Header  | Second Header |
 | ------------- | ------------- |
-| AWS_RDS_HOSTNAME  | mysql |
-| AWS_RDS_PORT  | 3306  |
-| AWS_RDS_DB_NAME  | usermgmt  |
-| AWS_RDS_USERNAME  | root  |
-| AWS_RDS_PASSWORD | password  |
+| DB_HOSTNAME  | mysql |
+| DB_PORT  | 3306  |
+| DB_NAME  | usermgmt  |
+| DB_USERNAME  | root  |
+| DB_PASSWORD | dbpassword11  |
 
 ```
 kubectl apply -f kube-manifests/V1/06-UserManagementMicroservice-Deployment-Service.yml
@@ -130,33 +130,14 @@ kubectl apply -f kube-manifests/V1/07-UserManagement-Service.yml
 ```
 - **Access Application**
 ```
-http://<EKS-WorkerNode-Public>:31231/usermgmt/health-status
+http://<EKS-WorkerNode-Public-IP>:31231/usermgmt/health-status
 ```
 
 
 
-
-## Step-0x: Resizing EBS Volume
-- Add `allowVolumeExpansion: true` in the StorageClass spec
-- **01-storage-class.yml**
-```yml
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: ebs-sc
-provisioner: ebs.csi.aws.com
-volumeBindingMode: WaitForFirstConsumer
-allowVolumeExpansion: true
-```
 - Recreate the Application
 ```
 kubectl apply -f kube-manifests/V5-Resizing-EBS/
-```
-- Expand the volume size by increasing the capacity in PVC's `spec.resources.requests.storage:`
-```
-kubectl get pvc
-kubectl get pv
-kubectl edit pvc ebs-mysql-pv-claim
 ```
 
 

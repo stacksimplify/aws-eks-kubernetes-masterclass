@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: usermgmt-restapp
-        image: stacksimplify/usermanagement-microservice:1.0.0
+        image: stacksimplify/kube-usermanagement-microservice:1.0.0
         resources:
           requests:
             memory: "128Mi"
@@ -27,15 +27,15 @@ spec:
         ports:
         - containerPort: 8095
         env:
-          - name: AWS_RDS_HOSTNAME
+          - name: DB_HOSTNAME
             value: "mysql"
-          - name: AWS_RDS_PORT
+          - name: DB_PORT
             value: "3306"
-          - name: AWS_RDS_DB_NAME
+          - name: DB_NAME
             value: "usermgmt"
-          - name: AWS_RDS_USERNAME
+          - name: DB_USERNAME
             value: "root"
-          - name: AWS_RDS_PASSWORD
+          - name: DB_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: mysql-db-password
