@@ -38,7 +38,7 @@
 18. AWS S3 Buckets
 19. AWS EFS
     - https://docs.aws.amazon.com/datasync/latest/userguide/creating-task.html#in-coud-setup
-
+20. Cerficate Manager (For ALB SSL)
 
 | S.No  | AWS Services | S.No |Kubernetes Concepts |
 | ------------- | ------------- | ------------- | -------------|
