@@ -15,8 +15,10 @@ metadata:
   labels:
     app: usermgmt-restapp
   annotations:
+    # Ingress Core Settings
     kubernetes.io/ingress.class: "alb"
     alb.ingress.kubernetes.io/scheme: internet-facing
+    # Health Check Settings
     alb.ingress.kubernetes.io/healthcheck-protocol: HTTP 
     alb.ingress.kubernetes.io/healthcheck-port: traffic-port
     alb.ingress.kubernetes.io/healthcheck-path: /usermgmt/health-status

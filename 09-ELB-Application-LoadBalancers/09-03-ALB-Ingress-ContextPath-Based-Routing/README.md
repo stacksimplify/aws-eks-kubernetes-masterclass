@@ -117,8 +117,10 @@ metadata:
   labels:
     app: usermgmt-restapp
   annotations:
+    # Ingress Core Settings  
     kubernetes.io/ingress.class: "alb"
     alb.ingress.kubernetes.io/scheme: internet-facing
+    # Health Check Settings
     alb.ingress.kubernetes.io/healthcheck-protocol: HTTP 
     alb.ingress.kubernetes.io/healthcheck-port: traffic-port
 #Important Note:  Need to add health check path annotations in service level if we are planning to use multiple targets in a load balancer    
@@ -158,7 +160,13 @@ kubectl apply -f V2-ALB-Ingress-ContextPath-Based-Routing/
     - Target Groups - Targets (Verify all 3 targets are healthy)
 - **Access Application**
 ```
-http://<ALB-DNS-URL>/app1
-http://<ALB-DNS-URL>/app2
+http://<ALB-DNS-URL>/app1/
+http://<ALB-DNS-URL>/app2/
 http://<ALB-DNS-URL>/usermgmt/health-status
+```
+
+
+## Step-06: Clean Up
+```
+kubectl delete -f V2-ALB-Ingress-ContextPath-Based-Routing/
 ```

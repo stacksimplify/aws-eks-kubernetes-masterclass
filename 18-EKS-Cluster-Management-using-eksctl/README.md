@@ -32,7 +32,7 @@ eksctl get nodegroup --cluster=demo1
 
 # Delete Node Group
 eksctl delete nodegroup --cluster=<clusterName> --name=<nodegroupName>
-eksctl delete nodegroup --cluster=demo1 --name=ng-621c8574
+eksctl delete nodegroup --cluster=demo1 --name=ng-public-1
 ```
 
 ## Scale a Node Group

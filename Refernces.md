@@ -26,3 +26,19 @@
 
 ## Launch AWS Cluster using KOPS
 - https://github.com/kubernetes/kops
+
+
+## All EKS Kube Projects
+- https://docs.aws.amazon.com/eks/latest/userguide/related-projects.html
+
+## CICD with Jenkins for Kubernetes
+-  Need to find
+
+## Ingress Controller
+- https://aws.amazon.com/premiumsupport/knowledge-center/eks-alb-ingress-controller-setup/
+
+## IAM and Service Accounts -- VERY VERY NICE 
+- https://aws.amazon.com/blogs/opensource/introducing-fine-grained-iam-roles-service-accounts/
+
+## EKS Cluster Guide
+- https://docs.aws.amazon.com/eks/latest/userguide/eks-ug.pdf
