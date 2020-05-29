@@ -29,7 +29,7 @@
 ### eksctl getting started
 - https://eksctl.io/introduction/#getting-started
 
-### Eternal DNS
+### External DNS
 - https://github.com/kubernetes-sigs/external-dns
 - https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/alb-ingress.md
 - https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/aws.md
