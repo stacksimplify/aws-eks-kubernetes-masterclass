@@ -30,6 +30,9 @@ kubectl config  view --minify
 kubectl config use-context <Name of context - Pick value from contexts.context.name>
 kubectl config use-context arn:aws:eks:us-east-1:411686525067:cluster/my-first-eks-cluster
 
+kubectl config use-context  krd@demo1.us-east-1.eksctl.io
+kubectl config use-context  krd@eksdemo3.us-east-1.eksctl.io
+
 # View the current context config information
 kubectl config  view --minify
 
@@ -99,7 +102,7 @@ eksctl utils associate-iam-oidc-provider \
     --region us-east-1 \
     --cluster demo1 \
     --approve
-
+    
 # Above Command in single line
 eksctl utils associate-iam-oidc-provider --region us-east-1 --cluster demo1 --approve
 ```

@@ -1,5 +1,34 @@
 # Create and administer EKS Clusters using eksctl
 
+## Create Cluster without NodeGroups
+```
+eksctl create cluster --name=eksdemo3 \
+                      --region=us-east-1 \
+                      --zones=us-east-1a,us-east-1b \
+                      --without-nodegroup
+                  
+```
+
+## Create NodeGroup 
+```
+eksctl create nodegroup --cluster=eksdemo3 \
+                        --region=us-east-1 \
+                        --name=eksdemo2-ng1 \
+                        --node-type=t3.medium \
+                        --nodes-min=2 \
+                        --nodes-max=4 \
+                        --node-volume-size=20 \
+                        --ssh-public-key=kube-demo-2020 \
+                        --managed \
+                        --asg-access \
+                        --external-dns-access \
+                        --full-ecr-access \
+                        --appmesh-access \
+                        --alb-ingress-access 
+```     
+
+
+
 ## Step-01: Creat Cluster using eksctl
 ```
 eksctl create cluster --name=staging --version=1.16 --nodes-min=2 --nodes-max=2 --node-type=t3.medium --ssh-access --ssh-public-key=kube-demo-2020 --region=us-east-1 --tags environment=staging --node-volume-size=20 --node-volume-type=gp2 --zones=us-east-1a,us-east-1b
@@ -44,6 +73,7 @@ eksctl scale nodegroup --cluster=demo1 --nodes=2 --name=ng-621c8574
 ## Create new Node Group
 ```
 eksctl create nodegroup --cluster=demo1 --name=ng-public-1
+eksctl delete nodegroup --cluster=demo1 --name=ng-public-1
 ```
 
 ## Delete Cluster  (DONT DELETE)

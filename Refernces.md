@@ -42,3 +42,7 @@
 
 ## EKS Cluster Guide
 - https://docs.aws.amazon.com/eks/latest/userguide/eks-ug.pdf
+
+
+## AWS Operator - Baby steps but nice
+- https://aws.amazon.com/blogs/opensource/aws-service-operator-kubernetes-available/

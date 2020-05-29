@@ -58,7 +58,7 @@ eksctl create iamserviceaccount \
 eksctl create iamserviceaccount \
     --name external-dns \
     --namespace default \
-    --cluster demo1 \
+    --cluster eksdemo3 \
     --attach-policy-arn arn:aws:iam::411686525067:policy/AllowExternalDNSUpdates \
     --approve \
     --override-existing-serviceaccounts
@@ -202,3 +202,12 @@ kubectl delete -f V5-ALB-Ingress-ExternalDNS/
 ## References
 - https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/alb-ingress.md
 - https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/aws.md
+
+
+{{% notice info %}}
+Info 
+{{% /notice %}}
+
+{{% notice tip %}}
+Tip
+{{% /notice %}}
