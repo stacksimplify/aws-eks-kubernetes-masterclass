@@ -2,18 +2,20 @@
 
 ## Create Cluster without NodeGroups
 ```
-eksctl create cluster --name=eksdemo3 \
+# Create Cluster
+eksctl create cluster --name=eksdemo1 \
                       --region=us-east-1 \
                       --zones=us-east-1a,us-east-1b \
-                      --without-nodegroup
-                  
+                      --without-nodegroup \
+                      --vpc-nat-mode=Single   
 ```
 
 ## Create NodeGroup 
 ```
-eksctl create nodegroup --cluster=eksdemo3 \
+# Create Public Node Group   
+eksctl create nodegroup --cluster=eksdemo1 \
                         --region=us-east-1 \
-                        --name=eksdemo2-ng1 \
+                        --name=eksdemo1-ng-public \
                         --node-type=t3.medium \
                         --nodes-min=2 \
                         --nodes-max=4 \
@@ -25,9 +27,17 @@ eksctl create nodegroup --cluster=eksdemo3 \
                         --full-ecr-access \
                         --appmesh-access \
                         --alb-ingress-access 
-```     
+```                        
 
-
+## Scale Down to Single node
+```
+eksctl scale nodegroup --cluster=eksdemo1 \
+                        --nodes=1 \
+                        --name=eksdemo1-ng-public2 \
+                        --nodes=2 \
+                        --nodes-min=1 \
+                        --nodes-max=4
+```
 
 ## Step-01: Creat Cluster using eksctl
 ```
@@ -57,11 +67,11 @@ kubectl get pods
 ## Delete Node Group
 ```
 # Capture Node Group name
-eksctl get nodegroup --cluster=demo1
+eksctl get nodegroup --cluster=eksdemo1
 
 # Delete Node Group
 eksctl delete nodegroup --cluster=<clusterName> --name=<nodegroupName>
-eksctl delete nodegroup --cluster=demo1 --name=ng-public-1
+eksctl delete nodegroup --cluster=eksdemo1 --name=eksdemo1-ng-public2
 ```
 
 ## Scale a Node Group

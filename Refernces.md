@@ -46,3 +46,24 @@
 
 ## AWS Operator - Baby steps but nice
 - https://aws.amazon.com/blogs/opensource/aws-service-operator-kubernetes-available/
+
+
+## Architecting Kubernetes
+- How many pods on each EKS node formula
+- https://learnk8s.io/kubernetes-node-size
+- https://dev.to/wingkwong/how-to-fix-insufficient-pods-issue-when-deploying-to-amazon-eks-d35
+
+## Troubleshooting Section Tips
+- https://aws.amazon.com/premiumsupport/knowledge-center/eks-pod-status-troubleshooting/
+- https://docs.aws.amazon.com/eks/latest/userguide/troubleshooting.html
+
+
+## Securing EKS Cluster
+- https://www.stackrox.com/post/2020/03/securing-eks-cluster-add-ons-dashboard-fargate-ec2-and-more/
+
+## Fargate EKS benefits
+- https://medium.com/ecs-digital/amazon-fargate-for-amazon-eks-1ca77146f5d4
+
+
+## Helm
+- https://docs.bitnami.com/tutorials/create-your-first-helm-chart/

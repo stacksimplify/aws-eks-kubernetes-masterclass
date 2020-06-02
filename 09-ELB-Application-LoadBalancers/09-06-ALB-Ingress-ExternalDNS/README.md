@@ -58,7 +58,7 @@ eksctl create iamserviceaccount \
 eksctl create iamserviceaccount \
     --name external-dns \
     --namespace default \
-    --cluster eksdemo3 \
+    --cluster eksdemo1 \
     --attach-policy-arn arn:aws:iam::411686525067:policy/AllowExternalDNSUpdates \
     --approve \
     --override-existing-serviceaccounts
@@ -71,6 +71,7 @@ kubectl get sa external-dns
   - Go to Services -> IAM -> Roles
   - Search for `eksctl-`
   - We should find a role as listed below 
+  - Also check in **Permissions** tab and you should find the policy named **AllowExternalDNSUpdates**
 ```
 eksctl-demo1-addon-iamserviceaccount-default-Role1-M7IEPRHZYLPB
 eksctl-<clustername>-addon-iamserviceaccount-default-Role1-<SomeValue>
@@ -79,7 +80,7 @@ eksctl-<clustername>-addon-iamserviceaccount-default-Role1-<SomeValue>
   - We should have our **AllowExternalDNSUpdates** policy associated to it. 
   - Now make a note of that Role ARN
 ```
-arn:aws:iam::411686525067:role/eksctl-demo1-addon-iamserviceaccount-default-Role1-M7IEPRHZYLPB
+arn:aws:iam::411686525067:role/eksctl-eksdemo1-addon-iamserviceaccount-defa-Role1-1O3H7ZLUED5H4
 ```
 ## Step-03: Update External DNS Kubernetes manifest
 - Original Template you can find in https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/aws.md
@@ -163,10 +164,40 @@ time="2020-05-29T04:28:55Z" level=info msg="All records are already up to date"
 ```
 ### Verify Route53
 - Go to Services -> Route53
-- You should see **Record Sets** added for `dnstest1.zetaoptdemo.com`, `dnstest2.zetaoptdemo.com`
+- You should see **Record Sets** added for `dnstest1.stacksimplify.com`, `dnstest2.stacksimplify.com`
 
 ## Step-04: Access Application using newly registered DNS Name
 - In my case `yourdomain.com` will be `stacksimplify.com`
+### Perform nslookup tests before accessing Application
+- Test if our new DNS entries registered and resolving to an IP Address
+```
+# nslookup commands
+nslookup dnstest1.stacksimplify.com
+nslookup dnstest2.stacksimplify.com
+
+# Sample nslookup output
+Kalyans-MacBook-Pro:kube-manifests kdaida$ nslookup dnstest1.stacksimplify.com
+Server:		192.168.0.1
+Address:	192.168.0.1#53
+
+Non-authoritative answer:
+Name:	dnstest1.stacksimplify.com
+Address: 18.208.91.193
+Name:	dnstest1.stacksimplify.com
+Address: 3.213.245.252
+
+Kalyans-MacBook-Pro:kube-manifests kdaida$ nslookup dnstest2.stacksimplify.com
+Server:		192.168.0.1
+Address:	192.168.0.1#53
+
+Non-authoritative answer:
+Name:	dnstest2.stacksimplify.com
+Address: 18.208.91.193
+Name:	dnstest2.stacksimplify.com
+Address: 3.213.245.252
+
+Kalyans-MacBook-Pro:kube-manifests kdaida$ 
+```
 ### Access Application using dnstest1 domain
 ```
 # HTTP URLs (Should Redirect to HTTPS)
@@ -199,15 +230,17 @@ https://dnstest2.yourdoamin.com/usermgmt/health-status
 kubectl delete -f V5-ALB-Ingress-ExternalDNS/
 ```
 
+## Step-07: Delete the Public Node Group in EKS Cluster
+```
+# Template
+eksctl delete nodegroup <NodeGroup-Name> --cluster <Cluster-Name>
+
+# Replace nodegroup name and cluster name
+eksctl delete nodegroup eksdemo1-ng1-public --cluster eksdemo1
+```
+
 ## References
 - https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/alb-ingress.md
 - https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/aws.md
 
 
-{{% notice info %}}
-Info 
-{{% /notice %}}
-
-{{% notice tip %}}
-Tip
-{{% /notice %}}

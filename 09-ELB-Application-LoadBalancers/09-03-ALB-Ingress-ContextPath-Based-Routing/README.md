@@ -154,6 +154,33 @@ spec:
 ```
 kubectl apply -f V2-ALB-Ingress-ContextPath-Based-Routing/
 ```
+- **Verify ingress resource got created**
+```
+# List Ingress Load Balancers
+kubectl get ingress
+
+# Note: You should see value in ADDRESS field, DNS name of our Application Load Balancer
+
+# Sample Outout
+Kalyans-MacBook-Pro:kube-manifests kdaida$ kubectl get ingress
+NAME                               HOSTS   ADDRESS                                                                 PORTS   AGE
+ingress-usermgmt-restapp-service   *       6ad0ef5b-default-ingressus-ea9e-379072572.us-east-1.elb.amazonaws.com   80      6s
+Kalyans-MacBook-Pro:kube-manifests kdaida$ 
+
+```
+- **Verify ALB Ingress Controller Logs**
+```
+# Verify logs
+kubectl logs -f $(kubectl get po -n kube-system | egrep -o 'alb-ingress-controller-[A-Za-z0-9-]+') -n kube-system
+```
+
+- We should not see anything like below log, if we see we did something wrong with ALB Ingress Controleer deployment primarily in creating IAM Policy, Service Account & Role and Associating Role to Service Account.
+
+```log
+07:28:39.900001       1 controller.go:217] kubebuilder/controller "msg"="Reconciler error" "error"="failed to build LoadBalancer configuration due to unable to fetch subnets. Error: WebIdentityErr: failed to retrieve credentials\ncaused by: AccessDenied: Not authorized to perform sts:AssumeRoleWithWebIdentity\n\tstatus code: 403, request id: 3d54741a-4b85-4025-ad11-73d4a3661d09"  "controller"="alb-ingress-controller" "request"={"Namespace":"default","Name":"ingress-usermgmt-restapp-service"}
+```
+
+
 - **Verify**
     - Load Balancer - Rules
     - Target Groups - Group Details (Verify Health check path)

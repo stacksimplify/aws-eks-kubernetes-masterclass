@@ -1,75 +1,15 @@
 # ALB Install Ingress Controller
 
-## Introduction
--  Need to understand what are managed and unmanaged nodes? What is the difference? 
+## Step-01: Introduction
+- We will install eksctl (if not installed)
+- We will create a EKS Cluster with no node groups
+- We will create a public **managed** node group with additional add-on policies added to it. 
+- We will create kubernetes service account for ALB Ingress Controller
+- We wil associate the service account with AWS IAM Role
+- We will deploy ALB Ingress Controller and Test if that respective POD is finally running
 
-## Step-01: Create EKS Cluster using eksctl
-```
-# Create Cluster
-eksctl create cluster --name=demo1 --version=1.16 --nodes-min=2 --nodes-max=2 --node-type=t3.medium --ssh-access --ssh-public-key=kube-demo-2020 --region=us-east-1 --tags environment=demo1 --node-volume-size=20 --node-volume-type=gp2 --zones=us-east-1a,us-east-1b
 
-# Enable Logging
-eksctl utils update-cluster-logging --region=us-east-1 --cluster=demo1
-
-# Get List of clusters
-eksctl get cluster
-
-# Our kubectl context should be changed to new cluster
-kubectl config view --minify
-```
-
-## Step-02: Switch Kubernetes Clusters using use-context for kubectl
-```
-# To see all cluster contexts config information
-kubectl config view
-
-# View current context config information
-kubectl config  view --minify
-
-# Switch context 
-kubectl config use-context <Name of context - Pick value from contexts.context.name>
-kubectl config use-context arn:aws:eks:us-east-1:411686525067:cluster/my-first-eks-cluster
-
-kubectl config use-context  krd@demo1.us-east-1.eksctl.io
-kubectl config use-context  krd@eksdemo3.us-east-1.eksctl.io
-
-# View the current context config information
-kubectl config  view --minify
-
-# List Pods
-kubectl get pods
-```
-
-## Step-01: ALB Ingress Controller Pre-requisite - 1: Verify Subnet Tagging
-### All Subnets
-- Go to Services -> VPC -> Subnets
-- Select our EKS cluster subnets and add below listed tag.
-```
-# Format
-Key: kubernetes.io/cluster/<cluster-name> 
-Value: shared
-
-# Replace with cluster name
-Key: kubernetes.io/cluster/my-first-eks-cluster
-Value: shared
-```
-### Public Subnets
-- Go to Services -> VPC -> Subnets
-- Select our EKS cluster **PUBLIC** subnets and add below listed tag.
-```
-Key: kubernetes.io/role/elb
-Value: 1
-```
-
-### Private Subnets
-- Go to Services -> VPC -> Subnets
-- Select our EKS cluster **PRIVATE** subnets and add below listed tag.
-```
-Key: kubernetes.io/role/internal-elb
-Value: 1
-```
-
-## Step-02: ALB Ingress Controller Pre-requisite - 2: Install eksctl
+## Step-02: Install eksctl
 - We need `eksctl` command line utility to perform few ALB Ingress controller tasks.
 ```
 # Install Homebrew on MacOs
@@ -87,27 +27,74 @@ eksctl version
 - For windows and linux OS, you can refer below documentation link. 
 - **Reference:** https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html#installing-eksctl
 
-## Step-03: ALB Ingress Controller Pre-requisite - 3: Create & Associate IAM OIDC Provider
-- eksctl version should 0.20.0-rc.0 or later 
-- Create an IAM OIDC provider and associate it with our cluster.
+
+## Step-03: Create EKS Cluster using eksctl
 ```
+# Create Cluster
+eksctl create cluster --name=eksdemo1 \
+                      --region=us-east-1 \
+                      --zones=us-east-1a,us-east-1b \
+                      --without-nodegroup \
+                      --vpc-nat-mode=Single   
+```
+
+## Step-04: Associate IAM OIDC Provider to our EKS Cluster
+- eksctl version should 0.20.0-rc.0 or later 
+```                   
 # Template
 eksctl utils associate-iam-oidc-provider \
     --region region-code \
-    --cluster prod \
+    --cluster <cluter-name> \
     --approve
 
 # Replace with region & cluster name
 eksctl utils associate-iam-oidc-provider \
     --region us-east-1 \
-    --cluster demo1 \
+    --cluster eksdemo1 \
     --approve
-    
-# Above Command in single line
-eksctl utils associate-iam-oidc-provider --region us-east-1 --cluster demo1 --approve
 ```
 
-## PENDING - Step-04: ALB Ingress Controller Pre-requisite - 4: Create IAM Policy
+
+
+## Step-05: Create Node Group with additional Add-Ons in Public Subnets
+- These add-ons will create the respective IAM Roles for us automatically within our Node Group role. 
+```
+# Create Public Node Group   
+eksctl create nodegroup --cluster=eksdemo1 \
+                        --region=us-east-1 \
+                        --name=eksdemo1-ng-public2 \
+                        --node-type=t3.medium \
+                        --nodes-min=2 \
+                        --nodes-max=4 \
+                        --node-volume-size=20 \
+                        --ssh-access \
+                        --ssh-public-key=kube-demo-2020 \
+                        --managed \
+                        --asg-access \
+                        --external-dns-access \
+                        --full-ecr-access \
+                        --appmesh-access \
+                        --alb-ingress-access 
+```
+
+## Step-06: Verify Cluster & Nodes
+- Verify the node group subnet to ensure it created in public subnets
+  - Go to Services -> EKS -> eksdemo -> eksdemo1-ng1-public
+  - Click on Associated subnet in **Details** tab
+  - Click on **Route Table** Tab.
+  - We should see that internet route via Internet Gateway (0.0.0.0/0 -> igw-xxxxxxxx)
+```
+# Get List of clusters
+eksctl get cluster
+
+# Get Nodes in current cluster
+kubectl get nodes -o wide
+
+# Our kubectl context should be automatically changed to new cluster
+kubectl config view --minify
+```
+
+## Step-07: Create IAM Policy for ALB Ingress Controller
 - HAS ISSUE with creating IAM Policy - so created with full ELB access by taking existing policy
 - This IAM policy will allow our ALB Ingress Controller pod to make calls to AWS APIs
 - Take a note of the Policy ARN, we will use it when creating the ROLE. 
@@ -122,13 +109,13 @@ aws iam create-policy \
 Policy ARN:  arn:aws:iam::411686525067:policy/ALBIngressControllerIAMPolicy
 ```
 
-## PENDING - Step-05: ALB Ingress Controller Pre-requisite - 5: Create a Kubernetes service account named alb-ingress-controller in the kube-system namespace
+## Step-08: Create a Kubernetes service account named alb-ingress-controller in the kube-system namespace
 - We are using master branch instead of v1.1.4 
 ```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/master/docs/examples/rbac-role.yaml
 ```
 
-## Step-06: ALB Ingress Controller Pre-requisite - 6: Create an IAM role for the ALB Ingress Controller and attach the role to the service account created
+## Step-09: Create an IAM role for the ALB Ingress Controller and attach the role to the service account 
 - Applicable only with `eksctl` managed clusters
 ```
 # Template
@@ -146,19 +133,20 @@ eksctl create iamserviceaccount \
     --region us-east-1 \
     --name alb-ingress-controller \
     --namespace kube-system \
-    --cluster demo1 \
+    --cluster eksdemo1 \
     --attach-policy-arn arn:aws:iam::411686525067:policy/ALBIngressControllerIAMPolicy \
     --override-existing-serviceaccounts \
     --approve
 ```
 
-## PENDING - Step-07: Deploy ALB Ingress Controller
+
+## Step-11: Deploy ALB Ingress Controller
 - We are using Master branch file instead of 1.1.4
 ```
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/master/docs/examples/alb-ingress-controller.yaml
 ```
 
-## Step-08: Edit ALB Ingress Controller Manifest
+## Step-12: Edit ALB Ingress Controller Manifest
 - Edit ALB Ingress Controller manifest and update cluster name in that. 
 ```
 kubectl edit deployment.apps/alb-ingress-controller -n kube-system
@@ -168,18 +156,23 @@ kubectl edit deployment.apps/alb-ingress-controller -n kube-system
       containers:
       - args:
         - --ingress-class=alb
-        - --cluster-name=prod
+        - --cluster-name=cluster-name
 
 # Replaced cluster-name with our cluster-name
     spec:
       containers:
       - args:
         - --ingress-class=alb
-        - --cluster-name=demo1
+        - --cluster-name=eksdemo1
 ```
 
-## Step-09: Verify our ALB Ingress Controller is running. 
+## Step-11: Verify our ALB Ingress Controller is running. 
 - Verify for the pod starting with `alb-ingress-controller`
+- We will know if all our above steps are working or not in our next section **09-02-ALB-Ingress-Basic**, if ALB not created then we something is wrong.
 ```
+# Verify if alb-ingress-controller pod is running
 kubectl get pods -n kube-system
+
+# Verify logs
+kubectl logs -f $(kubectl get po -n kube-system | egrep -o 'alb-ingress-controller-[A-Za-z0-9-]+') -n kube-system
 ```
