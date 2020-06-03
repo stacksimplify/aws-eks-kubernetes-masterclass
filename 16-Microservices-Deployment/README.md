@@ -126,6 +126,7 @@ spec:
 ```
 ## Step-07: Update User Management Microservice Deployment Manifest with Notification Service Environment Variables. 
 - User Management Service new environment varibales related to Notification Microservice in addition to already which were configured related to MySQL
+- Update in `02-UserManagementMicroservice-Deployment.yml`
 ```yml
           - name: NOTIFICATION_SERVICE_HOST
             value: "notification-clusterip-service"
