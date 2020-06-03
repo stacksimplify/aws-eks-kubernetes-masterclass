@@ -133,8 +133,8 @@ spec:
           - name: NOTIFICATION_SERVICE_PORT
             value: "8096"    
 ```
-## Step-08: Clean-Up ALB Ingress Service 
-- Clean-up Ingress Service to ensure only target it is going to have is User Management Service
+## Step-08: Update ALB Ingress Service Kubernetes Manifest
+- Update Ingress Service to ensure only target it is going to have is User Management Service
 - Remove /app1, /app2 contexts
 ```yml
 # Annotations Reference:  https://kubernetes-sigs.github.io/aws-alb-ingress-controller/guide/ingress/annotation/
