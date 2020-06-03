@@ -26,7 +26,7 @@
 - Go to Services -> Simple Email Service
 - SMTP Settings --> Create My SMTP Credentials
 - **IAM User Name:** append the default generated name with microservice or something so we have a reference of this IAM user created for our ECS Microservice deployment
-- Download the credentials and update the same for below environment variables which you are going to provide in container definition section of Task Definition. 
+- Download the credentials and update the same for below environment variables which you are going to provide in kubernetes manifest `04-NotificationMicroservice-Deployment.yml`
 ```
 AWS_MAIL_SERVER_HOST=email-smtp.us-east-1.amazonaws.com
 AWS_MAIL_SERVER_USERNAME=
@@ -53,6 +53,17 @@ AWS_MAIL_SERVER_FROM_ADDRESS= use-a-valid-email@gmail.com
 
 ## Step-04: Create Notification Microservice Deployment Manifest
 - Update environment Variables for Notification Microservice
+```yml
+          - name: AWS_MAIL_SERVER_HOST
+            value: "smtp-service"
+          - name: AWS_MAIL_SERVER_USERNAME
+            value: "AKIAV7WTN3CFUBKLDOAX"
+          - name: AWS_MAIL_SERVER_PASSWORD
+            value: "BBLJ8fpyf89AHLmAH+B4oLo7kMgmKZqhJtEipuE5unLx"
+          - name: AWS_MAIL_SERVER_FROM_ADDRESS
+            value: "kalyanreddyd@gmail.com"
+```
+- **Notification Microservice Deployment**
 ```yml
 apiVersion: apps/v1
 kind: Deployment
