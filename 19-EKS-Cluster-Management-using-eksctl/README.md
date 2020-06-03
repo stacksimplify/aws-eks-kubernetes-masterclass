@@ -86,6 +86,12 @@ eksctl create nodegroup --cluster=demo1 --name=ng-public-1
 eksctl delete nodegroup --cluster=demo1 --name=ng-public-1
 ```
 
+
+## Uncordon Nodes
+```
+eksctl drain nodegroup --cluster=<clusterName> --name=<nodegroupName> --undo
+eksctl drain nodegroup --cluster=eksdemo1 --name=eksdemo1-ng-public2 --undo
+```
 ## Delete Cluster  (DONT DELETE)
 ```
 eksctl delete cluster demo1

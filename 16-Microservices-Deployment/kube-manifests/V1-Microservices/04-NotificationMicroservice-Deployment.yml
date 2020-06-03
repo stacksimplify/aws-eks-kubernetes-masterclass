@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-microservice
+  labels:
+    app: notification-restapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notification-restapp
+  template:
+    metadata:
+      labels:
+        app: notification-restapp
+    spec:
+      containers:
+      - name: notification-service
+        image: stacksimplify/kube-notifications-microservice:1.0.0
+        ports:
+        - containerPort: 8096
+        env:
+          - name: AWS_MAIL_SERVER_HOST
+            value: "smtp-service"
+          - name: AWS_MAIL_SERVER_USERNAME
+            value: "AKIAV7WTN3CFUBKLDOAX"
+          - name: AWS_MAIL_SERVER_PASSWORD
+            value: "BBLJ8fpyf89AHLmAH+B4oLo7kMgmKZqhJtEipuE5unLx"
+          - name: AWS_MAIL_SERVER_FROM_ADDRESS
+            value: "kalyanreddyd@gmail.com"
