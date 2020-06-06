@@ -19,6 +19,4 @@ spec:
         action:
           weightedTargets:
             - virtualNodeName: notification-v1
-              weight: 10
-            - virtualNodeName: notification-v2
-              weight: 90             
+              weight: 1

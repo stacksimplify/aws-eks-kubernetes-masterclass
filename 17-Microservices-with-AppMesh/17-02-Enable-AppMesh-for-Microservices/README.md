@@ -83,7 +83,7 @@ kubectl apply -f 04-notification-microservice-Deployment-Service-v1.yml
 # List Pods
 kubectl -n microservices get pods
 
-# Describe Pod (Should have init and envoy containers)
+# Describe Pod (Should have proxyinit and envoy containers)
 kubectl -n microservices describe pod <pod-name>
 kubectl -n microservices describe pod notification-v1-7647966cc5-zkvqf 
 
@@ -168,7 +168,7 @@ http://<Worker-Node-Public-IP>:NodePort/usermgmt/health-status
 # Notification Service Health-Status calling via User Management Service
 http://<Worker-Node-Public-IP>:NodePort/usermgmt/notification-health-status
 ```
-- **Observation-1:** We should V1 version of notification service sample message: `Notification Service is UP and Running - V1` 
+- **Observation-1:** We should see V1 version of notification service sample message: `Notification Service is UP and Running - V1` 
 - **Observation-2:** We have 100% of traffic going to only notification service V1.  
 
 ## Step-09: Verify AppMesh Grafana Dashboard

@@ -1,5 +1,7 @@
 # References
 
+## For PPT EKS
+- https://www.slideshare.net/AmazonWebServices/aws-app-mesh-service-mesh-magic-aws-container-day-2019-barcelona
 
 ## CloudFormation References
 - https://github.com/aws-quickstart/quickstart-amazon-eks
