@@ -1,0 +1,22 @@
+apiVersion: appmesh.k8s.aws/v1beta1
+kind: VirtualService
+metadata:
+  name: usermgmt-v1.microservices.svc.cluster.local
+  namespace: microservices
+spec:
+  meshName: appmesh
+  virtualRouter:
+    name: usermgmt-virtual-router
+    listeners:
+      - portMapping:
+          port: 8095
+          protocol: http
+  routes:
+    - name: usermgmt-route
+      http:
+        match:
+          prefix: /
+        action:
+          weightedTargets:
+            - virtualNodeName: usermgmt-v1
+              weight: 1

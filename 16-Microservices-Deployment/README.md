@@ -206,7 +206,7 @@ kubectl logs -f $(kubectl get po | egrep -o 'external-dns-[A-Za-z0-9-]+')
 kubectl get ingress
 ```
 
-## Step-11: Verify Microservices via browser
+## Step-11: Verify Microservices health-status via browser
 ```
 # User Management Service Health-Status
 https://services.stacksimplify.com/usermgmt/health-status
@@ -227,6 +227,80 @@ https://services.stacksimplify.com/usermgmt/notification-service-info
     - Verify the email id to confirm account creation email received.
 - **List User**   
     - Verify if newly created user got listed. 
+
+
+## Step-14: Rollout, Rollback
+### Rollout New Deployment - Set Image Option
+```
+# Rollout New Deployment using Set Image
+kubectl set image deployment/notification-microservice notification-service=stacksimplify/kube-notifications-microservice:2.0.0 --record=true
+
+# Verify Rollout Status
+kubectl rollout status deployment/notification-microservice
+
+# Verify ReplicaSets
+kubectl get rs
+
+# Verify Rollout History
+kubectl rollout history deployment/notification-microservice
+
+# Access Application (Should see V2)
+https://services.stacksimplify.com/usermgmt/notification-health-status
+
+# Roll back to Previous Version
+kubectl rollout undo deployment/notification-microservice
+
+# Access Application (Should see V1)
+https://services.stacksimplify.com/usermgmt/notification-health-status
+```    
+
+### Rollout New Deployment - kubectl Edit
+```
+# Rollout New Deployment using kubectl edit, change image version to 2.0.0
+kubectl edit deployment/notification-microservice
+
+# Verify Rollout Status
+kubectl rollout status deployment/notification-microservice
+
+# Verify ReplicaSets
+kubectl get rs
+
+# Verify Rollout History
+kubectl rollout history deployment/notification-microservice
+
+# Access Application (Should see V2)
+https://services.stacksimplify.com/usermgmt/notification-health-status
+
+# Roll back to Previous Version
+kubectl rollout undo deployment/notification-microservice
+
+# Access Application (Should see V1)
+https://services.stacksimplify.com/usermgmt/notification-health-status
+```
+
+### Rollout New Deployment - Update manifest & kubectl apply
+```
+# Rollout New Deployment by updating yaml manifest 2.0.0
+kubectl apply -f V1-Microservices/
+
+# Verify Rollout Status
+kubectl rollout status deployment/notification-microservice
+
+# Verify ReplicaSets
+kubectl get rs
+
+# Verify Rollout History
+kubectl rollout history deployment/notification-microservice
+
+# Access Application (Should see V2)
+https://services.stacksimplify.com/usermgmt/notification-health-status
+
+# Roll back to Previous Version
+kubectl rollout undo deployment/notification-microservice
+
+# Access Application (Should see V1)
+https://services.stacksimplify.com/usermgmt/notification-health-status
+```
 
 ## Step-14: Clean-up
 ```

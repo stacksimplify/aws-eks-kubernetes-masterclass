@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ubuntu
+  namespace: microservices
+  labels:
+    app: ubuntu
+spec:
+  selector:
+    app: ubuntu
+  ports:
+    - protocol: TCP
+      port: 22
+      targetPort: 22
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ubuntu
+  namespace: microservices
+  labels:
+    app: ubuntu
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubuntu
+  template:
+    metadata:
+      labels:
+        app: ubuntu
+    spec:   
+      containers:
+      - name: ubuntu
+        image: curlimages/curl
+        ports:
+        - containerPort: 22
+        imagePullPolicy: Always

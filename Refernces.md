@@ -67,3 +67,36 @@
 
 ## Helm
 - https://docs.bitnami.com/tutorials/create-your-first-helm-chart/
+
+## Best Practices Guide
+- https://aws.github.io/aws-eks-best-practices/
+
+## Cost Optimization for EKS
+- https://aws.amazon.com/blogs/containers/cost-optimization-for-kubernetes-on-aws/
+
+## AWS CloudWatch Prometheus (BETA)
+- https://aws.amazon.com/about-aws/whats-new/2020/05/amazon-cloudwatch-now-monitors-prometheus-metrics-now-in-beta/
+
+## EKS Supports AWS IAM Service Linked Roles
+- https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_terms-and-concepts.html#iam-term-service-linked-role
+
+## EKS SLA - 99.95%
+- https://aws.amazon.com/eks/sla/
+
+## EKS Kubernetes Secrets with AWS KMS
+- https://aws.amazon.com/about-aws/whats-new/2020/03/amazon-eks-adds-envelope-encryption-for-secrets-with-aws-kms/
+
+## AWS VPC CNI 1.6
+- https://aws.amazon.com/about-aws/whats-new/2020/02/amazon-eks-announces-release-of-vpc-cni-version-1-6/
+
+## EKS 50% Price reduction
+- https://aws.amazon.com/about-aws/whats-new/2020/01/amazon-eks-announces-price-reduction/
+
+## Service Accounts & IAM Roles
+- https://docs.aws.amazon.com/eks/latest/userguide/create-service-account-iam-policy-and-role.html
+- https://docs.aws.amazon.com/eks/latest/userguide/specify-service-account-role.html
+
+
+## AppMesh Example with EKS
+- https://idk.dev/learning-aws-app-mesh-aws-compute-blog/
+- https://github.com/aws/aws-app-mesh-examples
