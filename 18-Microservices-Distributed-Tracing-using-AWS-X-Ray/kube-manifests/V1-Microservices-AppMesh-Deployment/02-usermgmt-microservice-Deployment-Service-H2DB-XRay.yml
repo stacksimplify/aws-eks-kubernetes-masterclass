@@ -31,9 +31,10 @@ spec:
         app: usermgmt-v1
     spec:
       serviceAccountName: my-microservices-sa1
+      initContainers:
       containers:
       - name: usermgmt-v1
-        image: stacksimplify/kube-usermanagement-microservice:2.0.0-H2DB
+        image: stacksimplify/kube-usermanagement-microservice:3.0.0-X-Ray
         ports:
         - containerPort: 8095
         env:
@@ -41,3 +42,5 @@ spec:
             value: "notification-v1.microservices.svc.cluster.local"
           - name: NOTIFICATION_SERVICE_PORT
             value: "8096"  
+          - name: AWS_XRAY_DAEMON_ADDRESS
+            value: "xray-service.default.svc.cluster.local:2000"

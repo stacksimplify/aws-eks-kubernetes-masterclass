@@ -1,0 +1,14 @@
+# k8s service definition for AWS X-Ray daemon headless service
+apiVersion: v1
+kind: Service
+metadata:
+  name: xray-service
+  namespace: amazon-cloudwatch
+spec:
+  type: ClusterIP
+  selector:
+    app: xray-daemon
+  ports:
+  - name: incoming
+    port: 2000
+    protocol: UDP

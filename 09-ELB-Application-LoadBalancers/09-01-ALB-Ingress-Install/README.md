@@ -38,6 +38,7 @@ eksctl create cluster --name=eksdemo1 \
                       --vpc-nat-mode=Single   
 ```
 
+
 ## Step-04: Associate IAM OIDC Provider to our EKS Cluster
 - eksctl version should 0.20.0-rc.0 or later 
 ```                   
@@ -62,8 +63,9 @@ eksctl utils associate-iam-oidc-provider \
 # Create Public Node Group   
 eksctl create nodegroup --cluster=eksdemo1 \
                         --region=us-east-1 \
-                        --name=eksdemo1-ng-public2 \
+                        --name=eksdemo1-ng-public1 \
                         --node-type=t3.medium \
+                        --nodes=2 \
                         --nodes-min=2 \
                         --nodes-max=4 \
                         --node-volume-size=20 \

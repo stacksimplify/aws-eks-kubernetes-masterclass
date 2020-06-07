@@ -1,0 +1,125 @@
+# Copyright 2018 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License").
+# You may not use this file except in compliance with the License.
+# A copy of the License is located at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# or in the "license" file accompanying this file. This file is distributed
+# on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+# express or implied. See the License for the specific language governing
+# permissions and limitations under the License.
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: xray-daemon
+  name: xray-daemon
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: xray-daemon
+  labels:
+    app: xray-daemon
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: xray-daemon
+  namespace: default
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: xray-daemon
+spec:
+  updateStrategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: xray-daemon
+  template:
+    metadata:
+      labels:
+        app: xray-daemon
+    spec:
+      volumes:
+      - name: config-volume
+        configMap:
+          name: xray-config
+      hostNetwork: true
+      containers:
+      - name: xray-daemon
+        image: rnzdocker1/eks-workshop-x-ray-daemon:dbada4c77e6ae10ecf5a7b1c5864aa6522d9fb02
+        imagePullPolicy: Always
+        command: [ "/usr/bin/xray", "-c", "/aws/xray/config.yaml" ]
+        resources:
+          limits:
+            memory: 24Mi
+        ports:
+        - name: xray-ingest
+          containerPort: 2000
+          hostPort: 2000
+          protocol: UDP
+        volumeMounts:
+        - name: config-volume
+          mountPath: /aws/xray
+          readOnly: true
+---
+# Configuration for AWS X-Ray daemon
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: xray-config
+data:
+  config.yaml: |-
+    # Maximum buffer size in MB (minimum 3). Choose 0 to use 1% of host memory.
+    TotalBufferSizeMB: 0
+    # Maximum number of concurrent calls to AWS X-Ray to upload segment documents.
+    Concurrency: 8
+    # Send segments to AWS X-Ray service in a specific region
+    Region: ""
+    # Change the X-Ray service endpoint to which the daemon sends segment documents.
+    Endpoint: ""
+    Socket:
+      # Change the address and port on which the daemon listens for UDP packets containing segment documents.
+      # Make sure we listen on all IP's by default for the k8s setup
+      UDPAddress: 0.0.0.0:2000
+    Logging:
+      LogRotation: true
+      # Change the log level, from most verbose to least: dev, debug, info, warn, error, prod (default).
+      LogLevel: prod
+      # Output logs to the specified file path.
+      LogPath: ""
+    # Turn on local mode to skip EC2 instance metadata check.
+    LocalMode: false
+    # Amazon Resource Name (ARN) of the AWS resource running the daemon.
+    ResourceARN: ""
+    # Assume an IAM role to upload segments to a different account.
+    RoleARN: ""
+    # Disable TLS certificate verification.
+    NoVerifySSL: false
+    # Upload segments to AWS X-Ray through a proxy.
+    ProxyAddress: ""
+    # Daemon configuration file format version.
+    Version: 1
+---
+# k8s service definition for AWS X-Ray daemon headless service
+apiVersion: v1
+kind: Service
+metadata:
+  name: xray-service
+spec:
+  selector:
+    app: xray-daemon
+  clusterIP: None
+  ports:
+  - name: incoming
+    port: 2000
+    protocol: UDP

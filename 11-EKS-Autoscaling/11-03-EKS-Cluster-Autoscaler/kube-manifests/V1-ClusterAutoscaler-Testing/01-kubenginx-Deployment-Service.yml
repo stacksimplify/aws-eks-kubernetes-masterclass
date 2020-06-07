@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ca-demo-deployment
+  labels:
+    app: ca-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ca-nginx
+  template:
+    metadata:
+      labels:
+        app: ca-nginx
+    spec:
+      containers:
+      - name: ca-nginx
+        image: stacksimplify/kubenginx:1.0.0
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            cpu: "200m"       
+            memory: "200Mi"            
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ca-demo-service-nginx
+  labels:
+    app: ca-nginx
+spec:
+  type: NodePort
+  selector:
+    app: ca-nginx
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 31233
+   
