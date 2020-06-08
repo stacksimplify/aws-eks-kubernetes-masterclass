@@ -102,3 +102,11 @@
 ## AppMesh Example with EKS
 - https://idk.dev/learning-aws-app-mesh-aws-compute-blog/
 - https://github.com/aws/aws-app-mesh-examples
+
+
+## CDK for EKS
+- https://aws.amazon.com/blogs/containers/introducing-cdk-for-kubernetes/
+- Other Tools at the end of page: https://banzaicloud.com/blog/helm3-the-good-the-bad-and-the-ugly/
+
+## Helm 3 new features
+- https://banzaicloud.com/blog/helm3-the-good-the-bad-and-the-ugly/
