@@ -104,6 +104,8 @@ kubectl version --client
 
 ## Step-03: Install eksctl CLI
 - We need `eksctl` command line utility to perform few ALB Ingress controller tasks.
+
+### Step-03-01: eksctl on Mac
 ```
 # Install Homebrew on MacOs
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -117,5 +119,11 @@ brew install weaveworks/tap/eksctl
 # Verify eksctl version
 eksctl version
 ```
+
+### Step-03-02: eksctl on windows or linux
 - For windows and linux OS, you can refer below documentation link. 
 - **Reference:** https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html#installing-eksctl
+
+
+## References:
+- https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html

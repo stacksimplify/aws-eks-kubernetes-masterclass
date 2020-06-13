@@ -110,3 +110,6 @@
 
 ## Helm 3 new features
 - https://banzaicloud.com/blog/helm3-the-good-the-bad-and-the-ugly/
+
+## Kubernetes EKS Performance
+- https://www.slideshare.net/AmazonWebServices/running-a-highperformance-kubernetes-cluster-with-amazon-eks-con318r1-aws-reinvent-2018
