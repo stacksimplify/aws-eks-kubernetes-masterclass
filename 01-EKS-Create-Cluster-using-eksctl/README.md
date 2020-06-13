@@ -1,15 +1,15 @@
 # EKS - Create Cluster
 
 ## List of Topics 
-1. Install CLIs
+- Install CLIs
   - AWS CLI
   - kubectl
   - eksctl
-2. Create EKS Cluster
-3. Create EKS Node Groups
-4. Understand EKS Cluster Pricing
-  1. EKS Control Plane
-  2. EKS Worker Nodes
-  3. EKS Fargate Profile
-5. Delete EKS Clusters 
+- Create EKS Cluster
+- Create EKS Node Groups
+- Understand EKS Cluster Pricing
+  - EKS Control Plane
+  - EKS Worker Nodes
+  - EKS Fargate Profile
+- Delete EKS Clusters 
 
