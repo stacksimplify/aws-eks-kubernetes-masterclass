@@ -73,3 +73,6 @@ kubectl get nodes -o wide
 # Our kubectl context should be automatically changed to new cluster
 kubectl config view --minify
 ```
+
+## Step-05: Update Worker Nodes Security Group to allow all traffic
+- We need to allow `All Traffic` on worker node security group
