@@ -12,8 +12,10 @@
 eksctl create cluster --name=eksdemo1 \
                       --region=us-east-1 \
                       --zones=us-east-1a,us-east-1b \
-                      --without-nodegroup \
-                      --vpc-nat-mode=Single   
+                      --without-nodegroup 
+
+# Get List of clusters
+eksctl get cluster                      
 ```
 
 
@@ -33,11 +35,14 @@ eksctl utils associate-iam-oidc-provider \
     --approve
 ```
 
+## Step-03: Create EC2 Keypair
+- Create a new EC2 Keypair with name as `kube-demo`
+- This keypair we will use it when creating the EKS NodeGroup.
+- This will help us to login to the EKS Worker Nodes using Terminal.
 
-## Step-03: Create Node Group with additional Add-Ons in Public Subnets
-- These add-ons will create the respective IAM Roles for us automatically within our Node Group role.
- 
-```
+## Step-04: Create Node Group with additional Add-Ons in Public Subnets
+- These add-ons will create the respective IAM policies for us automatically within our Node Group role.
+ ```
 # Create Public Node Group   
 eksctl create nodegroup --cluster=eksdemo1 \
                         --region=us-east-1 \
@@ -57,22 +62,34 @@ eksctl create nodegroup --cluster=eksdemo1 \
                         --alb-ingress-access 
 ```
 
-## Step-04: Verify Cluster & Nodes
+## Step-05: Verify Cluster & Nodes
+
+### Verify NodeGroup subnets 
 - Verify the node group subnet to ensure it created in public subnets
   - Go to Services -> EKS -> eksdemo -> eksdemo1-ng1-public
   - Click on Associated subnet in **Details** tab
   - Click on **Route Table** Tab.
   - We should see that internet route via Internet Gateway (0.0.0.0/0 -> igw-xxxxxxxx)
+
+### List Worker Nodes
 ```
-# Get List of clusters
+# List EKS clusters
 eksctl get cluster
 
-# Get Nodes in current cluster
+# List NodeGroups in a cluster
+eksctl get nodegroup cluster=<clusterName>
+
+# List Nodes in current kubernetes cluster
 kubectl get nodes -o wide
 
 # Our kubectl context should be automatically changed to new cluster
 kubectl config view --minify
 ```
 
-## Step-05: Update Worker Nodes Security Group to allow all traffic
+### Verify Worker Node IAM Role and list of Policies
+- Go to Services -> EC2 -> Worker Nodes
+- Click on **IAM Role associated to EC2 Worker Nodes**
+
+
+## Step-06: Update Worker Nodes Security Group to allow all traffic
 - We need to allow `All Traffic` on worker node security group
