@@ -70,14 +70,13 @@ eksctl create nodegroup --cluster=eksdemo1 \
                         --nodes-max=4 \
                         --node-volume-size=20 \
                         --ssh-access \
-                        --ssh-public-key=kube-demo-2020 \
+                        --ssh-public-key=kube-demo \
                         --managed \
                         --asg-access \
                         --external-dns-access \
                         --full-ecr-access \
                         --appmesh-access \
-                        --alb-ingress-access \
-                        --node-labels="app=microservices,tier=backend"
+                        --alb-ingress-access 
 ```
 
 ## Step-06: Verify Cluster & Nodes
