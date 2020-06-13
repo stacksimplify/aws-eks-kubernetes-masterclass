@@ -2,9 +2,9 @@
 
 ## List of Topics 
 1. Install CLIs
-  1. AWS CLI
-  2. kubectl
-  3. eksctl
+  - AWS CLI
+  - kubectl
+  - eksctl
 2. Create EKS Cluster
 3. Create EKS Node Groups
 4. Understand EKS Cluster Pricing
