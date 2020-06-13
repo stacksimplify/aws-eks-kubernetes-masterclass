@@ -6,7 +6,6 @@
 - Install eksctl CLI
 
 ## Step-01: Install AWS CLI
-## Step-01: Pre-requisite-1: Install and configure AWS CLI
 - Reference-1: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html
 - Reference-2: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
 ### Step-01-01: MAC - Install and configure AWS CLI
