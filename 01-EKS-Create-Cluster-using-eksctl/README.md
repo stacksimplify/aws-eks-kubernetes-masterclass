@@ -1,4 +1,4 @@
-# Create EKS Cluster using eksctl
+# EKS - Create Cluster
 
 ## List of Topics 
 1. Install CLIs
