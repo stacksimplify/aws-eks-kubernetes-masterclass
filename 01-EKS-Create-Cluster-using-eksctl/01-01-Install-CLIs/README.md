@@ -102,8 +102,6 @@ kubectl version --client
 ```
 
 ## Step-03: Install eksctl CLI
-- We need `eksctl` command line utility to perform few ALB Ingress controller tasks.
-
 ### Step-03-01: eksctl on Mac
 ```
 # Install Homebrew on MacOs
