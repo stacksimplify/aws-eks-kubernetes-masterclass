@@ -106,6 +106,11 @@ kubectl config view --minify
 - Go to Services -> EC2 -> Worker Nodes
 - Click on **Security Group** associated to EC2 Instance which contains `remote` in the name.
 
+### Verify CloudFormation Stacks
+- Verify Control Plane Stack & Events
+- Verify NodeGroup Stack & Events
+
+
 ## Step-06: Update Worker Nodes Security Group to allow all traffic
 - We need to allow `All Traffic` on worker node security group
 
