@@ -73,12 +73,15 @@ eksctl create nodegroup --cluster=eksdemo1 \
 
 ## Step-05: Verify Cluster & Nodes
 
-### Verify NodeGroup subnets 
+### Verify NodeGroup subnets to confirm EC2 Instances are in Public Subnet
 - Verify the node group subnet to ensure it created in public subnets
   - Go to Services -> EKS -> eksdemo -> eksdemo1-ng1-public
   - Click on Associated subnet in **Details** tab
   - Click on **Route Table** Tab.
   - We should see that internet route via Internet Gateway (0.0.0.0/0 -> igw-xxxxxxxx)
+
+### Verify Cluster, NodeGroup in EKS Management Console
+- Go to Services -> Elastic Kubernetes Service -> eksdemo1
 
 ### List Worker Nodes
 ```
