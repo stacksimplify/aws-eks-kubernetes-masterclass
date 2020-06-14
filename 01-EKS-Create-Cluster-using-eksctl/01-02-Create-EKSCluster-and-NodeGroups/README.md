@@ -112,6 +112,13 @@ kubectl config view --minify
 
 ### Login to Worker Node using Keypai kube-demo
 - Login to worker node
+```
+# For MAC or Linux or Windows10
+ssh -i kube-demo.pem ec2-user@<Public-IP-of-Worker-Node>
+
+# For Windows 7
+Use putty
+```
 
 ## Step-06: Update Worker Nodes Security Group to allow all traffic
 - We need to allow `All Traffic` on worker node security group
