@@ -1,12 +1,18 @@
 # Create EKS Cluster & Node Groups
 
 ## Step-00: Introduction
+- Understand about EKS Core Objects
+  - Control Plane
+  - Worker Nodes & Node Groups
+  - Fargate Profiles
+  - VPC
 - Create EKS Cluster
 - Associate EKS Cluster to IAM OIDC Provider
 - Create EKS Node Groups
 
 
 ## Step-01: Create EKS Cluster using eksctl
+- It will take 15 to 20 minutes to create the Cluster Control Plane 
 ```
 # Create Cluster
 eksctl create cluster --name=eksdemo1 \
@@ -19,8 +25,10 @@ eksctl get clusters
 ```
 
 
-## Step-02: Associate IAM OIDC Provider to our EKS Cluster
-- eksctl version should 0.20.0-rc.0 or later 
+## Step-02: Create & Associate IAM OIDC Provider for our EKS Cluster
+- To enable and use AWS IAM roles for Kubernetes service accounts on our EKS cluster, we must create &  associate OIDC identity provider.
+- To do so using `eksctl` we can use the  below command. 
+- Use latest eksctl version (as on today the latest version is `0.21.0`)
 ```                   
 # Template
 eksctl utils associate-iam-oidc-provider \
@@ -93,3 +101,7 @@ kubectl config view --minify
 
 ## Step-06: Update Worker Nodes Security Group to allow all traffic
 - We need to allow `All Traffic` on worker node security group
+
+## Additional References
+- https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html
+- https://docs.aws.amazon.com/eks/latest/userguide/create-service-account-iam-policy-and-role.html
