@@ -9,6 +9,7 @@
 - Create EKS Cluster
 - Associate EKS Cluster to IAM OIDC Provider
 - Create EKS Node Groups
+- Verify Cluster, Node Groups, EC2 Instances, IAM Policies and Node Groups
 
 
 ## Step-01: Create EKS Cluster using eksctl
@@ -98,6 +99,9 @@ kubectl config view --minify
 - Go to Services -> EC2 -> Worker Nodes
 - Click on **IAM Role associated to EC2 Worker Nodes**
 
+### Verify Security Group Associated to Worker Nodes
+- Go to Services -> EC2 -> Worker Nodes
+- Click on **Security Group** associated to EC2 Instance which contains `remote` in the name.
 
 ## Step-06: Update Worker Nodes Security Group to allow all traffic
 - We need to allow `All Traffic` on worker node security group
