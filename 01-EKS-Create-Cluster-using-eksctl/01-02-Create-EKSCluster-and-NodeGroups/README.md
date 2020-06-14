@@ -15,7 +15,7 @@ eksctl create cluster --name=eksdemo1 \
                       --without-nodegroup 
 
 # Get List of clusters
-eksctl get cluster                      
+eksctl get clusters                  
 ```
 
 
