@@ -89,7 +89,7 @@ eksctl create nodegroup --cluster=eksdemo1 \
 eksctl get cluster
 
 # List NodeGroups in a cluster
-eksctl get nodegroup cluster=<clusterName>
+eksctl get nodegroup --cluster=<clusterName>
 
 # List Nodes in current kubernetes cluster
 kubectl get nodes -o wide
