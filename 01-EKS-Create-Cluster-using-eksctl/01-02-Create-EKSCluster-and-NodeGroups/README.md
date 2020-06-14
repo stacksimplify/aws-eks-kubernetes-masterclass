@@ -110,6 +110,8 @@ kubectl config view --minify
 - Verify Control Plane Stack & Events
 - Verify NodeGroup Stack & Events
 
+### Login to Worker Node using Keypai kube-demo
+- Login to worker node
 
 ## Step-06: Update Worker Nodes Security Group to allow all traffic
 - We need to allow `All Traffic` on worker node security group
