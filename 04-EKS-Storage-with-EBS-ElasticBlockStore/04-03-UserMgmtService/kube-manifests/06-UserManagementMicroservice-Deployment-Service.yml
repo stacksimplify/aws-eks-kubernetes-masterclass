@@ -17,13 +17,6 @@ spec:
       containers:
         - name: usermgmt-restapp
           image: stacksimplify/kube-usermanagement-microservice:1.0.0
-          resources:
-            requests:
-              memory: "128Mi"
-              cpu: "500m"
-            limits:
-              memory: "500Mi"
-              cpu: "1000m"
         ports:
           - containerPort: 8095
           env:
