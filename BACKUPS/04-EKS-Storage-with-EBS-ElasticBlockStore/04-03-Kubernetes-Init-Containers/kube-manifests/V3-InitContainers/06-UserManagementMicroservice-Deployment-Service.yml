@@ -14,6 +14,10 @@ spec:
       labels:
         app: usermgmt-restapp
     spec:
+      initContainers:
+        - name: init-db
+          image: busybox:1.31
+          command: ['sh', '-c', 'echo -e "Checking for the availability of MySQL Server deployment"; while ! nc -z mysql 3306; do sleep 1; printf "-"; done; echo -e "  >> MySQL DB Server has started";']
       containers:
       - name: usermgmt-restapp
         image: stacksimplify/kube-usermanagement-microservice:1.0.0
@@ -36,4 +40,7 @@ spec:
           - name: DB_USERNAME
             value: "root"
           - name: DB_PASSWORD
-            value: "dbpassword11"
+            valueFrom:
+              secretKeyRef:
+                name: mysql-db-password
+                key: db-password
