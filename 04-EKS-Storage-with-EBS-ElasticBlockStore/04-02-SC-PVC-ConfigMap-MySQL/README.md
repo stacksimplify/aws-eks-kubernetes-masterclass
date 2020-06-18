@@ -11,14 +11,14 @@
 | ClusterIP Service  | 05-mysql-clusterip-service.yml  |
 
 ## Step-02: Create following Kubernetes manifests
--  Storage Class
--  Persistent Volume Claim
--  ConfigMap
--  MySQL Deployment
+- Storage Class
+- Persistent Volume Claims
+- ConfigMap
+- MySQL Deployment
   - Environment Variables
   - Volumes
   - Volume Mounts
--  MySQL ClusterIP Service
+- MySQL ClusterIP Service   
 
 ## Step-02: Create MySQL Database with all above manifests
 ```
