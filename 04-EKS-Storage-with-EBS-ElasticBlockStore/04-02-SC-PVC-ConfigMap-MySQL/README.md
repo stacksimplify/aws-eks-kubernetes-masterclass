@@ -49,15 +49,3 @@ kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h 
 
 
 
-
-## References:
-- **Dynamic Volume Provisioning:** https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/
-- https://github.com/kubernetes-sigs/aws-ebs-csi-driver/tree/master/deploy/kubernetes/overlays/stable
-- https://docs.aws.amazon.com/eks/latest/userguide/ebs-csi.html
-- https://github.com/kubernetes-sigs/aws-ebs-csi-driver
-- https://github.com/kubernetes-sigs/aws-ebs-csi-driver/tree/master/examples/kubernetes/dynamic-provisioning
-- https://github.com/kubernetes-sigs/aws-ebs-csi-driver/tree/master/deploy/kubernetes/overlays/stable
-- https://github.com/kubernetes-sigs/aws-ebs-csi-driver
-- **Legacy:** 
-  - https://kubernetes.io/docs/concepts/storage/storage-classes/#aws-ebs
-  - https://docs.aws.amazon.com/eks/latest/userguide/storage-classes.html
