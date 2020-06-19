@@ -65,7 +65,7 @@ kubectl get pods -l app=mysql
 ## Step-04: Connect to MySQL Database
 ```
 # Connect to MYSQL Database
-kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppassword
+kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -pdbpassword11
 
 # Verify usermgmt schema got created which we provided in ConfigMap
 mysql> show schemas;
@@ -78,6 +78,6 @@ mysql> show schemas;
 - **EBS CSI Driver:** https://github.com/kubernetes-sigs/aws-ebs-csi-driver
 - **EBS CSI Driver Dynamic Provisioning:**  https://github.com/kubernetes-sigs/aws-ebs-csi-driver/tree/master/examples/kubernetes/dynamic-provisioning
 - **EBS CSI Driver - Other Examples like Resizing, Snapshot etc:** https://github.com/kubernetes-sigs/aws-ebs-csi-driver/tree/master/examples/kubernetes
-
+- **k8s API Reference Doc:** https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.18/#storageclass-v1-storage-k8s-io
 
 
