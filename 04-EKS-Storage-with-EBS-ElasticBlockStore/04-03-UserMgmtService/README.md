@@ -15,10 +15,11 @@
 | NodePort Service  | 07-UserManagement-Service.yml  |
 
 ## Step-02: Create following Kubernetes manifests
-- User Management Microservice Deployment with MySQL as Database
-  - Deployment
-  - Environment Variables
-| First Header  | Second Header |
+
+### Create User Management Microservice Deployment manifest
+- **Environment Variables**
+
+| Key Name  | Value |
 | ------------- | ------------- |
 | DB_HOSTNAME  | mysql |
 | DB_PORT  | 3306  |
@@ -26,13 +27,13 @@
 | DB_USERNAME  | root  |
 | DB_PASSWORD | dbpassword11  |  
 
-- User Management Service
-  - NodePort Service
+### Create User Management Microservice NodePort Service manifest
+- NodePort Service
 
 ## Step-03: Create UserManagement Service Deployment & Service 
 ```
 # Create Deployment & NodePort Service
-kubectl apply -f kube-manifests/V
+kubectl apply -f kube-manifests/
 
 # List Pods
 kubectl get pods
@@ -59,7 +60,7 @@ http://<EKS-WorkerNode-Public-IP>:31231/usermgmt/health-status
 ## Step-05: Verify Users in MySQL Database
 ```
 # Connect to MYSQL Database
-kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppassword
+kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -pdbpassword11
 
 # Verify usermgmt schema got created which we provided in ConfigMap
 mysql> show schemas;
