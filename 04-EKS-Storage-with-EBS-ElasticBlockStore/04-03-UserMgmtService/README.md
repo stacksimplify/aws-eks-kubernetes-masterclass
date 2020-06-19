@@ -2,6 +2,13 @@
 
 
 ## Step-01: Introduction
+- We are going to deploy a **User Management Microservice** which will connect to MySQL Database schema **usermgmt** during startup.
+- Then we can test the following APIs
+  - Create Users
+  - List Users
+  - Delete User
+  - Health Status 
+
 | Kubernetes Object  | YAML File |
 | ------------- | ------------- |
 | Deployment, Environment Variables  | 06-UserManagementMicroservice-Deployment.yml  |
@@ -49,5 +56,16 @@ http://<EKS-WorkerNode-Public-IP>:31231/usermgmt/health-status
 - **Create User Service**
 - **List User Service**
 
+## Step-05: Verify Users in MySQL Database
+```
+# Connect to MYSQL Database
+kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppassword
+
+# Verify usermgmt schema got created which we provided in ConfigMap
+mysql> show schemas;
+mysql> use usermgmt;
+mysql> show tables;
+mysql> select * from users;
+```
 
 

@@ -2,6 +2,8 @@
 
 
 ## Step-01: Introduction
+- We are going to create a MySQL Database with persistence storage using AWS EBS Volumes
+
 | Kubernetes Object  | YAML File |
 | ------------- | ------------- |
 | Storage Class  | 01-storage-class.yml |
@@ -20,7 +22,7 @@
   - Volume Mounts
 - MySQL ClusterIP Service   
 
-## Step-02: Create MySQL Database with all above manifests
+## Step-03: Create MySQL Database with all above manifests
 ```
 # Create MySQL Database
 kubectl apply -f kube-manifests/
@@ -45,6 +47,9 @@ kubectl get pods -l app=mysql
 ```
 # Connect to MYSQL Database
 kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppassword
+
+# Verify usermgmt schema got created which we provided in ConfigMap
+mysql> show schemas;
 ```
 
 
