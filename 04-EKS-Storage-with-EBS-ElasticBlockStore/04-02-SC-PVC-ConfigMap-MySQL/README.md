@@ -15,6 +15,19 @@
 ## Step-02: Create following Kubernetes manifests
 - Storage Class
 - Persistent Volume Claims
+```
+# Create Storage Class & PVC
+kubectl apply -f kube-manifests/
+
+# List Storage Classes
+kubectl get sc
+
+# List PVC
+kubectl get pvc 
+
+# List PV
+kubectl get pv
+```
 - ConfigMap
 - MySQL Deployment
   - Environment Variables
