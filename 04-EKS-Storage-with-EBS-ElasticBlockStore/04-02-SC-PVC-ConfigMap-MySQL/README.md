@@ -13,8 +13,11 @@
 | ClusterIP Service  | 05-mysql-clusterip-service.yml  |
 
 ## Step-02: Create following Kubernetes manifests
-- Storage Class
-- Persistent Volume Claims
+### Create Storage Class manifest
+- https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode
+- **Important Note:** `WaitForFirstConsumer` mode will delay the volume binding and provisioning  of a PersistentVolume until a Pod using the PersistentVolumeClaim is created. 
+
+### Create Persistent Volume Claims manifest
 ```
 # Create Storage Class & PVC
 kubectl apply -f kube-manifests/
@@ -28,12 +31,16 @@ kubectl get pvc
 # List PV
 kubectl get pv
 ```
-- ConfigMap
-- MySQL Deployment
-  - Environment Variables
-  - Volumes
-  - Volume Mounts
-- MySQL ClusterIP Service   
+### Create ConfigMap manifest
+- We are going to create a `usermgt` database schema during the mysql pod creation time. 
+
+### Create MySQL Deployment manifest
+- Environment Variables
+- Volumes
+- Volume Mounts
+
+### Create MySQL ClusterIP Service manifest
+- At any point of time we are going to have only one mysql pod in this design so `ClusterIP: none` will use the `Pod IP Address` instead of creating or allocating a separate IP for MySQL Cluster IP service.   
 
 ## Step-03: Create MySQL Database with all above manifests
 ```
