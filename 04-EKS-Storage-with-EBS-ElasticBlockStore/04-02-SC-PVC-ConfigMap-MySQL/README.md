@@ -31,7 +31,7 @@ kubectl get pvc
 kubectl get pv
 ```
 ### Create ConfigMap manifest
-- We are going to create a `usermgt` database schema during the mysql pod creation time. 
+- We are going to create a `usermgmt` database schema during the mysql pod creation time which we will leverage when we deploy User Management Microservice. 
 
 ### Create MySQL Deployment manifest
 - Environment Variables
@@ -39,7 +39,7 @@ kubectl get pv
 - Volume Mounts
 
 ### Create MySQL ClusterIP Service manifest
-- At any point of time we are going to have only one mysql pod in this design so `ClusterIP: none` will use the `Pod IP Address` instead of creating or allocating a separate IP for MySQL Cluster IP service.   
+- At any point of time we are going to have only one mysql pod in this design so `ClusterIP: None` will use the `Pod IP Address` instead of creating or allocating a separate IP for `MySQL Cluster IP service`.   
 
 ## Step-03: Create MySQL Database with all above manifests
 ```
