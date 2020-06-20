@@ -69,8 +69,8 @@ http://<EKS-WorkerNode-Public-IP>:31231/usermgmt/health-status
 - Go to Settings -> Click on Add
 - **Environment Name:** UMS-NodePort
   - **Variable:** url
-  - **Initial Value:** http://<WorkerNode-Public-IP>:31231
-  - **Current Value:** http://<WorkerNode-Public-IP>:31231
+  - **Initial Value:** http://WorkerNode-Public-IP:31231
+  - **Current Value:** http://WorkerNode-Public-IP:31231
   - Click on **Add**
 ### Test User Management Services
 - Select the environment before calling any API
