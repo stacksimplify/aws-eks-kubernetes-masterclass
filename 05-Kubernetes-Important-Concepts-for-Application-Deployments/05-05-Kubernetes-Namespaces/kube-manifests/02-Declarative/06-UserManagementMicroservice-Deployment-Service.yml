@@ -4,6 +4,7 @@ metadata:
   name: usermgmt-microservice
   labels:
     app: usermgmt-restapp
+  namespace: dev3    
 spec:
   replicas: 1
   selector:
@@ -51,10 +52,3 @@ spec:
               port: 8095
             initialDelaySeconds: 60
             periodSeconds: 10   
-          resources:
-            requests:
-              memory: "128Mi"
-              cpu: "500m"
-            limits:
-              memory: "500Mi"
-              cpu: "1000m"                                            

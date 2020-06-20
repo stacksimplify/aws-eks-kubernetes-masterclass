@@ -33,6 +33,10 @@ kubectl describe pod <usermgmt-microservice-xxxxxx>
 
 # Access Application Health Status Page
 http://<WorkerNode-Public-IP>:31231/usermgmt/health-status
+
+# List Nodes & Describe Node
+kubectl get nodes
+kubectl describe node <Node-Name>
 ```
 ## Step-04: Clean-Up
 - Delete all k8s objects created as part of this section
