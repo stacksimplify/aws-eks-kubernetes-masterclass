@@ -29,4 +29,7 @@ spec:
             - name: DB_USERNAME
               value: "root"            
             - name: DB_PASSWORD
-              value: "dbpassword11"            
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-db-password
+                  key: db-password             
