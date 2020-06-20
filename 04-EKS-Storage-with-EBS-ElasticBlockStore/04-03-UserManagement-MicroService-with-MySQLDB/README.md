@@ -95,7 +95,17 @@ http://<EKS-WorkerNode-Public-IP>:31231/usermgmt/health-status
 
 - **Update User Service**
   - URL: `{{url}}/usermgmt/user`
-
+```json
+    {
+        "username": "admin1",
+        "email": "dkalyanreddy@gmail.com",
+        "role": "ROLE_ADMIN",
+        "enabled": true,
+        "firstname": "fname2",
+        "lastname": "lname2",
+        "password": "Pass@123"
+    }
+```  
 - **Delete User Service**
   - URL: `{{url}}/usermgmt/user/admin1`
 
