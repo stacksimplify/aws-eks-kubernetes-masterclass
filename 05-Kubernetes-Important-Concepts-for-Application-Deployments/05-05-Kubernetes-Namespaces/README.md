@@ -113,8 +113,18 @@ metadata:
   name: dev3
 ```
 
+## Step-07: Update all k8s manifest with namespace
+- Update all files from 02 to 08 with `namespace: dev3` in top metadata section in folder `kube-manifests/02-Declarative` 
+- **Example**
+```yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ebs-mysql-pv-claim
+  namespace: dev3
+```
 
-## Step-07: Create k8s objects & Test
+## Step-08: Create k8s objects & Test
 ```
 # Create All Objects
 kubectl apply -f kube-manifests/02-Declarative
@@ -129,7 +139,7 @@ kubectl get svc -n dev3
 http://<WorkerNode-Public-IP>:<NodePort>/usermgmt/health-status
 
 ```
-## Step-08: Clean-Up
+## Step-09: Clean-Up
 - Delete all k8s objects created as part of this section
 ```
 # Delete All
