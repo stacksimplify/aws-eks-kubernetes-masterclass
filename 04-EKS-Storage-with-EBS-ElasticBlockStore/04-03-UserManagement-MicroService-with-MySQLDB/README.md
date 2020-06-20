@@ -37,7 +37,17 @@ kubectl apply -f kube-manifests/
 
 # List Pods
 kubectl get pods
+
+# Verify logs of Usermgmt Microservice pod
+kubectl logs -f <Pod-Name>
+
+# Verify sc, pvc, pv
+kubectl get sc,pvc,pv
 ```
+- **Problem Observation:** 
+  - If we deploy all manifests at a time, by the time mysql is ready our `User Management Microservice` pod will be restarting multiple times due to unavailability of Database. 
+  - To avoid such situations, we can `initContainers` concept applied to our User management Microservice `Deployment manifest`.
+  - We will see that in our next section but for now lets continue to test the application
 - **Access Application**
 ```
 # List Services
