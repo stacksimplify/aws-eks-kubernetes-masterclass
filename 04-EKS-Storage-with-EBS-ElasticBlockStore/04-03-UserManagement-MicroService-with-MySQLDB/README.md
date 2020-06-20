@@ -60,7 +60,7 @@ kubectl get nodes -o wide
 http://<EKS-WorkerNode-Public-IP>:31231/usermgmt/health-status
 ```
 
-## Step-04: Test User Management Service using Postman
+## Step-04: Test User Management Microservice using Postman
 ### Download Postman client 
 - https://www.postman.com/downloads/ 
 ### Import Project to Postman
