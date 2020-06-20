@@ -1,1 +1,0 @@
-# Kubernetes - Liveness & Readiness Probes
