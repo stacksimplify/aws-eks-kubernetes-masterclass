@@ -46,7 +46,7 @@ kubectl get sc,pvc,pv
 ```
 - **Problem Observation:** 
   - If we deploy all manifests at a time, by the time mysql is ready our `User Management Microservice` pod will be restarting multiple times due to unavailability of Database. 
-  - To avoid such situations, we can `initContainers` concept applied to our User management Microservice `Deployment manifest`.
+  - To avoid such situations, we can apply `initContainers` concept to our User management Microservice `Deployment manifest`.
   - We will see that in our next section but for now lets continue to test the application
 - **Access Application**
 ```
@@ -61,11 +61,43 @@ http://<EKS-WorkerNode-Public-IP>:31231/usermgmt/health-status
 ```
 
 ## Step-04: Test User Management Service using Postman
-- Download Postman client 
-  - https://www.postman.com/downloads/ 
-- Import the postman project `EKS-Masterclass.postman_collection.json`
+### Download Postman client 
+- https://www.postman.com/downloads/ 
+### Import Project to Postman
+- Import the postman project `AWS-EKS-Masterclass-Microservices.postman_collection.json` present in folder `04-03-UserManagement-MicroService-with-MySQLDB`
+### Create Environment in postman
+- Go to Settings -> Click on Add
+- **Environment Name:** UMS-NodePort
+  - **Variable:** url
+  - **Initial Value:** http://<WorkerNode-Public-IP>:31231
+  - **Current Value:** http://<WorkerNode-Public-IP>:31231
+  - Click on **Add**
+### Test User Management Services
+- Select the environment before calling any API
+- **Health Status API**
+  - URL: `{{url}}/usermgmt/health-status`
 - **Create User Service**
+  - URL: `{{url}}/usermgmt/user`
+  - `url` variable will replaced from environment we selected
+```json
+    {
+        "username": "admin1",
+        "email": "dkalyanreddy@gmail.com",
+        "role": "ROLE_ADMIN",
+        "enabled": true,
+        "firstname": "fname1",
+        "lastname": "lname1",
+        "password": "Pass@123"
+    }
+```
 - **List User Service**
+  - URL: `{{url}}/usermgmt/users`
+
+- **Update User Service**
+  - URL: `{{url}}/usermgmt/user`
+
+- **Delete User Service**
+  - URL: `{{url}}/usermgmt/user/admin1`
 
 ## Step-05: Verify Users in MySQL Database
 ```
@@ -77,6 +109,19 @@ mysql> show schemas;
 mysql> use usermgmt;
 mysql> show tables;
 mysql> select * from users;
+```
+
+## Step-06: Clean-Up
+- Delete all k8s objects created as part of this section
+```
+# Delete All
+kubectl delete -f kube-manifests/
+
+# List Pods
+kubectl get pods
+
+# Verify sc, pvc, pv
+kubectl get sc,pvc,pv
 ```
 
 
