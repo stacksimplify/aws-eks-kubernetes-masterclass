@@ -4,9 +4,9 @@ metadata:
   name: dev3
 ---  
 apiVersion: v1
-kind: ResourceQuota
+kind: LimitRange
 metadata:
-  name: ns-resource-quota
+  name: default-cpu-mem-limit-range
   namespace: dev3
 spec:
   limits:
@@ -16,4 +16,4 @@ spec:
       defaultRequest:
         memory: "256Mi" # If not specified default it will take from whatever specified in limits.default.memory
         cpu: "300m" # If not specified default it will take from whatever specified in limits.default.cpu
-      type: Container                        
+      type: Container 
