@@ -4,7 +4,6 @@ metadata:
   name: usermgmt-microservice
   labels:
     app: usermgmt-restapp
-  namespace: dev3    
 spec:
   replicas: 1
   selector:

@@ -16,21 +16,4 @@ spec:
       defaultRequest:
         memory: "256Mi" # If not specified default it will take from whatever specified in limits.default.memory
         cpu: "300m" # If not specified default it will take from whatever specified in limits.default.cpu
-      type: Container                        
----
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: ns-resource-quota
-  namespace: dev3
-spec:
-  hard:
-    requests.cpu: "1"
-    requests.memory: 1Gi
-    limits.cpu: "2"
-    limits.memory: 2Gi  
-    pods: "5"    
-    configmaps: "5" 
-    persistentvolumeclaims: "5" 
-    secrets: "5" 
-    services: "5"     
+      type: Container 

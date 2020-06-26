@@ -4,7 +4,6 @@ metadata:
   name: usermgmt-restapp-service
   labels: 
     app: usermgmt-restapp
-  namespace: dev3    
 spec:
   type: NodePort
   selector:
