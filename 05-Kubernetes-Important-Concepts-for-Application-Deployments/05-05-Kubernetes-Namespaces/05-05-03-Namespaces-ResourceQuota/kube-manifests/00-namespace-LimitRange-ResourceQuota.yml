@@ -33,4 +33,4 @@ spec:
     configmaps: "5" 
     persistentvolumeclaims: "5" 
     secrets: "5" 
-    services: "5"     
+    services: "5" 

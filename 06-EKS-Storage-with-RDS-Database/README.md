@@ -1,8 +1,8 @@
 # Use RDS Database for Workloads running on AWS EKS Cluster
 
 ## Step-01: Introduction
-
-# Module-1: Create RDS Database as externalName Service in EKS
+- What are the problems with MySQL Pod & EBS CSI? 
+- How we are going to solve them using AWS RDS Database?
 
 ## Step-02: Create RDS Database
 
@@ -50,7 +50,7 @@
 
 ## Step-03: Create Kubernetes externalName service Manifest and Deploy
 - Create mysql externalName Service
-- **09-MySQL-externalName-Service.yml**
+- **01-MySQL-externalName-Service.yml**
 ```yml
 apiVersion: v1
 kind: Service
@@ -62,7 +62,7 @@ spec:
 ```
  - **Deploy Manifest**
 ```
-kubectl apply -f kube-manifests/V1-ServiceType-externalName/09-MySQL-externalName-Service.yml
+kubectl apply -f kube-manifests/01-MySQL-externalName-Service.yml
 ```
 ## Step-04:  Connect to RDS Database using kubectl and create usermgmt schema/db
 ```
@@ -74,26 +74,26 @@ mysql> show schemas;
 mysql> exit
 ```
 ## Step-05: In User Management Microservice deployment file change username from `root` to `dbadmin`
-- **06-UserManagementMicroservice-Deployment-Service.yml**
+- **02-UserManagementMicroservice-Deployment-Service.yml**
 ```yml
 # Change From
-          - name: AWS_RDS_USERNAME
+          - name: DB_USERNAME
             value: "root"
 
 # Change To
-          - name: AWS_RDS_USERNAME
+          - name: DB_USERNAME
             value: "dbadmin"            
 ```
 
 ## Step-06: Deploy User Management Microservice and Test
 ```
 # Deploy all Manifests
-kubectl apply -f V1-Service-externalName-RDS/
+kubectl apply -f kube-manifests/
 
 # List Pods
 kubectl get pods
 
-# Stream pod logs
+# Stream pod logs to verify DB Connection is successful from SpringBoot Application
 kubectl logs -f <pod-name>
 ```
 ## Step-07: Access Application
@@ -108,10 +108,8 @@ http://<Worker-Node-Public-Ip>:31231/usermgmt/health-status
 ## Step-08: Clean Up 
 ```
 # Delete all Objects created
-kubectl delete -f V1-Service-externalName-RDS/
+kubectl delete -f kube-manifests/
 
 # Verify current Kubernetes Objects
 kubectl get all
 ```
-
-# Module-2: Access any External Service  with IP and Port in EKS

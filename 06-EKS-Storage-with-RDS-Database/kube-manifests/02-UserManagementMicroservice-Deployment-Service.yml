@@ -4,7 +4,6 @@ metadata:
   name: usermgmt-microservice
   labels:
     app: usermgmt-restapp
-  namespace: dev3    
 spec:
   replicas: 1
   selector:
@@ -32,7 +31,7 @@ spec:
             - name: DB_NAME
               value: "usermgmt"            
             - name: DB_USERNAME
-              value: "root"            
+              value: "dbadmin"        # RDS DB Username is dbadmin     
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
