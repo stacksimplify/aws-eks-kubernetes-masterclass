@@ -6,12 +6,18 @@
 
 ## Step-02: Create RDS Database
 
-### Create DB Subnet Group
+### Review VPC of our EKS Cluster
+- Go to Services -> VPC
+- **VPC Name:**  eksctl-eksdemo1-cluster/VPC
+
+### Pre-requisite-1: Create DB Security Group
+
+### Pre-requisite-2: Create DB Subnet Group in RDS 
 - Go to RDS -> Subnet Groups
 - Click on **Create DB Subnet Group**
   - **Name:** eks-rds-db-subnetgroup
   - **Description:** EKS RDS DB Subnet Group
-  - **VPC:** eks-vpc-public-VPC
+  - **VPC:** eksctl-eksdemo1-cluster/VPC
   - **Availability Zones:** us-east-1a, us-east-1b, us-east-1c
   - **Subnets:** 3 subnets in 3 AZs
   - Click on **Create**
@@ -31,7 +37,7 @@
   - **DB Instance Size:** leave to defaults
   - **Storage:** leave to defaults
   - **Connectivity**
-    - **VPC:** eks-vpc-public-VPC
+    - **VPC:** eksctl-eksdemo1-cluster/VPC
     - **Additional Connectivity Configuration**
       - **Subnet Group:** eks-rds-db-subnetgroup
       - **Publicyly accessible:** YES (for our learning and troubleshooting - if required)

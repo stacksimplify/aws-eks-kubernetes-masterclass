@@ -44,6 +44,8 @@ eksctl utils associate-iam-oidc-provider \
     --approve
 ```
 
+
+
 ## Step-03: Create EC2 Keypair
 - Create a new EC2 Keypair with name as `kube-demo`
 - This keypair we will use it when creating the EKS NodeGroup.
