@@ -1,3 +1,0 @@
-# Operator
-
-## Like CloudFormation

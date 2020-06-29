@@ -1,1 +1,0 @@
-# Proxies in Kubernetes
