@@ -1,14 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: usermgmt-restapp-service
+  name: clb-usermgmt-restapp
   labels: 
     app: usermgmt-restapp
 spec:
-  type: NodePort
+  type: LoadBalancer # Default - CLB
   selector:
     app: usermgmt-restapp
   ports: 
-    - port: 8095
+    - port: 80
       targetPort: 8095
-      nodePort: 31231

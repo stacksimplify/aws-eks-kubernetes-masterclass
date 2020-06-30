@@ -20,7 +20,7 @@ spec:
 - **Deploy all Manifest**
 ```
 # Deploy all manifests
-kubectl apply -f V1-Classic-Load-Balancer/
+kubectl apply -f kube-manifests/
 
 # List Services (Verify newly created CLB Service)
 kubectl get svc
