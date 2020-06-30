@@ -45,7 +45,7 @@ http://<CLB-DNS-NAME>/usermgmt/health-status
 ## Step-03: Clean Up 
 ```
 # Delete all Objects created
-kubectl delete -f V1-Classic-Load-Balancer/
+kubectl delete -f kube-manifests/
 
 # Verify current Kubernetes Objects
 kubectl get all
