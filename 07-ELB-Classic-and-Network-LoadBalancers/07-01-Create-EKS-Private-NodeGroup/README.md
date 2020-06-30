@@ -38,6 +38,14 @@ eksctl create nodegroup --cluster=eksdemo1 \
                         --node-private-networking                       
 ```
 
+## Step-04: Verify if Node Group created in Private Subnets
+
+### Verify External IP Address for Worker Nodes
+- External IP Address should be none if our Worker Nodes created in Private Subnets
+```
+kubectl get nodes -o wide
+```
+### Subnet Route Table Verification - Outbound Traffic goes via NAT Gateway
 - Verify the node group subnet routes to ensure it created in private subnets
   - Go to Services -> EKS -> eksdemo -> eksdemo1-ng1-private
   - Click on Associated subnet in **Details** tab
