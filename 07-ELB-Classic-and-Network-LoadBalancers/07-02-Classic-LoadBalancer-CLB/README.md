@@ -1,4 +1,4 @@
-# AWS - Classic Load Balancer - CLBD
+# AWS - Classic Load Balancer - CLB
 
 ## Step-01: Create AWS Classic Load Balancer Kubernetes Manifest & Deploy
 - **04-ClassicLoadBalancer.yml**
