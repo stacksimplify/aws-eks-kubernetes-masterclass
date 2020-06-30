@@ -6,10 +6,12 @@
 
 ## Step-02: Delete existing Public Node Group in EKS Cluster
 ```
-# Template
-eksctl delete nodegroup <NodeGroup-Name> --cluster <Cluster-Name>
+# Get NodeGroups in a EKS Cluster
+eksctl get nodegroup --cluster=<Cluster-Name>
+eksctl get nodegroup --cluster=eksdemo1
 
-# Replace nodegroup name and cluster name
+# Delete Node Group - Replace nodegroup name and cluster name
+eksctl delete nodegroup <NodeGroup-Name> --cluster <Cluster-Name>
 eksctl delete nodegroup eksdemo1-ng-public1 --cluster eksdemo1
 ```
 
