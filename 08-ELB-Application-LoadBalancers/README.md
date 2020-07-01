@@ -12,7 +12,7 @@
 | 3.  | ALB Ingress Context Path based Routing  |
 | 4.  | ALB Ingress SSL  |
 | 5.  | ALB Ingress SSL Redirect (HTTP to HTTPS) |
-| 6.  | ALB Ingress External DNS) |
+| 6.  | ALB Ingress External DNS |
 
 
 ## References: 
