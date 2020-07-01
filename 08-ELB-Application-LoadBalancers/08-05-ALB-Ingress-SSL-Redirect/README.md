@@ -1,6 +1,7 @@
 # Learn ALB Ingress Controller - Implement HTTP to HTTPS Redirect
 
 ## Step-01: Add annotations related to SSL Redirect
+- Redirect from HTTP to HTTPS
 ```yml
      # SSL Redirect Setting
     alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'   
@@ -9,7 +10,7 @@
 - **Deploy**
 ```
 # Deploy
-kubectl apply -f V4-ALB-Ingress-SSL-Redirect/
+kubectl apply -f kube-manifests/
 ```
 - **Verify**
     - Load Balancer -  Listeneres (Verify both 80 & 443) 
@@ -25,19 +26,19 @@ kubectl get ingress
 - **Access Application**
 ```
 # HTTP URLs (Should Redirect to HTTPS)
-http://kubedemo.yourdoamin.com/app1/
-http://kubedemo.yourdoamin.com/app2/
-http://kubedemo.yourdoamin.com/usermgmt/health-status
+http://ssldemo.kubesimplify.com/app1/index.html
+http://ssldemo.kubesimplify.com/app2/index.html
+http://ssldemo.kubesimplify.com/usermgmt/health-status
 
 # HTTPS URLs
-https://kubedemo.yourdoamin.com/app1/
-https://kubedemo.yourdoamin.com/app2/
-https://kubedemo.yourdoamin.com/usermgmt/health-status
+https://ssldemo.kubesimplify.com/app1/index.html
+https://ssldemo.kubesimplify.com/app2/index.html
+https://ssldemo.kubesimplify.com/usermgmt/health-status
 ```
 
 ## Step-06: Clean Up
 ```
-kubectl delete -f V4-ALB-Ingress-SSL-Redirect/
+kubectl delete -f kube-manifests/
 ```
 
 

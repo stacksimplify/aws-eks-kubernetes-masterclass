@@ -1,110 +1,24 @@
-# Learn ALB Ingress Controller - Path Based Routing
+# AWS ALB Ingress Controller - Context Path Based Routing
 
-## Step-01: Create Nginx App1 Deployment & Service
-- **05-Nginx-App1-Deployment-and-NodePortService.yml**
-```yml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: app1-nginx-deployment
-  labels:
-    app: app1-nginx
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: app1-nginx
-  template:
-    metadata:
-      labels:
-        app: app1-nginx
-    spec:
-      containers:
-      - name: app1-nginx
-        image: stacksimplify/kube-nginxapp1:1.0.0
-        ports:
-        - containerPort: 80
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: app1-nginx-service
-  labels:
-    app: app1-nginx
-  annotations:
-#Important Note:  Need to add health check path annotations in service level if we are planning to use multiple targets in a load balancer    
-    alb.ingress.kubernetes.io/healthcheck-path: /app1/index.html
-spec:
-  type: NodePort
-  selector:
-    app: app1-nginx
-  ports:
-  - port: 80
-    targetPort: 80
-```
+## Step-01: Introduction
+- We are going to create two more apps with static pages in addition to UMS. 
+  - App1 with context as /app1 - Simple Nginx custom built image
+  - App2 with context as /app2 - Simple Nginx custom built image
+- We are going to deploy all these 3 apps in kubernetes with context path based routing enabled in Ingress Controller
+  - /app1/* - should go to app1-nginx-nodeport-service
+  - /app2/* - should go to app1-nginx-nodeport-service
+  - /*    - should go to  sermgmt-restapp-nodeport-service
+- As part of this process, this respective annotation `alb.ingress.kubernetes.io/healthcheck-path: /usermgmt/health-status` will be moved to respective application NodePort Service. Only generic settings will be present in Ingress manifest annotations area `07-ALB-Ingress-ContextPath-Based-Routing.yml`  
+
+
 ## Step-02: Create Nginx App1 Deployment & Service
-- **06-Nginx-App2-Deployment-and-NodePortService copy.yml**
-```yml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: app2-nginx-deployment
-  labels:
-    app: app2-nginx 
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: app2-nginx
-  template:
-    metadata:
-      labels:
-        app: app2-nginx
-    spec:
-      containers:
-      - name: app2-nginx
-        image: stacksimplify/kube-nginxapp2:1.0.0
-        ports:
-        - containerPort: 80
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: app2-nginx-service
-  labels:
-    app: app2-nginx
-  annotations:
-#Important Note:  Need to add health check path annotations in service level if we are planning to use multiple targets in a load balancer
-    alb.ingress.kubernetes.io/healthcheck-path: /app2/index.html
-spec:
-  type: NodePort
-  selector:
-    app: app2-nginx
-  ports:
-  - port: 80
-    targetPort: 80   
-```
+- **App1 Nginx:** 05-Nginx-App1-Deployment-and-NodePortService.yml
+- **App2 Nginx:** 06-Nginx-App2-Deployment-and-NodePortService copy.yml
+
 ## Step-03: Update Health Check Path Annotation in User Management Node Port Service
 - Health check path annotation should be moved to respective node port services if we have to route to multiple targets using single load balancer.
 - **04-UserManagement-NodePort-Service.yml**
-```yml
-apiVersion: v1
-kind: Service
-metadata:
-  name: usermgmt-restapp-nodeport-service
-  labels:
-    app: usermgmt-restapp
-  annotations:
-#Important Note:  Need to add health check path annotations in service level if we are planning to use multiple targets in a load balancer  
-    alb.ingress.kubernetes.io/healthcheck-path: /usermgmt/health-status
-spec:
-  type: NodePort
-  selector:
-    app: usermgmt-restapp
-  ports:
-  - port: 8095
-    targetPort: 8095
-```
+
 
 ## Step-04: Create ALB Ingress Context path based Routing Kubernetes manifest
 - **07-ALB-Ingress-ContextPath-Based-Routing.yml**
@@ -152,21 +66,18 @@ spec:
 ## Step-05: Deploy all manifests and test
 - **Deploy**
 ```
-kubectl apply -f V2-ALB-Ingress-ContextPath-Based-Routing/
+kubectl apply -f kube-manifests/
 ```
 - **Verify ingress resource got created**
 ```
 # List Ingress Load Balancers
 kubectl get ingress
 
-# Note: You should see value in ADDRESS field, DNS name of our Application Load Balancer
+# List Pods
+kubectl get pods
 
-# Sample Outout
-Kalyans-MacBook-Pro:kube-manifests kdaida$ kubectl get ingress
-NAME                               HOSTS   ADDRESS                                                                 PORTS   AGE
-ingress-usermgmt-restapp-service   *       6ad0ef5b-default-ingressus-ea9e-379072572.us-east-1.elb.amazonaws.com   80      6s
-Kalyans-MacBook-Pro:kube-manifests kdaida$ 
-
+# List Services
+kubectl get svc
 ```
 - **Verify ALB Ingress Controller Logs**
 ```
@@ -174,26 +85,28 @@ Kalyans-MacBook-Pro:kube-manifests kdaida$
 kubectl logs -f $(kubectl get po -n kube-system | egrep -o 'alb-ingress-controller-[A-Za-z0-9-]+') -n kube-system
 ```
 
-- We should not see anything like below log, if we see we did something wrong with ALB Ingress Controleer deployment primarily in creating IAM Policy, Service Account & Role and Associating Role to Service Account.
+- We should not see anything like below log in ALB Ingress Controller, if we see we did something wrong with ALB Ingress Controleer deployment primarily in creating IAM Policy, Service Account & Role and Associating Role to Service Account.
 
 ```log
 07:28:39.900001       1 controller.go:217] kubebuilder/controller "msg"="Reconciler error" "error"="failed to build LoadBalancer configuration due to unable to fetch subnets. Error: WebIdentityErr: failed to retrieve credentials\ncaused by: AccessDenied: Not authorized to perform sts:AssumeRoleWithWebIdentity\n\tstatus code: 403, request id: 3d54741a-4b85-4025-ad11-73d4a3661d09"  "controller"="alb-ingress-controller" "request"={"Namespace":"default","Name":"ingress-usermgmt-restapp-service"}
 ```
+- **Verify Application Load Balancer on AWS Management Console**
+- Verify Load Balancer
+    - In Listeners Tab, click on **View/Edit Rules** under Rules
+- Verify Target Groups
+    - GroupD Details
+    - Targets: Ensure they are healthy
+    - Verify Health check path
+    - Verify all 3 targets are healthy)
 
-
-- **Verify**
-    - Load Balancer - Rules
-    - Target Groups - Group Details (Verify Health check path)
-    - Target Groups - Targets (Verify all 3 targets are healthy)
 - **Access Application**
 ```
-http://<ALB-DNS-URL>/app1/
-http://<ALB-DNS-URL>/app2/
+http://<ALB-DNS-URL>/app1/index.html
+http://<ALB-DNS-URL>/app2/index.html
 http://<ALB-DNS-URL>/usermgmt/health-status
 ```
 
-
 ## Step-06: Clean Up
 ```
-kubectl delete -f V2-ALB-Ingress-ContextPath-Based-Routing/
+kubectl delete -f kube-manifests/
 ```

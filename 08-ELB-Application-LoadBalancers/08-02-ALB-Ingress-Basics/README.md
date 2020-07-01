@@ -1,7 +1,8 @@
-# Learn ALB Ingress Controller - Basics
+# AWS ALB Ingress Controller - Basics
 
 ## Step-01: Introduction
 - Understand about ALB Ingress Annotations. 
+- **Reference:** https://kubernetes-sigs.github.io/aws-alb-ingress-controller/guide/ingress/annotation/
 
 ## Step-02: Create ALB kubernetes basic Ingress Manifest
 - Create a basic ALB Ingress template. 
@@ -39,18 +40,36 @@ spec:
 ## Step-03: Deploy Application with ALB Ingress Template included
 ```
 # Deploy Application with ALB Template
-kubectl apply -f V1-ALB-Ingress-Basic/
+kubectl apply -f kube-manifests/
 
-# Get Ingress Controller Status (Make a note of Address field)
+# Verify our UMS App is UP and Running
+kubectl get pods
+kubectl logs -f <pod-name>
+kubectl logs -f usermgmt-microservice-5c89458797-xsb64 
+
+# Get List of Ingress  (Make a note of Address field)
 kubectl get ingress
+
+# List Services
+kubectl get svc
 
 # Describe Ingress Controller
 kubectl describe ingress ingress-usermgmt-restapp-service 
+
+# Verify ALB Ingress Controller logs
+kubectl logs -f $(kubectl get po -n kube-system | egrep -o 'alb-ingress-controller-[A-Za-z0-9-]+') -n kube-system
+```
+
+
+- We should not see anything like below log in ALB Ingress Controller log, if we see we did something wrong with ALB Ingress Controleer deployment primarily in creating IAM Policy, Service Account & Role and Associating Role to Service Account.
+
+```log
+07:28:39.900001       1 controller.go:217] kubebuilder/controller "msg"="Reconciler error" "error"="failed to build LoadBalancer configuration due to unable to fetch subnets. Error: WebIdentityErr: failed to retrieve credentials\ncaused by: AccessDenied: Not authorized to perform sts:AssumeRoleWithWebIdentity\n\tstatus code: 403, request id: 3d54741a-4b85-4025-ad11-73d4a3661d09"  "controller"="alb-ingress-controller" "request"={"Namespace":"default","Name":"ingress-usermgmt-restapp-service"}
 ```
 
 ## Step-04: Verify the ALB in AWS Management Console & Access Application using ALB DNS URL
 - Verify Load Balancer
-    - Listeners Tab
+    - In Listeners Tab, click on **View/Edit Rules** under Rules
 - Verify Target Groups
     - GroupD Details
     - Targets: Ensure they are healthy
@@ -61,5 +80,5 @@ http://<ALB-DNS-URL>/usermgmt/health-status
 
 ## Step-05: Clean Up
 ```
-kubectl delete -f V1-ALB-Ingress-Basic/
+kubectl delete -f kube-manifests/
 ```

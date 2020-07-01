@@ -1,20 +1,36 @@
-# Learn ALB Ingress Controller - SSL
+# AWS ALB Ingress Controller - SSL 
 
-## PENDING - Step-01: Register a Domain in Route53
+## Step-01: Introduction
+- We are going to register a new DNS in AWS Route53
+- We are going to create a SSL certificate 
+- Add Annotations related to SSL Certificate in Ingress manifest
+- Deploy the manifests and test
+- Clean-Up
 
-## Step-02: Create a SSL Certificate in Certificate Manager
-- Pre-requisite: You should have a registered domain in Route53 b
-- Go to Service -> Create a Certificate
+## Step-02: Pre-requisite - Register a Domain in Route53 (if not exists)
+- Goto Services -> Route53 -> Registered Domains
+- Click on **Register Domain**
+- Provide **desired domain: somedomain.com** and click on **check** (In my case its going to be `kubesimplify.com`)
+- Click on **Add to cart** and click on **Continue**
+- Provide your **Contact Details** and click on **Continue**
+- Enable Automatic Renewal
+- Accept **Terms and Conditions**
+- Click on **Complete Order**
+
+## Step-03: Create a SSL Certificate in Certificate Manager
+- Pre-requisite: You should have a registered domain in Route53 
+- Go to Services -> Certificate Manager -> Create a Certificate
 - Click on **Request a Certificate**
   - Choose the type of certificate for ACM to provide: Request a public certificate
-  - Add domain names: *.yourdomain.com (in my case it is going to be `*.stacksimplify.com`)
-  - Select a Validation Method: DNS Validation
+  - Add domain names: *.yourdomain.com (in my case it is going to be `*.kubesimplify.com`)
+  - Select a Validation Method: **DNS Validation**
   - Click on **Confirm & Request**    
 - **Validation**
   - Click on **Create record in Route 53**  
 - Wait for 5 to 10 minutes and check the **Validation Status**  
 
-## Step-02: Add annotations related to SSL
+## Step-04: Add annotations related to SSL
+- **07-ALB-Ingress-SSL.yml**
 ```yml
 # SSL Setting - 1
     ## SSL Settings
@@ -26,10 +42,10 @@ spec:
   rules:
     #- host: kubedemo.stacksimplify.com    # SSL Setting (Optional only if we are not using certificate-arn annotation)
 ```
-## Step-03: Deploy all manifests and test
+## Step-05: Deploy all manifests and test
 - **Deploy**
 ```
-kubectl apply -f V3-ALB-Ingress-SSL/
+kubectl apply -f kube-manifests/
 ```
 - **Verify**
     - Load Balancer -  Listeneres (Verify both 80 & 443) 
@@ -40,28 +56,29 @@ kubectl apply -f V3-ALB-Ingress-SSL/
 ```
 kubectl get ingress 
 ```
-## Step-04: Add DNS in Route53   
+## Step-06: Add DNS in Route53   
 - Go to **Services -> Route 53**
 - Go to **Hosted Zones**
   - Click on **yourdomain.com** (in my case stacksimplify.com)
 - Create a **Record Set**
-  - **Name:** kubedemo.stacksimplify.com
+  - **Name:** ssldemo.kubesimplify.com
   - **Alias:** yes
   - **Alias Target:** Copy our ALB DNS Name here (Sample: 55dc0e80-default-ingressus-ea9e-551932098.us-east-1.elb.amazonaws.com)
   - Click on **Create**
   
-## Step-05: Access Application using newly registered DNS Name
+## Step-07: Access Application using newly registered DNS Name
 - **Access Application**
+- **Important Note:** Instead of `kubesimplify.com` you need to replace with your registered Route53 domain (Refer pre-requisite Step-02)
 ```
 # HTTP URLs
-http://kubedemo.yourdoamin.com/app1/
-http://kubedemo.yourdoamin.com/app2/
-http://kubedemo.yourdoamin.com/usermgmt/health-status
+http://ssldemo.kubesimplify.com/app1/index.html
+http://ssldemo.kubesimplify.com/app2/index.html
+http://ssldemo.kubesimplify.com/usermgmt/health-status
 
 # HTTPS URLs
-https://kubedemo.yourdoamin.com/app1/
-https://kubedemo.yourdoamin.com/app2/
-https://kubedemo.yourdoamin.com/usermgmt/health-status
+https://ssldemo.kubesimplify.com/app1/index.html
+https://ssldemo.kubesimplify.com/app2/index.html
+https://ssldemo.kubesimplify.com/usermgmt/health-status
 ```
 
 

@@ -15,15 +15,15 @@ spec:
         app: app2-nginx
     spec:
       containers:
-      - name: app2-nginx
-        image: stacksimplify/kube-nginxapp2:1.0.0
-        ports:
-        - containerPort: 80
+        - name: app2-nginx
+          image: stacksimplify/kube-nginxapp2:1.0.0
+          ports:
+            - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: app2-nginx-service
+  name: app2-nginx-nodeport-service
   labels:
     app: app2-nginx
   annotations:
@@ -34,7 +34,7 @@ spec:
   selector:
     app: app2-nginx
   ports:
-  - port: 80
-    targetPort: 80
+    - port: 80
+      targetPort: 80
 
    

@@ -9,6 +9,8 @@ spec:
   selector:
     app: usermgmt-restapp
   ports:
-  - port: 8095
-    targetPort: 8095
-    #nodePort: 31231
+    - port: 8095
+      targetPort: 8095
+      #nodePort: 31231
+
+

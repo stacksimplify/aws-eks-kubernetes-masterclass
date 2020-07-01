@@ -25,11 +25,11 @@ spec:
         paths:
           - path: /app1/*
             backend:
-              serviceName: app1-nginx-service
+              serviceName: app1-nginx-nodeport-service
               servicePort: 80                        
           - path: /app2/*
             backend:
-              serviceName: app2-nginx-service
+              serviceName: app2-nginx-nodeport-service
               servicePort: 80            
           - path: /*
             backend:
