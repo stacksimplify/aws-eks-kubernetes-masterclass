@@ -25,7 +25,7 @@ kubectl get sa -n kube-system
 # Describe Service Account alb-ingress-controller 
 kubectl describe sa alb-ingress-controller -n kube-system
 ```
-- Log
+- **Output**
 ```log
 Kalyans-MacBook-Pro:aws-fargate-eks-masterclass kdaida$ kubectl describe sa alb-ingress-controller -n kube-system
 Name:                alb-ingress-controller
@@ -118,6 +118,7 @@ eksctl  get iamserviceaccount --cluster eksdemo1
 kubectl describe sa alb-ingress-controller -n kube-system
 ```
 - **Observation:** You can see that newly created Role ARN is added in `Annotations` confirming that **AWS IAM role bound to a Kubernetes service account**
+- **Output**
 ```log
 Kalyans-MacBook-Pro:aws-fargate-eks-masterclass kdaida$ kubectl describe sa alb-ingress-controller -n kube-system
 Name:                alb-ingress-controller
