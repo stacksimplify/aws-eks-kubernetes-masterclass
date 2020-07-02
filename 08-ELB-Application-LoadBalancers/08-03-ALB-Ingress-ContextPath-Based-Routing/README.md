@@ -1,6 +1,7 @@
 # AWS ALB Ingress Controller - Context Path Based Routing
 
 ## Step-01: Introduction
+- Discuss about the Architecture we are going to build as part of this Section
 - We are going to create two more apps with static pages in addition to UMS. 
   - App1 with context as /app1 - Simple Nginx custom built image
   - App2 with context as /app2 - Simple Nginx custom built image
@@ -18,7 +19,10 @@
 ## Step-03: Update Health Check Path Annotation in User Management Node Port Service
 - Health check path annotation should be moved to respective node port services if we have to route to multiple targets using single load balancer.
 - **04-UserManagement-NodePort-Service.yml**
-
+```yml
+#Important Note:  Need to add health check path annotations in service level if we are planning to use multiple targets in a load balancer  
+    alb.ingress.kubernetes.io/healthcheck-path: /usermgmt/health-status  
+```
 
 ## Step-04: Create ALB Ingress Context path based Routing Kubernetes manifest
 - **07-ALB-Ingress-ContextPath-Based-Routing.yml**
