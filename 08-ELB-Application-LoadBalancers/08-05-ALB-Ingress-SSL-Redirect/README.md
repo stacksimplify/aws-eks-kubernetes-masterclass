@@ -4,6 +4,8 @@
 - Redirect from HTTP to HTTPS
 - Provides a method for configuring custom actions on a listener, such as for Redirect Actions.
 - The `action-name` in the annotation must match the `serviceName` in the ingress rules, and `servicePort` must be `use-annotation`.
+- **Reference for Custom Actions:** https://kubernetes-sigs.github.io/aws-alb-ingress-controller/guide/ingress/annotation/#actions
+
 
 ### Change-1: Add the Custom Action Annotation
 ```yml
@@ -81,7 +83,6 @@ kubectl delete -f kube-manifests/
 ## Step-07: Annotation Reference
 - Discuss about location where that Annotation can be placed (Ingress or Service)
 - https://kubernetes-sigs.github.io/aws-alb-ingress-controller/guide/ingress/annotation/
-- **Custom Actions:** https://kubernetes-sigs.github.io/aws-alb-ingress-controller/guide/ingress/annotation/#actions
 
 
 
