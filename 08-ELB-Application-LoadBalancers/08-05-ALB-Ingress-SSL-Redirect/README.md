@@ -1,4 +1,4 @@
-# Learn ALB Ingress Controller - Implement HTTP to HTTPS Redirect
+# AWS ALB Ingress Controller - Implement HTTP to HTTPS Redirect
 
 ## Step-01: Add annotations related to SSL Redirect
 - Redirect from HTTP to HTTPS
@@ -26,14 +26,14 @@ kubectl get ingress
 - **Access Application**
 ```
 # HTTP URLs (Should Redirect to HTTPS)
-http://ssldemo.kubesimplify.com/app1/index.html
-http://ssldemo.kubesimplify.com/app2/index.html
-http://ssldemo.kubesimplify.com/usermgmt/health-status
+http://ssldemo.kubeoncloud.com/app1/index.html
+http://ssldemo.kubeoncloud.com/app2/index.html
+http://ssldemo.kubeoncloud.com/usermgmt/health-status
 
 # HTTPS URLs
-https://ssldemo.kubesimplify.com/app1/index.html
-https://ssldemo.kubesimplify.com/app2/index.html
-https://ssldemo.kubesimplify.com/usermgmt/health-status
+https://ssldemo.kubeoncloud.com/app1/index.html
+https://ssldemo.kubeoncloud.com/app2/index.html
+https://ssldemo.kubeoncloud.com/usermgmt/health-status
 ```
 
 ## Step-06: Clean Up

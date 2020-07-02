@@ -21,20 +21,20 @@ metadata:
     alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
     ## SSL Settings
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}, {"HTTP":80}]'
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:411686525067:certificate/8adf7812-a1af-4eae-af1b-ea425a238a67
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:180789647333:certificate/9f042b5d-86fd-4fad-96d0-c81c5abc71e1
     #alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-1-2017-01 #Optional (Picks default if not used)    
 spec:
   rules:
-    #- host: kubedemo.stacksimplify.com    # SSL Setting (Optional only if we are not using certificate-arn annotation)
+    #- host: ssldemo.kubeoncloud.com    # SSL Setting (Optional only if we are not using certificate-arn annotation)
     - http:
         paths:
           - path: /app1/*
             backend:
-              serviceName: app1-nginx-service
+              serviceName: app1-nginx-nodeport-service
               servicePort: 80                        
           - path: /app2/*
             backend:
-              serviceName: app2-nginx-service
+              serviceName: app2-nginx-nodeport-service
               servicePort: 80            
           - path: /*
             backend:

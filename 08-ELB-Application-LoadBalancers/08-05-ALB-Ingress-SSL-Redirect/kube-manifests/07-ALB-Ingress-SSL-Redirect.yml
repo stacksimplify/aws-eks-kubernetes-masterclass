@@ -6,7 +6,7 @@ metadata:
   labels:
     app: usermgmt-restapp
   annotations:
-    # Ingress Core Settings      
+    # Ingress Core Settings  
     kubernetes.io/ingress.class: "alb"
     alb.ingress.kubernetes.io/scheme: internet-facing
     # Health Check Settings
@@ -19,28 +19,24 @@ metadata:
     alb.ingress.kubernetes.io/success-codes: '200'
     alb.ingress.kubernetes.io/healthy-threshold-count: '2'
     alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
-    # SSL Settings
+    ## SSL Settings
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}, {"HTTP":80}]'
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:411686525067:certificate/8adf7812-a1af-4eae-af1b-ea425a238a67
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:180789647333:certificate/9f042b5d-86fd-4fad-96d0-c81c5abc71e1
     #alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-TLS-1-1-2017-01 #Optional (Picks default if not used)    
     # SSL Redirect Setting
     alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'   
 spec:
   rules:
-    #- host: kubedemo.stacksimplify.com    # SSL Setting (Optional only if we are not using certificate-arn annotation)
+    #- host: ssldemo.kubeoncloud.com    # SSL Setting (Optional only if we are not using certificate-arn annotation)
     - http:
         paths:
-          - path: /* # SSL Redirect Setting
-            backend:
-              serviceName: ssl-redirect
-              servicePort: use-annotation           
           - path: /app1/*
             backend:
-              serviceName: app1-nginx-service
+              serviceName: app1-nginx-nodeport-service
               servicePort: 80                        
           - path: /app2/*
             backend:
-              serviceName: app2-nginx-service
+              serviceName: app2-nginx-nodeport-service
               servicePort: 80            
           - path: /*
             backend:
