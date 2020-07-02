@@ -71,7 +71,7 @@ kubectl delete -f kube-manifests/
 - Delete Route53 Record we created (ssldemo.kubeoncloud.com)
 
 
-## Step-07: Annotation Reference
+## Step-06: Annotation Reference
 - Discuss about location where that Annotation can be placed (Ingress or Service)
 - https://kubernetes-sigs.github.io/aws-alb-ingress-controller/guide/ingress/annotation/
 
