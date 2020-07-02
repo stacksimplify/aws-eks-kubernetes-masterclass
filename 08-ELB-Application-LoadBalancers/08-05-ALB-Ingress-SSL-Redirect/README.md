@@ -47,17 +47,8 @@ kubectl apply -f kube-manifests/
 kubectl get ingress 
 ```
 
-## Step-04: Add DNS in Route53   
-- Go to **Services -> Route 53**
-- Go to **Hosted Zones**
-  - Click on **yourdomain.com** (in my case stacksimplify.com)
-- Create a **Record Set**
-  - **Name:** ssldemo.kubeoncloud.com
-  - **Alias:** yes
-  - **Alias Target:** Copy our ALB DNS Name here (Sample: 55dc0e80-default-ingressus-ea9e-551932098.us-east-1.elb.amazonaws.com)
-  - Click on **Create**
-  
-## Step-05: Access Application using newly registered DNS Name
+ 
+## Step-04: Access Application using newly registered DNS Name
 - **Access Application**
 ```
 # HTTP URLs (Should Redirect to HTTPS)
@@ -71,7 +62,7 @@ https://ssldemo.kubeoncloud.com/app2/index.html
 https://ssldemo.kubeoncloud.com/usermgmt/health-status
 ```
 
-## Step-06: Clean Up
+## Step-05: Clean Up
 ### Delete Manifests
 ```
 kubectl delete -f kube-manifests/
