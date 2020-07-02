@@ -10,7 +10,7 @@
 ## Step-02: Pre-requisite - Register a Domain in Route53 (if not exists)
 - Goto Services -> Route53 -> Registered Domains
 - Click on **Register Domain**
-- Provide **desired domain: somedomain.com** and click on **check** (In my case its going to be `kubesimplify.com`)
+- Provide **desired domain: somedomain.com** and click on **check** (In my case its going to be `kubeoncloud.com`)
 - Click on **Add to cart** and click on **Continue**
 - Provide your **Contact Details** and click on **Continue**
 - Enable Automatic Renewal
@@ -22,7 +22,7 @@
 - Go to Services -> Certificate Manager -> Create a Certificate
 - Click on **Request a Certificate**
   - Choose the type of certificate for ACM to provide: Request a public certificate
-  - Add domain names: *.yourdomain.com (in my case it is going to be `*.kubesimplify.com`)
+  - Add domain names: *.yourdomain.com (in my case it is going to be `*.kubeoncloud.com`)
   - Select a Validation Method: **DNS Validation**
   - Click on **Confirm & Request**    
 - **Validation**
@@ -61,24 +61,24 @@ kubectl get ingress
 - Go to **Hosted Zones**
   - Click on **yourdomain.com** (in my case stacksimplify.com)
 - Create a **Record Set**
-  - **Name:** ssldemo.kubesimplify.com
+  - **Name:** ssldemo.kubeoncloud.com
   - **Alias:** yes
   - **Alias Target:** Copy our ALB DNS Name here (Sample: 55dc0e80-default-ingressus-ea9e-551932098.us-east-1.elb.amazonaws.com)
   - Click on **Create**
   
 ## Step-07: Access Application using newly registered DNS Name
 - **Access Application**
-- **Important Note:** Instead of `kubesimplify.com` you need to replace with your registered Route53 domain (Refer pre-requisite Step-02)
+- **Important Note:** Instead of `kubeoncloud.com` you need to replace with your registered Route53 domain (Refer pre-requisite Step-02)
 ```
 # HTTP URLs
-http://ssldemo.kubesimplify.com/app1/index.html
-http://ssldemo.kubesimplify.com/app2/index.html
-http://ssldemo.kubesimplify.com/usermgmt/health-status
+http://ssldemo.kubeoncloud.com/app1/index.html
+http://ssldemo.kubeoncloud.com/app2/index.html
+http://ssldemo.kubeoncloud.com/usermgmt/health-status
 
 # HTTPS URLs
-https://ssldemo.kubesimplify.com/app1/index.html
-https://ssldemo.kubesimplify.com/app2/index.html
-https://ssldemo.kubesimplify.com/usermgmt/health-status
+https://ssldemo.kubeoncloud.com/app1/index.html
+https://ssldemo.kubeoncloud.com/app2/index.html
+https://ssldemo.kubeoncloud.com/usermgmt/health-status
 ```
 
 
