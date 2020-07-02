@@ -12,7 +12,7 @@
 - As part of this process, this respective annotation `alb.ingress.kubernetes.io/healthcheck-path: /usermgmt/health-status` will be moved to respective application NodePort Service. Only generic settings will be present in Ingress manifest annotations area `07-ALB-Ingress-ContextPath-Based-Routing.yml`  
 
 
-## Step-02: Create Nginx App1 Deployment & Service
+## Step-02: Create Nginx App1 & App2 Deployment & Service
 - **App1 Nginx:** 05-Nginx-App1-Deployment-and-NodePortService.yml
 - **App2 Nginx:** 06-Nginx-App2-Deployment-and-NodePortService copy.yml
 
