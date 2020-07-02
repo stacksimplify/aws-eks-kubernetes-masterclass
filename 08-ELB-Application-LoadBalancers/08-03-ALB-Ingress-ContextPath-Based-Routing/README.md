@@ -35,7 +35,7 @@ metadata:
   labels:
     app: usermgmt-restapp
   annotations:
-    # Ingress Core Settings  
+    # Ingress Core Settings
     kubernetes.io/ingress.class: "alb"
     alb.ingress.kubernetes.io/scheme: internet-facing
     # Health Check Settings
@@ -54,17 +54,17 @@ spec:
         paths:
           - path: /app1/*
             backend:
-              serviceName: app1-nginx-service
+              serviceName: app1-nginx-nodeport-service
               servicePort: 80                        
           - path: /app2/*
             backend:
-              serviceName: app2-nginx-service
+              serviceName: app2-nginx-nodeport-service
               servicePort: 80            
           - path: /*
             backend:
               serviceName: usermgmt-restapp-nodeport-service
               servicePort: 8095              
-# Important Note-1: In path based routing order is very important, if we are going to use  "/*", try to use it at the end of all rules.                  
+# Important Note-1: In path based routing order is very important, if we are going to use  "/*", try to use it at the end of all rules.                         
 ```
 
 ## Step-05: Deploy all manifests and test
