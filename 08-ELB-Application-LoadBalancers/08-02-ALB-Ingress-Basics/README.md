@@ -1,10 +1,32 @@
 # AWS ALB Ingress Controller - Basics
 
 ## Step-01: Introduction
+- Discuss about the Application Architecture which we are going to deploy
+
+## Step-02: Foundation Section
+### Create ALB Manually for additional understanding
+- Create a simple Application Load Balancer and understand the following
+- Application Load Balancer Core Concepts
+  - ALB should be **Internet** facing or **Internal**
+  - Listeners (Default HTTP 80)
+  - Rules (HTTP /*)
+  - Target Groups 
+    - Targets (Backends)
+    - HealthCheck Settings
+      - Protocol: HTTP
+      - Traffic Port (8095)
+      - Health Check Path: /usermgmt/health-status
+      - Success Codes: 200
+      - Health check many other settins
+- Delete the Load Balancer      
+
+### Understand about ALB Ingress Annotations
 - Understand about ALB Ingress Annotations. 
 - **Reference:** https://kubernetes-sigs.github.io/aws-alb-ingress-controller/guide/ingress/annotation/
 
-## Step-02: Create ALB kubernetes basic Ingress Manifest
+
+
+## Step-03: Create ALB kubernetes basic Ingress Manifest
 - Create a basic ALB Ingress template. 
 - **05-ALB-Ingress-Basic.yml**
 ```yml
@@ -37,7 +59,7 @@ spec:
               serviceName: usermgmt-restapp-nodeport-service
               servicePort: 8095
 ```
-## Step-03: Deploy Application with ALB Ingress Template included
+## Step-04: Deploy Application with ALB Ingress Template included
 ```
 # Deploy Application with ALB Template
 kubectl apply -f kube-manifests/
@@ -67,7 +89,7 @@ kubectl logs -f $(kubectl get po -n kube-system | egrep -o 'alb-ingress-controll
 07:28:39.900001       1 controller.go:217] kubebuilder/controller "msg"="Reconciler error" "error"="failed to build LoadBalancer configuration due to unable to fetch subnets. Error: WebIdentityErr: failed to retrieve credentials\ncaused by: AccessDenied: Not authorized to perform sts:AssumeRoleWithWebIdentity\n\tstatus code: 403, request id: 3d54741a-4b85-4025-ad11-73d4a3661d09"  "controller"="alb-ingress-controller" "request"={"Namespace":"default","Name":"ingress-usermgmt-restapp-service"}
 ```
 
-## Step-04: Verify the ALB in AWS Management Console & Access Application using ALB DNS URL
+## Step-05: Verify the ALB in AWS Management Console & Access Application using ALB DNS URL
 - Verify Load Balancer
     - In Listeners Tab, click on **View/Edit Rules** under Rules
 - Verify Target Groups
@@ -78,7 +100,7 @@ kubectl logs -f $(kubectl get po -n kube-system | egrep -o 'alb-ingress-controll
 http://<ALB-DNS-URL>/usermgmt/health-status
 ```
 
-## Step-05: Clean Up
+## Step-06: Clean Up
 ```
 kubectl delete -f kube-manifests/
 ```
