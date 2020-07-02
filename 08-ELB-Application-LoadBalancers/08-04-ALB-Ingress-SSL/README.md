@@ -81,14 +81,4 @@ https://ssldemo.kubeoncloud.com/app2/index.html
 https://ssldemo.kubeoncloud.com/usermgmt/health-status
 ```
 
-## Step-08: Clean Up
-### Delete Manifests
-```
-kubectl delete -f kube-manifests/
-```
-### Delete Route53 Record Set
-- Delete Route53 Record we created (ssldemo.kubeoncloud.com)
-
-
-
 
