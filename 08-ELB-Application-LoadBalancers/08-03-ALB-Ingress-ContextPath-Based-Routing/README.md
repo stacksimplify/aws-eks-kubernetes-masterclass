@@ -14,7 +14,7 @@
 
 ## Step-02: Create Nginx App1 & App2 Deployment & Service
 - **App1 Nginx:** 05-Nginx-App1-Deployment-and-NodePortService.yml
-- **App2 Nginx:** 06-Nginx-App2-Deployment-and-NodePortService copy.yml
+- **App2 Nginx:** 06-Nginx-App2-Deployment-and-NodePortService.yml
 
 ## Step-03: Update Health Check Path Annotation in User Management Node Port Service
 - Health check path annotation should be moved to respective node port services if we have to route to multiple targets using single load balancer.
