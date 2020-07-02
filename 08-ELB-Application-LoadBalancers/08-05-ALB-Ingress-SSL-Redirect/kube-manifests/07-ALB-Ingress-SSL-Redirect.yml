@@ -30,6 +30,10 @@ spec:
     #- host: ssldemo.kubeoncloud.com    # SSL Setting (Optional only if we are not using certificate-arn annotation)
     - http:
         paths:
+          - path: /* # SSL Redirect Setting
+            backend:
+              serviceName: ssl-redirect
+              servicePort: use-annotation            
           - path: /app1/*
             backend:
               serviceName: app1-nginx-nodeport-service
@@ -44,4 +48,3 @@ spec:
               servicePort: 8095              
 # Important Note-1: In path based routing order is very important, if we are going to use  "/*", try to use it at the end of all rules.         
 
-    
