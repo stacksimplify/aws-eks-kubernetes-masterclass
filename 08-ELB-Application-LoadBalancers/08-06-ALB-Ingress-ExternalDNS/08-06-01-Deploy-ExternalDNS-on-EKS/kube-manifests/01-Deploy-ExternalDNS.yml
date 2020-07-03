@@ -5,8 +5,8 @@ metadata:
   # If you're using Amazon EKS with IAM Roles for Service Accounts, specify the following annotation.
   # Otherwise, you may safely omit it.
   annotations:
-    # Substitute your account ID and IAM service role name below.
-    eks.amazonaws.com/role-arn: arn:aws:iam::411686525067:role/eksctl-eksdemo1-addon-iamserviceaccount-defa-Role1-1O3H7ZLUED5H4
+    # Substitute your account ID and IAM service role name below. #Change-1: Replace with your IAM ARN Role for extern-dns
+    eks.amazonaws.com/role-arn: arn:aws:iam::180789647333:role/eksctl-eksdemo1-addon-iamserviceaccount-defa-Role1-1O3H7ZLUED5H4
 ---
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
@@ -51,7 +51,7 @@ spec:
       labels:
         app: external-dns
       # If you're using kiam or kube2iam, specify the following annotation.
-      # Otherwise, you may safely omit it.
+      # Otherwise, you may safely omit it.  #Change-2: Commented line 55 and 56
       #annotations:  
         #iam.amazonaws.com/role: arn:aws:iam::ACCOUNT-ID:role/IAM-SERVICE-ROLE-NAME    
     spec:
@@ -62,9 +62,9 @@ spec:
         args:
         - --source=service
         - --source=ingress
-        # SS-COMMENTED - --domain-filter=external-dns-test.my-org.com # will make ExternalDNS see only the hosted zones matching provided domain, omit to process all available hosted zones
+        # Change-3: Commented line 65 and 67 - --domain-filter=external-dns-test.my-org.com # will make ExternalDNS see only the hosted zones matching provided domain, omit to process all available hosted zones
         - --provider=aws
-       # SS-COMMENTED  - --policy=upsert-only # would prevent ExternalDNS from deleting any records, omit to enable full synchronization
+       # Change-3: Commented line 65 and 67  - --policy=upsert-only # would prevent ExternalDNS from deleting any records, omit to enable full synchronization
         - --aws-zone-type=public # only look at public hosted zones (valid values are public, private or no value for both)
         - --registry=txt
         - --txt-owner-id=my-hostedzone-identifier
