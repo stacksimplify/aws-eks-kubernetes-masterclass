@@ -1,0 +1,14 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: eksdemo1
+  region: us-east-1
+fargateProfiles:
+  - name: fp-stage-profile
+    selectors:
+      - namespace: fp-stage
+  - name: fp-prod-profile
+    selectors:
+      - namespace: fp-prod
+        labels:
+          runon: fargate     
