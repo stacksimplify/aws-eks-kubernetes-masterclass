@@ -1,6 +1,15 @@
 # EKS - Fargate Profiles
 
-## Step-01: Introduction
+## Step-01: What are we going to learn?
+- **Assumptions:**
+  - We already havea EKS Cluster whose name is eksdemo1 created using eksctl
+  - We already have a Managed Node Group with private networking enabled with two worker nodes
+- We are going to create a fargate profile using eksctl on our existing EKS Cluster eksdemo1
+- We are going to deploy a simple workload
+  - Deployment: Nginx App 1
+  - NodePort Service: Nginx App1 
+  - Ingress Service: Application Load Balancer 
+- Ingress manifest going to have a additional annotation related to `target-type: ip` as these are going to be fargate workloads.
 
 ## Step-02: Create Fargate Profile
 ### Create Fargate Profile
