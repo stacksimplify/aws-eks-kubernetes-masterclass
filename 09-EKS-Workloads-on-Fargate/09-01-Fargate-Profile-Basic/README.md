@@ -16,6 +16,7 @@
 - eksctl will have continuous releases with new feature additions to it. Its always good to be on latest version of eksctl. 
 - You can upgrade to latest version using below command on Mac
 - Currently highly evolving space (continuous features and new releases) from Kubernetes in AWS is eksctl and Fargate. 
+- **eksctl Releases URL:** https://github.com/weaveworks/eksctl/releases
 ```
 # Update eksctl on mac
 brew upgrade eksctl && brew link --overwrite eksctl
