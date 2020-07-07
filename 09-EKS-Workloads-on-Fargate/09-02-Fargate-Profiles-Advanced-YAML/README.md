@@ -118,3 +118,6 @@ eksctl delete fargateprofile --cluster eksdemo1 --name fp-app2-profile --wait
 eksctl delete fargateprofile --cluster eksdemo1 --name fp-ums-profile --wait
 
 ```
+
+## Reference github Issue for ALB Ingress with Cross Namespaces
+- https://github.com/kubernetes/kubernetes/issues/17088
