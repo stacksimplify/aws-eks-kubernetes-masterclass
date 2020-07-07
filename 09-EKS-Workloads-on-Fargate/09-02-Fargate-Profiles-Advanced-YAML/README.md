@@ -20,17 +20,17 @@ metadata:
 fargateProfiles:
   - name: fp-app2
     selectors:
-      # All workloads in the "fp-app2" Kubernetes namespace will be
+      # All workloads in the "ns-app2" Kubernetes namespace will be
       # scheduled onto Fargate:      
       - namespace: ns-app2
   - name: fp-ums
     selectors:
-      # All workloads in the "fp-ums" Kubernetes namespace matching the following
+      # All workloads in the "ns-ums" Kubernetes namespace matching the following
       # label selectors will be scheduled onto Fargate:      
       - namespace: ns-ums
         labels:
           runon: fargate     
-   
+  
 ```
 
 ## Step-03: Create Fargate Profiles using YAML files
