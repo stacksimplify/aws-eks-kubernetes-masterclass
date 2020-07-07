@@ -1,14 +1,18 @@
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 metadata:
-  name: eksdemo1
+  name: eksdemo1  # Name of the EKS Cluster
   region: us-east-1
 fargateProfiles:
   - name: fp-app2-profile
     selectors:
+      # All workloads in the "fp-app2" Kubernetes namespace will be
+      # scheduled onto Fargate:      
       - namespace: fp-app2
   - name: fp-ums-profile
     selectors:
+      # All workloads in the "fp-ums" Kubernetes namespace matching the following
+      # label selectors will be scheduled onto Fargate:      
       - namespace: fp-ums
         labels:
           runon: fargate     

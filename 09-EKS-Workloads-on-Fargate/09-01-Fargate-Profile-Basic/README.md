@@ -158,6 +158,21 @@ eksctl delete fargateprofile --cluster <cluster-name> --name <Fargate-Profile-Na
 eksctl delete fargateprofile --cluster eksdemo1 --name fp-demo --wait
 ```
 
+
+## Step-08: Verify NGINX App1 got scheduled on Managed Node Group
+- After fargate profile deletions, apps running on fargate will be scheduled on Node Groups if they exists if not will go to pending state
+```
+# List Pods from fpdev namespace
+kubectl get pods -n fp-dev -o wide
+```
+
+## Step-09: Clean-up
+```
+# Delete
+kubectl delete -f kube-manifests/
+```
+
+
 ## References
 - https://eksctl.io/usage/fargate-support/
 - https://docs.aws.amazon.com/eks/latest/userguide/fargate.html
