@@ -114,8 +114,8 @@ eksctl get fargateprofile --cluster eksdemo1
 
 # Delete Fargate Profile
 eksctl delete fargateprofile --cluster <cluster-name> --name <Fargate-Profile-Name> --wait
-eksctl delete fargateprofile --cluster eksdemo1 --name fp-app2-profile --wait
-eksctl delete fargateprofile --cluster eksdemo1 --name fp-ums-profile --wait
+eksctl delete fargateprofile --cluster eksdemo1 --name fp-app2 --wait
+eksctl delete fargateprofile --cluster eksdemo1 --name fp-ums --wait
 
 ```
 
