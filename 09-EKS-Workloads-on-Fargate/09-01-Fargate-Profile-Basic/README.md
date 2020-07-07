@@ -18,8 +18,14 @@
 - Currently highly evolving space (continuous features and new releases) from Kubernetes in AWS is eksctl and Fargate. 
 - **eksctl Releases URL:** https://github.com/weaveworks/eksctl/releases
 ```
+# Check version
+eksctl version
+
 # Update eksctl on mac
 brew upgrade eksctl && brew link --overwrite eksctl
+
+# Check version
+eksctl version
 ```
 
 ### Pre-requisite check about ALB Ingress Controller & external-dns
