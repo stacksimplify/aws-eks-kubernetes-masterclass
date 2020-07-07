@@ -1,4 +1,4 @@
-# Create 3 environments using Namespaces
+# Mixed Mode Deployment - 3 Apps 
 
 ## Step-01: What are we going to learn?
 - We are going to learn about writing Fargate Profiles using YAML wherein with YAML we can create multiple fargate profiles at a time. 
