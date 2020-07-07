@@ -5,7 +5,7 @@ metadata:
   name: ingress-usermgmt-restapp-service
   labels:
     app: usermgmt-restapp
-  namespace: fp-stage  
+  namespace: fp-app2 
   annotations:
     # Ingress Core Settings  
     kubernetes.io/ingress.class: "alb"
@@ -27,7 +27,7 @@ metadata:
     # SSL Redirect Setting
     alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'   
     # External DNS - For creating a Record Set in Route53
-    external-dns.alpha.kubernetes.io/hostname: stage1.kubeoncloud.com, stage2.kubeoncloud.com      
+    external-dns.alpha.kubernetes.io/hostname: app2.kubeoncloud.com
     # For Fargate
     alb.ingress.kubernetes.io/target-type: ip       
 spec:
@@ -38,18 +38,10 @@ spec:
           - path: /* # SSL Redirect Setting
             backend:
               serviceName: ssl-redirect
-              servicePort: use-annotation            
-          - path: /app1/*
-            backend:
-              serviceName: app1-nginx-nodeport-service
-              servicePort: 80                        
-          - path: /app2/*
+              servicePort: use-annotation                            
+          - path: /*
             backend:
               serviceName: app2-nginx-nodeport-service
               servicePort: 80            
-          - path: /*
-            backend:
-              serviceName: usermgmt-restapp-nodeport-service
-              servicePort: 8095              
 # Important Note-1: In path based routing order is very important, if we are going to use  "/*", try to use it at the end of all rules.         
 

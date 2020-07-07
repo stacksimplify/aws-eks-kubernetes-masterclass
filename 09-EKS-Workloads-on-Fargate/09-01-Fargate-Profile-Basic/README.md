@@ -9,11 +9,23 @@
   - Deployment: Nginx App 1
   - NodePort Service: Nginx App1 
   - Ingress Service: Application Load Balancer 
-- Ingress manifest going to have a additional annotation related to `target-type: ip` as these are going to be fargate workloads.
+- Ingress manifest going to have a additional annotation related to `target-type: ip` as these are going to be fargate workloads we are not going to have `Dedicated EC2 Worker Node - Node Ports`
+
+## Pre-requisite Note about eksctl CLI
+- eksctl will have continuous releases with new feature additions to it. Its always good to be on latest version of eksctl. 
+- You can upgrade to latest version using below command on Mac
+- Currently highly evolving space (continuous features and new releases) from Kubernetes in AWS is eksctl and Fargate. 
+```
+# Update eksctl on mac
+brew upgrade eksctl && brew link --overwrite eksctl
+```
 
 ## Step-02: Create Fargate Profile
 ### Create Fargate Profile
 ```
+# Get list of Fargate Profiles in a cluster
+eksctl get fargateprofile --cluster eksdemo1
+
 # Template
 eksctl create fargateprofile --cluster <cluster_name> \
                              --name <fargate_profile_name> \
@@ -39,9 +51,11 @@ eksctl create fargateprofile --cluster eksdemo1 \
 ```
 ## Step-03: Review NGINX App1 & Ingress Manifests
 - We are going to deploy a simple NGINX App1 with Ingress Load Balancer
-- We cannot use NodePort Service for Fargate Pods for two reasons
+- We cannot use Worker Node Node Ports for Fargate Pods for two reasons
   - Fargate Pods are created in Private Subnets, so no access to internet to access
   - Fargate Pods are created on random worker nodes whose information is unknown to us to use NodePort Service
+  - But in our case, we are in mixed environment with Node Groups and Fargate, if we create a NodePort service, it will create the service with Node Group EC2 Worker Nodes Ports and it will work but when we delete those Node Groups, we will have an issue. 
+  - Always recommended to use `alb.ingress.kubernetes.io/target-type: ip` in ingress manifest for Fargate workloads
 ### Create Namespace Manifest 
 - This namespace manifest should match the one with we have created the Fargate Profile namespace value `fp-dev`
 ```yml
@@ -56,6 +70,21 @@ metadata:
   namespace: fp-dev 
 ```
 
+### Update All Deployment Manifests with Resources in Pod Template
+- In Fargate, it is super highly recommended to provide the `resources.requests, resources.limits` about `cpu and memory`.  Almost you can make it mandatory. 
+- This will help Fargate to schedule a Fargate Host accordingly. 
+- As fargate follows `1:1` ratio `Host:Pod`, one pod per host concept, we defining `resources` section in pod template (Deployment pod template spec) should be our mandatory option.
+- Even if we forget to define `resources` in our Deployment Pod Template, low memory using pods like NGINX will come up, high memory using Apps like Spring Boot REST APIs will keep restarting continuously due to unavailable resources.
+```yml
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "500m"
+            limits:
+              memory: "500Mi"
+              cpu: "1000m"    
+```
+
 ### Update Ingress Manifest
 - As we are running our pods on Fargate Serverless, we need to change our target-type to IP as there is no dedicated EC2 worker nodes concept in Fargate. 
 ```yml
@@ -65,7 +94,7 @@ metadata:
 - Also update the DNS Names
 ```yml
     # External DNS - For creating a Record Set in Route53
-    external-dns.alpha.kubernetes.io/hostname: fpdev1.kubeoncloud.com, fpdev2.kubeoncloud.com   
+    external-dns.alpha.kubernetes.io/hostname: fpdev.kubeoncloud.com   
 ```
 
 ## Step-04: Deploy Workload
@@ -88,7 +117,7 @@ kubectl get ingress -n fp-dev
 
 ## Step-05: Access Application & Test
 ```
-http://fpdev1.kubeoncloud.com/app1/index.html
+http://fpdev.kubeoncloud.com/app1/index.html
 ```
 
 

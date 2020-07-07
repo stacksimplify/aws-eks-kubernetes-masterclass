@@ -4,11 +4,11 @@ metadata:
   name: eksdemo1
   region: us-east-1
 fargateProfiles:
-  - name: fp-stage-profile
+  - name: fp-app2-profile
     selectors:
-      - namespace: fp-stage
-  - name: fp-prod-profile
+      - namespace: fp-app2
+  - name: fp-ums-profile
     selectors:
-      - namespace: fp-prod
+      - namespace: fp-ums
         labels:
           runon: fargate     

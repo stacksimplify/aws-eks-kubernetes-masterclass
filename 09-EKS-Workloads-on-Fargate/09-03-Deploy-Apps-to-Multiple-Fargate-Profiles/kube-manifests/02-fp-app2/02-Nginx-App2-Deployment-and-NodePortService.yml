@@ -4,9 +4,9 @@ metadata:
   name: app2-nginx-deployment
   labels:
     app: app2-nginx 
-  namespace: fp-dev    
+  namespace: fp-app2
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: app2-nginx
@@ -20,6 +20,13 @@ spec:
           image: stacksimplify/kube-nginxapp2:1.0.0
           ports:
             - containerPort: 80
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "500m"
+            limits:
+              memory: "500Mi"
+              cpu: "1000m"                         
 ---
 apiVersion: v1
 kind: Service
@@ -27,7 +34,7 @@ metadata:
   name: app2-nginx-nodeport-service
   labels:
     app: app2-nginx
-  namespace: fp-dev    
+  namespace: fp-app2
   annotations:
 #Important Note:  Need to add health check path annotations in service level if we are planning to use multiple targets in a load balancer
     alb.ingress.kubernetes.io/healthcheck-path: /app2/index.html

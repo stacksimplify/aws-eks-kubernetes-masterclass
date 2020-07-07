@@ -4,10 +4,9 @@ metadata:
   name: app1-nginx-deployment
   labels:
     app: app1-nginx
-    runon: fargate 
-  namespace: fp-prod
+  namespace: fp-app1  
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: app1-nginx
@@ -15,13 +14,19 @@ spec:
     metadata:
       labels:
         app: app1-nginx
-        runon: fargate 
     spec:
       containers:
         - name: app1-nginx
           image: stacksimplify/kube-nginxapp1:1.0.0
           ports:
             - containerPort: 80
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "500m"
+            limits:
+              memory: "500Mi"
+              cpu: "1000m"                         
 ---
 apiVersion: v1
 kind: Service
@@ -29,8 +34,7 @@ metadata:
   name: app1-nginx-nodeport-service
   labels:
     app: app1-nginx
-    runon: fargate 
-  namespace: fp-prod
+  namespace: fp-app1
   annotations:
 #Important Note:  Need to add health check path annotations in service level if we are planning to use multiple targets in a load balancer    
     alb.ingress.kubernetes.io/healthcheck-path: /app1/index.html

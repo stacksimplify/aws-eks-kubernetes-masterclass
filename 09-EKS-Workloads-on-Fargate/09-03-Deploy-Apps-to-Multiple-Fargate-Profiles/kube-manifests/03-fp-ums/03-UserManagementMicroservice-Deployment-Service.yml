@@ -4,9 +4,10 @@ metadata:
   name: usermgmt-microservice
   labels:
     app: usermgmt-restapp
-  namespace: fp-stage   
+    runon: fargate 
+  namespace: fp-ums
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: usermgmt-restapp
@@ -14,6 +15,7 @@ spec:
     metadata:
       labels: 
         app: usermgmt-restapp
+        runon: fargate 
     spec:
       initContainers:
         - name: init-db
@@ -22,6 +24,13 @@ spec:
       containers:
         - name: usermgmt-restapp
           image: stacksimplify/kube-usermanagement-microservice:1.0.0  
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "500m"
+            limits:
+              memory: "500Mi"
+              cpu: "1000m"          
           ports: 
             - containerPort: 8095           
           env:
