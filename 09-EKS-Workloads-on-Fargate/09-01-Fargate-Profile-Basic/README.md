@@ -91,6 +91,7 @@ metadata:
 
 ### Update Ingress Manifest
 - As we are running our pods on Fargate Serverless, we need to change our target-type to IP as there is no dedicated EC2 worker nodes concept in Fargate. 
+- **Important Note:** When we are using same ingress in mixed mode deployments `Node Groups & Fargate` we can use this annotation at service level.
 ```yml
     # For Fargate
     alb.ingress.kubernetes.io/target-type: ip    
@@ -138,3 +139,5 @@ eksctl delete fargateprofile --cluster eksdemo1 --name fp-demo --wait
 ## References
 - https://eksctl.io/usage/fargate-support/
 - https://docs.aws.amazon.com/eks/latest/userguide/fargate.html
+- https://kubernetes-sigs.github.io/aws-alb-ingress-controller/guide/ingress/annotation/#annotations
+- https://kubernetes-sigs.github.io/aws-alb-ingress-controller/guide/ingress/annotation/#traffic-routing

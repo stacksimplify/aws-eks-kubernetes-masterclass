@@ -32,7 +32,6 @@ metadata:
     alb.ingress.kubernetes.io/target-type: ip    
 spec:
   rules:
-    #- host: ssldemo.kubeoncloud.com    # SSL Setting (Optional only if we are not using certificate-arn annotation)
     - http:
         paths:
           - path: /* # SSL Redirect Setting
