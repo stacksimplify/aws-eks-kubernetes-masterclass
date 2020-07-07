@@ -96,7 +96,7 @@ kubectl get nodes -o wide
 
 ### Access Applications
 - App1: http://app1.kubeoncloud.com/app1/index.html
-- App2: http://app1.kubeoncloud.com/app1/index.html
+- App2: http://app2.kubeoncloud.com/app2/index.html
 - UMS Health Status Page: http://ums.kubeoncloud.com/usermgmt/health-status
 - UMS List Users: http://ums.kubeoncloud.com/usermgmt/users 
 
