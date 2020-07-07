@@ -10,12 +10,9 @@
   - **NodePort Service:** Nginx App1 
   - **Ingress Service:** Application Load Balancer 
 - Ingress manifest going to have a additional annotation related to `target-type: ip` as these are going to be fargate workloads we are not going to have `Dedicated EC2 Worker Node - Node Ports`
-```
-# Get Current Worker Nodes in Kubernetes cluster
-kubectl get nodes -o wide
-```
 
-## Pre-requisite Note about eksctl CLI
+## Step-02: Pre-requisites
+### Pre-requisite Note about eksctl CLI
 - eksctl will have continuous releases with new feature additions to it. Its always good to be on latest version of eksctl. 
 - You can upgrade to latest version using below command on Mac
 - Currently highly evolving space (continuous features and new releases) from Kubernetes in AWS is eksctl and Fargate. 
@@ -24,7 +21,24 @@ kubectl get nodes -o wide
 brew upgrade eksctl && brew link --overwrite eksctl
 ```
 
-## Step-02: Create Fargate Profile
+### Pre-requisite check about ALB Ingress Controller & external-dns
+- We need to have the below two listed components to be already running on our NodeGroup before deploying our application on fargate. 
+  - ALB Ingress Controller
+  - External DNS
+- For our application, in addition to just deploying it we are going to access it via DNS registed url `fpdev.kubeoncloud.com`
+
+```
+# Get Current Worker Nodes in Kubernetes cluster
+kubectl get nodes -o wide
+
+# Verify Ingress Controller Pod running
+kubectl get pods -n kube-system
+
+# Verify external-dns Pod running
+kubectl get pods
+```
+
+## Step-03: Create Fargate Profile on cluster eksdemo1
 ### Create Fargate Profile
 ```
 # Get list of Fargate Profiles in a cluster
@@ -53,7 +67,7 @@ eksctl create fargateprofile --cluster eksdemo1 \
 [ℹ]  creating Fargate profile "fp-demo" on EKS cluster "eksdemo1"
 [ℹ]  created Fargate profile "fp-demo" on EKS cluster "eksdemo1"
 ```
-## Step-03: Review NGINX App1 & Ingress Manifests
+## Step-04: Review NGINX App1 & Ingress Manifests
 - We are going to deploy a simple NGINX App1 with Ingress Load Balancer
 - We cannot use Worker Node Node Ports for Fargate Pods for two reasons
   - Fargate Pods are created in Private Subnets, so no access to internet to access
@@ -102,7 +116,7 @@ metadata:
     external-dns.alpha.kubernetes.io/hostname: fpdev.kubeoncloud.com   
 ```
 
-## Step-04: Deploy Workload
+## Step-05: Deploy Workload to Fargate
 ```
 # Deploy 
 kubectl apply -f kube-manifests/
@@ -120,13 +134,14 @@ kubectl get nodes -o wide
 kubectl get ingress -n fp-dev
 ```
 
-## Step-05: Access Application & Test
+## Step-06: Access Application & Test
 ```
+# Access Application
 http://fpdev.kubeoncloud.com/app1/index.html
 ```
 
 
-## Step-06: Delete Fargate Profile
+## Step-07: Delete Fargate Profile
 ```
 # Get list of Fargate Profiles in a cluster
 eksctl get fargateprofile --cluster eksdemo1
