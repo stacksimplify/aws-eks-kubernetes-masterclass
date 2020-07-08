@@ -13,7 +13,7 @@
 - **Repository:** An ECR image repository contains our Docker images. 
 - **Repository policy:** We can control access to our repositories and the images within them with repository policies. 
 - **Authorization token:** Our Docker client must authenticate to Amazon ECR registries as an AWS user before it can push and pull images. The AWS CLI get-login command provides us with authentication credentials to pass to Docker. 
-- **Image:** We can push and pull container images to our repositories. We can use these images locally on your development system, or we can use them in Amazon ECS task definitions. 
+- **Image:** We can push and pull container images to our repositories.  
 
 ## Step-03: Pre-requisites
 - Install required CLI software on your local desktop
@@ -50,7 +50,7 @@ aws ecr create-repository --repository-name <your-repo-name> --region <your-regi
 ```
 
 ## Step-05: Create Docker Image locally
-- Navigate to folder **10-ECR-Elastic-Container-Registry\01-aws-ecs-kubenginx** from course github content download. 
+- Navigate to folder **10-ECR-Elastic-Container-Registry\01-aws-ecr-kubenginx** from course github content download. 
 - Create docker image locally
 - Run it locally and test
 ```
