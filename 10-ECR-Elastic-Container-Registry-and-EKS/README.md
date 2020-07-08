@@ -83,28 +83,37 @@ docker push 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-kubenginx:1.0.0
 - Verify the vulnerability scan results. 
 
 ## Step-07: Using ECR Image with Amazon EKS
+
+### Review the k8s manifests
 - Understand the Deployment and Service kubernetes manifests present in folder **10-ECR-Elastic-Container-Registry\02-kube-manifests**
-- **Important Note:** We have two objects deployment and service present in single yaml file separated by `---` 
+  - **Deployment:** 01-ECR-Nginx-Deployment.yml
+  - **NodePort Service:** 02-ECR-Nginx-NodePortService.yml
+  - **ALB Ingress Service:** 03-ECR-Nginx-ALB-IngressService.yml
+
 ### Deploy the kubernetes manifests
 ```
-cd 10-ECR-Elastic-Container-Registry\02-kube-manifests
-kubectl apply -f ecr-kube-deployment-and-service.yml
+# Deploy
+kubectl apply -f 02-kube-manifests/
+
+# Verify
 kubectl get deploy
 kubectl get svc
 kubectl get po
+kubectl get ingress
 ```
 ### Access Application
+- Wait for ALB Ingress to be provisioned
+- Verify Route 53 DNS registration `ecrdemo.kubeoncloud.com`
 ```
 # Get external ip of EKS Cluster Kubernetes worker nodes
 kubectl get nodes -o wide
 
 # Access Application
-http://<External-IP-of-EKS-Cluster-Nodes>:31231
+http://ecrdemo.kubeoncloud.com/index.html
 ```
 
 ## Step-08: Clean Up 
 ```
-cd 10-ECR-Elastic-Container-Registry\02-kube-manifests
-kubectl delete -f ecr-kube-deployment-and-service.yml
-kubectl get deploy
+# Clean-Up
+kubectl delete -f 02-kube-manifests/
 ```
