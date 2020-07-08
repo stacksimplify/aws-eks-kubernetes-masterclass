@@ -95,6 +95,16 @@ docker push 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-kubenginx:1.0.0
   - **NodePort Service:** 02-ECR-Nginx-NodePortService.yml
   - **ALB Ingress Service:** 03-ECR-Nginx-ALB-IngressService.yml
 
+### Verify ECR Access to EKS Worker Nodes
+- Go to Services -> EC2 -> Running Instances > Select a Worker Node -> Description Tab
+- Click on value in `IAM Role` field
+```
+# Sample Role Name 
+eksctl-eksdemo1-nodegroup-eksdemo-NodeInstanceRole-1U4PSS3YLALN6
+```
+- In IAM on that specific role, verify **permissions** tab
+- Policy with name `AmazonEC2ContainerRegistryReadOnly` should be associated
+
 ### Deploy the kubernetes manifests
 ```
 # Deploy
