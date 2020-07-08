@@ -1,7 +1,12 @@
-# AWS ECR - Elastic Container Registry Integration
+# AWS ECR - Elastic Container Registry Integration & EKS
 
-## Step-01: Introduction to ECR
--  For introduction slides refer the [presentation slides](/presentation/AWS-Fargate-and-EKS-Masterclass.pptx). 
+## Step-01: What are we going to learn?
+- We are going build a Docker image 
+- Push to ECR Repository
+- Update that ECR Image Repository URL in our Kubernetes Deployment manifest
+- Deploy to EKS
+- Kubernetes Deployment, NodePort Service, Ingress Service and External-DNS will be used to depict a full-on deployment
+- We will access the ECR Demo Application using registered dns `http://ecrdemo.kubeoncloud.com`
 
 ## Step-02: ECR Terminology
  - **Registry:** An  ECR registry is provided to each AWS account; we can create image repositories in our registry and store images in them. 
