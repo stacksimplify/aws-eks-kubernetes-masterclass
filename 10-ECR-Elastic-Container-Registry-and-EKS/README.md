@@ -18,7 +18,7 @@
 ## Step-03: Pre-requisites
 - Install required CLI software on your local desktop
    - **Install AWS CLI V2 version**
-      - We have taken care of this step as part of [01-EKS-Create-Clusters](/01-EKS-Create-Clusters/README.md)
+      - We have taken care of this step as part of [01-EKS-Create-Clusters-using-eksctl](/01-EKS-Create-Cluster-using-eksctl/01-01-Install-CLIs/README.md)
       - Documentation Reference: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
    - **Install Docker CLI** 
       - We have taken of Docker local desktop installation as part of [Docker Fundamentals](https://github.com/stacksimplify/docker-fundamentals/tree/master/02-Docker-Installation) section 
@@ -27,7 +27,7 @@
       - Docker on Linux: https://docs.docker.com/install/linux/docker-ce/centos/
 
    - **On AWS Console**
-      - We have taken care of this step as part of [01-EKS-Create-Clusters](/01-EKS-Create-Cluster-using-eksctl/01-01-Install-CLIs/README.md)
+      - We have taken care of this step as part of [01-EKS-Create-Clusters-using-eksctl](/01-EKS-Create-Cluster-using-eksctl/01-01-Install-CLIs/README.md)
       - Create Authorization Token for admin user if not created
       - **Configure AWS CLI with Authorization Token**
 ```
