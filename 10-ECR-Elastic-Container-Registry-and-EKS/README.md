@@ -103,7 +103,7 @@ docker push 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-kubenginx:1.0.0
 eksctl-eksdemo1-nodegroup-eksdemo-NodeInstanceRole-1U4PSS3YLALN6
 ```
 - In IAM on that specific role, verify **permissions** tab
-- Policy with name `AmazonEC2ContainerRegistryReadOnly` should be associated
+- Policy with name `AmazonEC2ContainerRegistryReadOnly, AmazonEC2ContainerRegistryPowerUser` should be associated
 
 ### Deploy the kubernetes manifests
 ```

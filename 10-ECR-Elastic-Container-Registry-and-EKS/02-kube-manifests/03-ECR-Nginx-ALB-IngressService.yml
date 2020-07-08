@@ -4,7 +4,7 @@ kind: Ingress
 metadata:
   name: ecr-ingress-service
   labels:
-    app: app1-nginx
+    app: kubeapp-ecr
   annotations:
     # Ingress Core Settings  
     kubernetes.io/ingress.class: "alb"
