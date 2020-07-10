@@ -1,11 +1,27 @@
 # DevOps with AWS Developer Tools on AWS EKS
 
 ## Step-01: Introduction to DevOps
+- Understand DevOps concepts
+  - CI - Continuous Integration
+  - CD - Continuous Deployment or Delivery
+- Understand more about AWS Tools that help us to implement DevOps.
+  - AWS CodeCommit
+  - AWS CodeBuild
+  - AWS CodePipeline
 
 ## Step-02: What are we going to learn?
+- We are going to create a ECR Repository for our Docker Images
+- We are going to create Code Commit Git Repository and check-in our Docker and Kubernetes Manifests
+- We will write a `buildspec.yml` which will eventually build a docker image, push the same to ECR Repository and Deploy the updated k8s Deployment manifest to EKS Cluster.
+- To achive all this we need also create or update few roles
+  - **STS Assume Role:** EksCodeBuildKubectlRole
+    - **Inline Policy:** eksdescribe
+  - **CodeBuild Role:** codebuild-eks-devops-cb-for-pipe-service-role    
+    - **ECR Full Access Policy:** AmazonEC2ContainerRegistryFullAccess
+    - **STS Assume Policy:** eks-codebuild-sts-assume-role
+        - **STS Assume Role:** EksCodeBuildKubectlRole
 
-
-## Pre-requisite check
+## Step-03: Pre-requisite check
 - We are going to deploy a application which will also have a `ALB Ingress Service` and also will register its DNS name in Route53 using `External DNS`
 - Which means we should have both related pods running in our cluster. 
 ```
@@ -16,7 +32,7 @@ kubectl get pods -n kube-system
 kubectl get pods
 ```
 
-## Step-03: Create ECR Repository for our Application Docker Images
+## Step-04: Create ECR Repository for our Application Docker Images
 - Go to Services -> Elastic Container Registry -> Create Repository
 - Name: eks-devops-nginx
 - Tag Immutability: Enable
@@ -28,7 +44,7 @@ kubectl get pods
 180789647333.dkr.ecr.us-east-1.amazonaws.com/eks-devops-nginx
 ```
 
-## Step-04: Create CodeCommit Repository
+## Step-05: Create CodeCommit Repository
 - Create Code Commit Repository with name as **eks-devops-nginx**
 - Create git credentials from IAM Service and make a note of those credentials.
 - Clone the git repository from Code Commit to local repository, during the process provide your git credentials generated to login to git repo
@@ -55,7 +71,7 @@ git status
 ```
 - Verify the same on CodeCommit Repository in AWS Management console.
 
-## Step-05: Create STS Assume IAM Role for CodeBuild to interact with AWS EKS
+## Step-06: Create STS Assume IAM Role for CodeBuild to interact with AWS EKS
 - In an AWS CodePipeline, we are going to use AWS CodeBuild to deploy changes to our Kubernetes manifests. 
 - This requires an AWS IAM role capable of interacting with the EKS cluster.
 - In this step, we are going to create an IAM role and add an inline policy `EKS:Describe` that we will use in the CodeBuild stage to interact with the EKS cluster via kubectl.
@@ -81,7 +97,7 @@ aws iam put-role-policy --role-name EksCodeBuildKubectlRole --policy-name eks-de
 # Verify the same on Management Console
 ```
 
-## Step-06: Update EKS Cluster aws-auth ConfigMap with new role created in previous step
+## Step-07: Update EKS Cluster aws-auth ConfigMap with new role created in previous step
 - We are going to add the role to the `aws-auth ConfigMap` for the EKS cluster.
 - Once the `EKS aws-auth ConfigMap` includes this new role, kubectl in the CodeBuild stage of the pipeline will be able to interact with the EKS cluster via the IAM role.
 ```
@@ -104,7 +120,7 @@ kubectl patch configmap/aws-auth -n kube-system --patch "$(cat /tmp/aws-auth-pat
 kubectl get configmap aws-auth -o yaml -n kube-system
 ```
 
-## Step-07: Review the buildspec.yml for CodeBuild & Environment Variables
+## Step-08: Review the buildspec.yml for CodeBuild & Environment Variables
 
 
 ### Environment Variables for CodeBuild
@@ -181,7 +197,7 @@ artifacts:
 
 
 
-## Step-08: Create CodePipeline
+## Step-09: Create CodePipeline
 - Create CodePipeline
 - Go to Services -> CodePipeline -> Create Pipeline
 - **Pipeline Settings**
@@ -230,7 +246,7 @@ artifacts:
 - **Review**
   - Review and click on **Create Pipeline**
 
-## Step-09: Updae CodeBuild Role to have access to ECR full access   
+## Step-10: Updae CodeBuild Role to have access to ECR full access   
 - First pipeline run will fail as CodeBuild not able to upload or push newly created Docker Image to ECR Repostory
 - Update the CodeBuild Role to have access to ECR to upload images built by codeBuild. 
   - Role Name: codebuild-eks-devops-cb-for-pipe-service-role
@@ -245,7 +261,7 @@ git push
 - New image should be uploaded to ECR, verify the ECR with new docker image tag date time.
 - Build will fail again at Post build stage at STS Assume role section. Lets fix that in next step.
 
-## Step-10: Update CodeBuild Role to have access to STS Assume Role we have created using STS Assume Role Policy
+## Step-11: Update CodeBuild Role to have access to STS Assume Role we have created using STS Assume Role Policy
 - Build should be failed due to CodeBuild dont have access to perform updates in EKS Cluster.
 - It even cannot assume the STS Assume role whatever we created. 
 - Create STS Assume Policy and Associate that to CodeBuild Role `codebuild-eks-devops-cb-for-pipe-service-role`
@@ -272,7 +288,7 @@ arn:aws:iam::<your-account-id>:role/EksCodeBuildKubectlRole
 - Role Name: codebuild-eks-devops-cb-for-pipe-service-role
 - Policy to be associated:  `eks-codebuild-sts-assume-role`
 
-## Step-11: Make changes to index.html file
+## Step-12: Make changes to index.html file
 - Make changes to index.html (Update as V3)
 - Commit the changes to local git repository and push to codeCommit Repository
 - Monitor the codePipeline
@@ -288,7 +304,7 @@ git push
 http://devops.kubeoncloud.com/app1/index.html
 ```
 
-## Step-12: Add change to Ingress manifest
+## Step-13: Add change to Ingress manifest
 - Add new DNS entry and push the changes and test
 - **03-DEVOPS-Nginx-ALB-IngressService.yml**
 ```yml
@@ -314,7 +330,7 @@ git push
 http://devops2.kubeoncloud.com/app1/index.html
 ```
 
-## Step-13: Clean-Up
+## Step-14: Clean-Up
 - Delete All kubernetes Objects in EKS Cluster
 ```
 kubectl delete -f kube-manifests/
