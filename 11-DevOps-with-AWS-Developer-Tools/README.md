@@ -53,10 +53,9 @@ git clone https://git-codecommit.us-east-1.amazonaws.com/v1/repos/eks-devops-ngi
 ```
 - Copy all files from course section **11-DevOps-with-AWS-Developer-Tools/Application-Manifests** to local repository
   - buildspec.yml
-  - docker-manifests
-    - Dockerfile
-    - app1
-      - index.html 
+  - Dockerfile
+  - app1
+    - index.html 
   - kube-manifests
     - 01-DEVOPS-Nginx-Deployment.yml
     - 02-DEVOPS-Nginx-NodePortService.yml
@@ -74,10 +73,9 @@ git status
 ### Application Manifests Overview
 - Application-Manifests
   - buildspec.yml
-  - docker-manifests
-    - Dockerfile
-    - app1
-      - index.html 
+  - Dockerfile
+  - app1
+    - index.html 
   - kube-manifests
     - 01-DEVOPS-Nginx-Deployment.yml
     - 02-DEVOPS-Nginx-NodePortService.yml
