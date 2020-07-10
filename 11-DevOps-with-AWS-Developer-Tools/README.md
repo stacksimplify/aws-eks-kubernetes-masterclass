@@ -71,6 +71,19 @@ git status
 ```
 - Verify the same on CodeCommit Repository in AWS Management console.
 
+### Application Manifests Overview
+- Application-Manifests
+  - buildspec.yml
+  - docker-manifests
+    - Dockerfile
+    - app1
+      - index.html 
+  - kube-manifests
+    - 01-DEVOPS-Nginx-Deployment.yml
+    - 02-DEVOPS-Nginx-NodePortService.yml
+    - 03-DEVOPS-Nginx-ALB-IngressService.yml
+
+
 ## Step-06: Create STS Assume IAM Role for CodeBuild to interact with AWS EKS
 - In an AWS CodePipeline, we are going to use AWS CodeBuild to deploy changes to our Kubernetes manifests. 
 - This requires an AWS IAM role capable of interacting with the EKS cluster.
