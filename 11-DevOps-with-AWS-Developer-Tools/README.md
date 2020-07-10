@@ -45,6 +45,7 @@ kubectl get pods
 ```
 
 ## Step-05: Create CodeCommit Repository
+- Code Commit Introduction
 - Create Code Commit Repository with name as **eks-devops-nginx**
 - Create git credentials from IAM Service and make a note of those credentials.
 - Clone the git repository from Code Commit to local repository, during the process provide your git credentials generated to login to git repo
@@ -133,6 +134,8 @@ kubectl get configmap aws-auth -o yaml -n kube-system
 
 ## Step-08: Review the buildspec.yml for CodeBuild & Environment Variables
 
+### Code Build Introduction
+- Get a high level overview about CodeBuild Service
 
 ### Environment Variables for CodeBuild
 ```
@@ -209,6 +212,10 @@ artifacts:
 
 
 ## Step-09: Create CodePipeline
+### CodePipeline Introduction
+- Get a high level overview about CodePipeline Service
+
+### Create CodePipeline
 - Create CodePipeline
 - Go to Services -> CodePipeline -> Create Pipeline
 - **Pipeline Settings**
