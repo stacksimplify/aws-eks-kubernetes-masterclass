@@ -16,7 +16,8 @@
 | Application Name                 | Docker Image Name                          |
 | ------------------------------- | --------------------------------------------- |
 | User Management Microservice | stacksimplify/kube-usermanagement-microservice:1.0.0 |
-| Notifications Microservice | stacksimplify/kube-notifications-microservice:1.0.0 |
+| Notifications Microservice V1 | stacksimplify/kube-notifications-microservice:1.0.0 |
+| Notifications Microservice V2 | stacksimplify/kube-notifications-microservice:2.0.0 |
 
 ## Step-02: Pre-requisite -1: AWS RDS Database, ALB Ingress Controller & External DNS
 
