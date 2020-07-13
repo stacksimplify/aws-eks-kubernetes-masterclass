@@ -4,7 +4,7 @@ kind: Ingress
 metadata:
   name: eks-microservices-demo
   labels:
-    app: eks-devops
+    app: usermgmt-restapp
   annotations:
     # Ingress Core Settings  
     kubernetes.io/ingress.class: "alb"

@@ -21,13 +21,6 @@ spec:
       containers:
         - name: usermgmt-restapp
           image: stacksimplify/kube-usermanagement-microservice:1.0.0
-          resources:
-            requests:
-              memory: "128Mi"
-              cpu: "500m"
-            limits:
-              memory: "500Mi"
-              cpu: "1000m"
           ports:
             - containerPort: 8095
           env:
@@ -57,13 +50,11 @@ spec:
             initialDelaySeconds: 60
             periodSeconds: 10
           readinessProbe:
-            exec:
-              command:
-                - /bin/sh
-                - -c
-                - nc -z localhost 8095
+            httpGet:
+              path: /usermgmt/health-status
+              port: 8095
             initialDelaySeconds: 60
-            periodSeconds: 10
+            periodSeconds: 10          
 ---
 # Kubernetes Secrets
 apiVersion: v1
