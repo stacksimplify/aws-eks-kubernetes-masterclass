@@ -28,6 +28,8 @@
 ### ALB Ingress Controller & External DNS
 - We are going to deploy a application which will also have a `ALB Ingress Service` and also will register its DNS name in Route53 using `External DNS`
 - Which means we should have both related pods running in our EKS cluster. 
+- We have installed **ALB Ingress Controller** as part of section [08-01-ALB-Ingress-Install](/08-ELB-Application-LoadBalancers/08-01-ALB-Ingress-Install/README.md)
+- We have installed **External DNS** as part of section [08-06-01-Deploy-ExternalDNS-on-EKS](/08-ELB-Application-LoadBalancers/08-06-ALB-Ingress-ExternalDNS/08-06-01-Deploy-ExternalDNS-on-EKS/README.md)
 ```
 # Verify alb-ingress-controller pod running in namespace kube-system
 kubectl get pods -n kube-system
