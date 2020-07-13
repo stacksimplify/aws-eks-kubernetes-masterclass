@@ -121,7 +121,7 @@ spec:
 - Remove /app1, /app2 contexts
 ```yml
     # External DNS - For creating a Record Set in Route53
-    external-dns.alpha.kubernetes.io/hostname: ums.kubeoncloud.com
+    external-dns.alpha.kubernetes.io/hostname: services.kubeoncloud.com, ums.kubeoncloud.com
 spec:
   rules:
     - http:
