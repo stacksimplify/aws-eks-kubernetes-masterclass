@@ -170,6 +170,13 @@ https://services.kubeoncloud.com/usermgmt/notification-xray
 https://<Replace-your-domain-name>/usermgmt/notification-xray
 ```
 
+## Step-09: Clean-Up
+- We are going to delete applications created as part of this section
+- We are going to leave the xray daemon set running which we will leverage in our next section canary deployments in Kubernetes on EKS. 
+```
+# Delete Apps
+kubectl delete -f kube-manifests/02-Applications
+```
 
 ## References
 - https://github.com/aws-samples/aws-xray-kubernetes/
