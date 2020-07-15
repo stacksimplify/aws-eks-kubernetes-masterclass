@@ -142,6 +142,7 @@ kubectl describe daemonset xray-daemon
 ```
 
 ## Step-06: Review Ingress Manifest
+- **07-ALB-Ingress-SSL-Redirect-ExternalDNS.yml**
 ```yml
 # Change-1-For-You: Update with your SSL Cert ARN when using template
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:180789647333:certificate/9f042b5d-86fd-4fad-96d0-c81c5abc71e1
