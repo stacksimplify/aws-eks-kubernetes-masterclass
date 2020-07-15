@@ -148,7 +148,7 @@ kubectl describe daemonset xray-daemon
 
 # Change-2-For-You: Update with your "yourdomainname.com"
     # External DNS - For creating a Record Set in Route53
-    external-dns.alpha.kubernetes.io/hostname: services.kubeoncloud.com, ums.kubeoncloud.com       
+    external-dns.alpha.kubernetes.io/hostname: services-xray.kubeoncloud.com, xraydemo.kubeoncloud.com             
 ```
 
 ## Step-07: Deploy Manifests
