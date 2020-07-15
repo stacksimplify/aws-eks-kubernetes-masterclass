@@ -53,7 +53,7 @@ kubectl get pods
 | -------------- | -------------- | -------------------- |
 | 2 | 2 | 50% traffic to NS V2 Version |
 
-- **08-V2-NotificationMicroservice-Deployment copy.yml**
+- **08-V2-NotificationMicroservice-Deployment.yml**
 ```yml
 # Change-1: Image Tag is 4.0.0-AWS-XRay
     spec:
