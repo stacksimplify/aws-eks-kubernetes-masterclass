@@ -5,6 +5,7 @@
 ### Usecase Description
 - User Management **getNotificationAppInfo**  will call Notification service V1 and V2 versions.
 - We will distribute traffic between V1 and V2 versions of Notification service as per our choice based on Replicas
+
 | NS V1 Replicas | NS V2 Replicas | Traffic Distribution | 
 | -------------- | -------------- | -------------------- |
 | 4 | 0 | 100% traffic to NS V1 Version |
