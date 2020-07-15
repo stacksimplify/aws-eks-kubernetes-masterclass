@@ -1,5 +1,4 @@
-# Microservices Canary Deployments using Labels & Selectors
-
+# Microservices Canary Deployments 
 
 ## Step-01: Introduction
 ### Usecase Description
