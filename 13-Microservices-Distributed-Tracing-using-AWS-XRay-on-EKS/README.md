@@ -107,7 +107,7 @@ kubectl get daemonset
 kubectl describe daemonset xray-daemon
 ```
 
-## Step-05: Review Deployment Manifests
+## Step-05: Review Microservices Application Deployment Manifests
 - **02-UserManagementMicroservice-Deployment.yml**
 ```yml
 # Change-1: Image Tag is 3.0.0-AWS-XRay-MySQLDB

@@ -7,7 +7,7 @@ metadata:
   namespace: default
   # Update IAM Role ARN created for X-Ray access
   annotations:
-    eks.amazonaws.com/role-arn: arn:aws:iam::180789647333:role/eksctl-eksdemo1-addon-iamserviceaccount-defa-Role1-20F5AWU2J61F
+    eks.amazonaws.com/role-arn: arn:aws:iam::180789647333:role/eksctl-eksdemo1-addon-iamserviceaccount-defa-Role1-VR2R60B6MMDV
 ---
 apiVersion: apps/v1
 kind: DaemonSet
