@@ -163,8 +163,8 @@ kubectl get pods
 ## Step-08: Test
 ```
 # Test
-https://ums.kubeoncloud.com/usermgmt/notification-xray
-https://services.kubeoncloud.com/usermgmt/notification-xray
+https://xraydemo.kubeoncloud.com/usermgmt/notification-xray
+https://xraydemo.kubeoncloud.com/usermgmt/notification-xray
 
 # Your Domain Name
 https://<Replace-your-domain-name>/usermgmt/notification-xray
