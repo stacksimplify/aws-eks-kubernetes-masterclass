@@ -23,7 +23,7 @@
 | ------------------------------- | --------------------------------------------- |
 | User Management Microservice | stacksimplify/kube-usermanagement-microservice:3.0.0-AWS-XRay-MySQLDB |
 | Notifications Microservice V1 | stacksimplify/kube-notifications-microservice:3.0.0-AWS-XRay |
-| Notifications Microservice V1 | stacksimplify/kube-notifications-microservice:4.0.0-AWS-XRay |
+| Notifications Microservice V2 | stacksimplify/kube-notifications-microservice:4.0.0-AWS-XRay |
 
 ## Step-02: Pre-requisite: AWS RDS Database, ALB Ingress Controller, External DNS & X-Ray Daemon
 
