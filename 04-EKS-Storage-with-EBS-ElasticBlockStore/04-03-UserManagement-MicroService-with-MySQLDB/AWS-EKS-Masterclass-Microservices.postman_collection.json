@@ -41,7 +41,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\n        \"username\": \"admin2\",\n        \"email\": \"dkalyanreddy@gmail.com\",\n        \"role\": \"ROLE_ADMIN\",\n        \"enabled\": true,\n        \"firstname\": \"fname1\",\n        \"lastname\": \"lname1\",\n        \"password\": \"Pass@123\"\n    }"
+							"raw": "    {\n        \"username\": \"microtest1\",\n        \"email\": \"dkalyanreddy@gmail.com\",\n        \"role\": \"ROLE_ADMIN\",\n        \"enabled\": true,\n        \"firstname\": \"MicroFName\",\n        \"lastname\": \"MicroLname\",\n        \"password\": \"Pass@123\"\n    }",
+							"options": {
+								"raw": {}
+							}
 						},
 						"url": {
 							"raw": "{{url}}/usermgmt/user",
@@ -88,7 +91,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "    {\n        \"username\": \"admin1\",\n        \"email\": \"admin1@gmail.com\",\n        \"role\": \"ROLE_ADMIN\",\n        \"enabled\": true,\n        \"firstname\": \"fname2\",\n        \"lastname\": \"lname1\",\n        \"password\": \"Pass@123\"\n    }"
+							"raw": "    {\n        \"username\": \"admin1\",\n        \"email\": \"dkalyanreddy@gmail.com\",\n        \"role\": \"ROLE_ADMIN\",\n        \"enabled\": true,\n        \"firstname\": \"fname2\",\n        \"lastname\": \"lname2\",\n        \"password\": \"Pass@123\"\n    }",
+							"options": {
+								"raw": {}
+							}
 						},
 						"url": {
 							"raw": "{{url}}/usermgmt/user",
@@ -109,14 +115,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/usermgmt/user/admin2",
+							"raw": "{{url}}/usermgmt/user/microtest2",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"usermgmt",
 								"user",
-								"admin2"
+								"microtest2"
 							]
 						}
 					},
@@ -153,6 +159,24 @@
 							"path": [
 								"usermgmt",
 								"notification-service-info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserMgmt-NotificationService-XRay",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/usermgmt/notification-xray",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usermgmt",
+								"notification-xray"
 							]
 						}
 					},

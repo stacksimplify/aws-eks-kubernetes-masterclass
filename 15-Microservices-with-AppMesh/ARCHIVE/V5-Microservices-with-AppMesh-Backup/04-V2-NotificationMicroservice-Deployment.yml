@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-microservice-v2
+  labels:
+    app: notification-restapp-v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notification-restapp-v2
+  template:
+    metadata:
+      labels:
+        app: notification-restapp-v2
+    spec:
+      initContainers:
+        - name: proxyinit
+          image: 111345817488.dkr.ecr.us-west-2.amazonaws.com/aws-appmesh-proxy-route-manager:v2
+          securityContext:
+            capabilities:
+              add: 
+                - NET_ADMIN
+          env:
+            - name: "APPMESH_START_ENABLED"
+              value: "1"
+            - name: "APPMESH_IGNORE_UID"
+              value: "1337"
+            - name: "APPMESH_ENVOY_INGRESS_PORT"
+              value: "15000"
+            - name: "APPMESH_ENVOY_EGRESS_PORT"
+              value: "15001"
+            - name: "APPMESH_APP_PORTS"
+              value: "8096"
+            - name: "APPMESH_EGRESS_IGNORED_IP"
+              value: "169.254.169.254"
+            - name: "APPMESH_EGRESS_IGNORED_PORTS"
+              value: "22, 587"        
+      containers:
+      - name: notification-service-v2
+        image: stacksimplify/kube-notifications-microservice:2.0.0
+        ports:
+        - containerPort: 8096
+        imagePullPolicy: Always
+        env:
+          - name: AWS_MAIL_SERVER_HOST
+            value: "smtp-service"
+          - name: AWS_MAIL_SERVER_USERNAME
+            value: "AKIAV7WTN3CFUBKLDOAX"
+          - name: AWS_MAIL_SERVER_PASSWORD
+            value: "BBLJ8fpyf89AHLmAH+B4oLo7kMgmKZqhJtEipuE5unLx"
+          - name: AWS_MAIL_SERVER_FROM_ADDRESS
+            value: "kalyanreddyd@gmail.com" 
+      - name: envoy
+        image: 840364872350.dkr.ecr.us-east-1.amazonaws.com/aws-appmesh-envoy:v1.12.3.0-prod
+        securityContext:
+          runAsUser: 1337
+        env:
+          - name: "APPMESH_VIRTUAL_NODE_NAME"
+            value: "mesh/mesh1/virtualNode/notification-vnode-appv2"
+          - name: "ENVOY_LOG_LEVEL"
+            value: "info"
+          - name: "AWS_REGION"
+            value: "us-east-1"                  

@@ -1,0 +1,14 @@
+apiVersion: appmesh.k8s.aws/v1beta1
+kind: VirtualNode
+metadata:
+  name: notification-v2
+  namespace: microservices
+spec:
+  meshName: appmesh
+  listeners:
+    - portMapping:
+        port: 8096
+        protocol: http
+  serviceDiscovery:
+    dns:
+      hostName: notification-v2.microservices.svc.cluster.local

@@ -1,0 +1,15 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+      {
+          "Effect": "Allow",
+          "Action": "appmesh:StreamAggregatedResources",
+          "Resource": [
+              "arn:aws:appmesh:us-east-1:411686525067:mesh/appmesh/virtualNode/notification-v1-microservices",
+              "arn:aws:appmesh:us-east-1:411686525067:mesh/appmesh/virtualNode/notification-v2-microservices",
+              "arn:aws:appmesh:us-east-1:411686525067:mesh/appmesh/virtualNode/usermgmt-v1-microservices"
+          ]
+      }
+  ]
+}
+

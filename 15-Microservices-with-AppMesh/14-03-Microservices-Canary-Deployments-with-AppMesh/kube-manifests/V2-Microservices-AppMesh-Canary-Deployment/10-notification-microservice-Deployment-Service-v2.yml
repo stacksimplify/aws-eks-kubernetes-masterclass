@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: notification-v2
+  namespace: microservices
+  labels:
+    app: notification-v2
+spec:
+  selector:
+    app: notification-v2
+  ports:
+    - protocol: TCP
+      port: 8096
+      targetPort: 8096
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-v2
+  namespace: microservices
+  labels:
+    app: notification-v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notification-v2
+  template:
+    metadata:
+      labels:
+        app: notification-v2
+    spec:
+      serviceAccountName: my-microservices-sa1
+      containers:
+      - name: notification-v2
+        image: stacksimplify/kube-notifications-microservice:2.0.0
+        ports:
+        - containerPort: 8096
+        imagePullPolicy: Always
+        env:
+          - name: AWS_MAIL_SERVER_HOST
+            value: "smtp-service"
+          - name: AWS_MAIL_SERVER_USERNAME
+            value: "AKIAV7WTN3CFUBKLDOAX"
+          - name: AWS_MAIL_SERVER_PASSWORD
+            value: "BBLJ8fpyf89AHLmAH+B4oLo7kMgmKZqhJtEipuE5unLx"
+          - name: AWS_MAIL_SERVER_FROM_ADDRESS
+            value: "kalyanreddyd@gmail.com"        
