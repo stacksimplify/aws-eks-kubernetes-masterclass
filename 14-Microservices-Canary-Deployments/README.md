@@ -50,6 +50,8 @@ kubectl get pods
 
 ## Step-03: Review Deployment Manifest for V2 Notification Service
 - We are going to distribute 50% traffic to each of the V1 and V2 version of application
+
+
 | NS V1 Replicas | NS V2 Replicas | Traffic Distribution | 
 | -------------- | -------------- | -------------------- |
 | 2 | 2 | 50% traffic to NS V2 Version |
