@@ -38,7 +38,7 @@ kubectl get pods -n kube-system
 - **Deploy**
 ```
 # Deploy Application
-kubectl apply -f 01-kubenginx-Deployment-NodePort-Service.yml
+kubectl apply -f kube-manifests/01-VPA-DemoApplication.yml
 
 # List Pods, Deploy & Service
 kubectl get pod,svc,deploy
