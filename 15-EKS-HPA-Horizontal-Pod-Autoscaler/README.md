@@ -70,7 +70,17 @@ kubectl get pods
 - Default cooldown period is 5 minutes. 
 - Once CPU utilization of pods is less than 50%, it will starting terminating pods and will reach to minimum 1 pod as configured.
 
-## Step-08: Imperative vs Declarative for HPA
+
+## Step-08: Clean-Up
+```
+# Delete HPA
+kubectl delete hpa hpa-demo-deployment
+
+# Delete Deployment & Service
+kubectl delete -f kube-manifests/ 
+```
+
+## Step-09: Imperative vs Declarative for HPA
 - From Kubernetes v1.18 onwards, we have a declarative way of defining HPA policies using `behavior` object in yaml.
 - **Support for configurable scaling behavior**
   - Starting from v1.18 the v2beta2 API allows scaling behavior to be configured through the HPA behavior field. 
@@ -97,14 +107,7 @@ behavior:
 - **Reference:** Select V1.18 from top right corner on Kubernetes website for V1.18 documentation
   -  https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
 
-## Step-06: Clean-Up
-```
-# Delete HPA
-kubectl delete hpa hpa-demo-deployment
 
-# Delete Deployment & Service
-kubectl delete -f V1-HPA/01-kubenginx-Deployment-NodePort-Service-for-HPA-Demo.yml 
-```
 
 ## Referencess
 ### Metrics Server Releases
