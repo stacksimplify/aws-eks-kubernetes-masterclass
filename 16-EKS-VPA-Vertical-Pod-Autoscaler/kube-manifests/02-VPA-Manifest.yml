@@ -1,0 +1,19 @@
+apiVersion: "autoscaling.k8s.io/v1beta2"
+kind: VerticalPodAutoscaler
+metadata:
+  name: kubengix-vpa
+spec:
+  targetRef:
+    apiVersion: "apps/v1"
+    kind: Deployment
+    name: vpa-demo-deployment
+  resourcePolicy:
+    containerPolicies:
+      - containerName: '*'
+        minAllowed:
+          cpu: 5m
+          memory: 5Mi
+        maxAllowed:
+          cpu: 1
+          memory: 500Mi
+        controlledResources: ["cpu", "memory"]
