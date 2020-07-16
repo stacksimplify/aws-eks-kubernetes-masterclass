@@ -66,12 +66,12 @@ kubectl describe hpa/hpa-demo-deployment
 kubectl get pods
 ```
 
-## Step-07: Cooldown / Scaledown
+## Step-06: Cooldown / Scaledown
 - Default cooldown period is 5 minutes. 
 - Once CPU utilization of pods is less than 50%, it will starting terminating pods and will reach to minimum 1 pod as configured.
 
 
-## Step-08: Clean-Up
+## Step-07: Clean-Up
 ```
 # Delete HPA
 kubectl delete hpa hpa-demo-deployment
@@ -80,7 +80,7 @@ kubectl delete hpa hpa-demo-deployment
 kubectl delete -f kube-manifests/ 
 ```
 
-## Step-09: Imperative vs Declarative for HPA
+## Step-08: Imperative vs Declarative for HPA
 - From Kubernetes v1.18 onwards, we have a declarative way of defining HPA policies using `behavior` object in yaml.
 - **Support for configurable scaling behavior**
   - Starting from v1.18 the v2beta2 API allows scaling behavior to be configured through the HPA behavior field. 
