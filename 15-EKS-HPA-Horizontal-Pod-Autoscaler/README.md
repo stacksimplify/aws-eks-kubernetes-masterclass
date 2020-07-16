@@ -17,7 +17,7 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/down
 kubectl get deployment metrics-server -n kube-system
 ```
 
-## Step-03: Deploy our Application
+## Step-03: Review Deploy our Application
 ```
 # Deploy
 kubectl apply -f kube-manifests/
@@ -25,7 +25,7 @@ kubectl apply -f kube-manifests/
 # List Pods, Deploy & Service
 kubectl get pod,svc,deploy
 
-# Access Application
+# Access Application (Only if our Cluster is Public Subnet)
 kubectl get nodes -o wide
 http://<Worker-Node-Public-IP>:31231
 ```
