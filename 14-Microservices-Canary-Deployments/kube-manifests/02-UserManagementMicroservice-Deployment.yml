@@ -20,7 +20,7 @@ spec:
           command: ['sh', '-c', 'echo -e "Checking for the availability of MySQL Server deployment"; while ! nc -z mysql 3306; do sleep 1; printf "-"; done; echo -e "  >> MySQL DB Server has started";']
       containers:
         - name: usermgmt-restapp
-          image: stacksimplify/kube-usermanagement-microservice:3.0.0-AWS-XRay
+          image: stacksimplify/kube-usermanagement-microservice:3.0.0-AWS-XRay-MySQLDB
           ports:
             - containerPort: 8095
           imagePullPolicy: Always            
