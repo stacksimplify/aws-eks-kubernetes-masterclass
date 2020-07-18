@@ -57,7 +57,7 @@ http://<Network-Load-Balancer-URL>/
 kubectl run --generator=run-pod/v1 apache-bench -i --tty --rm --image=httpd -- ab -n 500000 -c 1000 http://sample-nginx-service.default.svc.cluster.local/ 
 ```
 
-## Step-06: Access CloudWatch Dashboard & Generate Traffic using Postman Runner
+## Step-06: Access CloudWatch Dashboard 
 - Access CloudWatch Container Insigths Dashboard
 
 
