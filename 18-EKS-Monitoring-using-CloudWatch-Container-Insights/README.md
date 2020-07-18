@@ -6,13 +6,13 @@
 - What is CloudWatch Agent and Fluentd?
 
 
-## Step-01: Deploy our Sample to generate Load
+## Step-01: Deploy Sample Nginx Application to generate Load
 ```
 # Deploy
 kubectl apply -f kube-manifests
 
 # Access Application
-http://<Network-Load-Balancer-URL>/app1/index.html
+http://<Network-Load-Balancer-URL>/
 ```
 
 ## Step-02: Associate CloudWatch Policy to our EKS Worker Nodes Role
@@ -29,14 +29,14 @@ Associate Policy: CloudWatchAgentServerPolicy
 
 ### Deploy CloudWatch Agent and Fluentd as DaemonSets
 - This command will 
-  - Create the Namespace amazon-cloudwatch.
-  - Create all the necessary security objects for both DaemonSet:
-    - SecurityAccount.
-    - ClusterRole.
-    - ClusterRoleBinding.
-  - Deploy Cloudwatch-Agent (responsible for sending the metrics to CloudWatch) as a DaemonSet.
-  - Deploy fluentd (responsible for sending the logs to Cloudwatch) as a DaemonSet.
-  -  Deploy ConfigMap configurations for both DaemonSets.
+  - Creates the Namespace amazon-cloudwatch.
+  - Creates all the necessary security objects for both DaemonSet:
+    - SecurityAccount
+    - ClusterRole
+    - ClusterRoleBinding
+  - Deploys `Cloudwatch-Agent` (responsible for sending the metrics to CloudWatch) as a DaemonSet.
+  - Deploys fluentd (responsible for sending the logs to Cloudwatch) as a DaemonSet.
+  -  Deploys ConfigMap configurations for both DaemonSets.
 ```
 # Template
 curl -s https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-insights/latest/k8s-deployment-manifest-templates/deployment-mode/daemonset/container-insights-monitoring/quickstart/cwagent-fluentd-quickstart.yaml | sed "s/{{cluster_name}}/<REPLACE_CLUSTER_NAME>/;s/{{region_name}}/<REPLACE-AWS_REGION>/" | kubectl apply -f -
@@ -47,23 +47,29 @@ curl -s https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-containe
 
 ## Verify
 ```
+# List Daemonsets
 kubectl -n amazon-cloudwatch get daemonsets
 ```
 
+## Step-04: Create the load on our Sample Nginx Pod
+```
+# Generate Load
+kubectl run --generator=run-pod/v1 apache-bench -i --tty --rm --image=httpd -- ab -n 500000 -c 1000 http://sample-nginx-service.default.svc.cluster.local/ 
+```
 
-## Step-04: Access CloudWatch Dashboard & Generate Traffic using Postman Runner
+## Step-05: Access CloudWatch Dashboard & Generate Traffic using Postman Runner
 - Access CloudWatch Container Insigths Dashboard
-- Generate some traffic using Postman Runner
 
-## Step-05: CloudWatch Log Insights
+
+## Step-06: CloudWatch Log Insights
 - View Container logs
 
 
-## Step-06: CloudWatch Alarms from metrics
+## Step-07: CloudWatch Alarms from metrics
 - Create Alarms
 
 
-## Step-07: Clean-Up Container Insights
+## Step-08: Clean-Up Container Insights
 ```
 # Template
 curl https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-insights/latest/k8s-deployment-manifest-templates/deployment-mode/daemonset/container-insights-monitoring/quickstart/cwagent-fluentd-quickstart.yaml | sed "s/{{cluster_name}}/cluster-name/;s/{{region_name}}/cluster-region/" | kubectl delete -f -
@@ -72,7 +78,7 @@ curl https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-i
 curl https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-insights/latest/k8s-deployment-manifest-templates/deployment-mode/daemonset/container-insights-monitoring/quickstart/cwagent-fluentd-quickstart.yaml | sed "s/{{cluster_name}}/eksdemo1/;s/{{region_name}}/us-east-1/" | kubectl delete -f -
 ```
 
-## Step-08: Clean-Up Application
+## Step-09: Clean-Up Application
 ```
 # Delete Apps
 kubectl delete -f  kube-manifests/
