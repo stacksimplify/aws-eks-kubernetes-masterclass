@@ -42,13 +42,13 @@ kubectl -n amazon-cloudwatch get daemonsets
 ```
 
 
-## Step-04: Deploy Sample Nginx Application to generate Load
+## Step-04: Deploy Sample Nginx Application
 ```
 # Deploy
 kubectl apply -f kube-manifests
 ```
 
-## Step-05: Create the load on our Sample Nginx Pod
+## Step-05: Generate load on our Sample Nginx Application
 ```
 # Generate Load
 kubectl run --generator=run-pod/v1 apache-bench -i --tty --rm --image=httpd -- ab -n 500000 -c 1000 http://sample-nginx-service.default.svc.cluster.local/ 
