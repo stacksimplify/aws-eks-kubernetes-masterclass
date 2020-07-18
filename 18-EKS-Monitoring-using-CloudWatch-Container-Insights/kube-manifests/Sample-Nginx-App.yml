@@ -34,7 +34,6 @@ metadata:
   labels:
     app: sample-nginx
 spec:
-  type: NodePort
   selector:
     app: sample-nginx
   ports:

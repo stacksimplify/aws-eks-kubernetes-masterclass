@@ -46,9 +46,6 @@ kubectl -n amazon-cloudwatch get daemonsets
 ```
 # Deploy
 kubectl apply -f kube-manifests
-
-# Access Application
-http://<Network-Load-Balancer-URL>/
 ```
 
 ## Step-05: Create the load on our Sample Nginx Pod
