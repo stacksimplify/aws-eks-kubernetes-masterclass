@@ -1,19 +1,9 @@
 # Monitoring EKS using CloudWatch Container Insigths
 
-## Step-00: Introduction
+## Step-01: Introduction
 - What is CloudWatch?
 - What are CloudWatch Container Insights?
 - What is CloudWatch Agent and Fluentd?
-
-
-## Step-01: Deploy Sample Nginx Application to generate Load
-```
-# Deploy
-kubectl apply -f kube-manifests
-
-# Access Application
-http://<Network-Load-Balancer-URL>/
-```
 
 ## Step-02: Associate CloudWatch Policy to our EKS Worker Nodes Role
 - Go to Services -> EC2 -> Worker Node EC2 Instance -> IAM Role -> Click on that role
@@ -51,25 +41,35 @@ curl -s https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-containe
 kubectl -n amazon-cloudwatch get daemonsets
 ```
 
-## Step-04: Create the load on our Sample Nginx Pod
+
+## Step-04: Deploy Sample Nginx Application to generate Load
+```
+# Deploy
+kubectl apply -f kube-manifests
+
+# Access Application
+http://<Network-Load-Balancer-URL>/
+```
+
+## Step-05: Create the load on our Sample Nginx Pod
 ```
 # Generate Load
 kubectl run --generator=run-pod/v1 apache-bench -i --tty --rm --image=httpd -- ab -n 500000 -c 1000 http://sample-nginx-service.default.svc.cluster.local/ 
 ```
 
-## Step-05: Access CloudWatch Dashboard & Generate Traffic using Postman Runner
+## Step-06: Access CloudWatch Dashboard & Generate Traffic using Postman Runner
 - Access CloudWatch Container Insigths Dashboard
 
 
-## Step-06: CloudWatch Log Insights
+## Step-07: CloudWatch Log Insights
 - View Container logs
 
 
-## Step-07: CloudWatch Alarms from metrics
+## Step-08: CloudWatch Alarms from metrics
 - Create Alarms
 
 
-## Step-08: Clean-Up Container Insights
+## Step-09: Clean-Up Container Insights
 ```
 # Template
 curl https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-insights/latest/k8s-deployment-manifest-templates/deployment-mode/daemonset/container-insights-monitoring/quickstart/cwagent-fluentd-quickstart.yaml | sed "s/{{cluster_name}}/cluster-name/;s/{{region_name}}/cluster-region/" | kubectl delete -f -
@@ -78,7 +78,7 @@ curl https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-i
 curl https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-insights/latest/k8s-deployment-manifest-templates/deployment-mode/daemonset/container-insights-monitoring/quickstart/cwagent-fluentd-quickstart.yaml | sed "s/{{cluster_name}}/eksdemo1/;s/{{region_name}}/us-east-1/" | kubectl delete -f -
 ```
 
-## Step-09: Clean-Up Application
+## Step-10: Clean-Up Application
 ```
 # Delete Apps
 kubectl delete -f  kube-manifests/
