@@ -1,5 +1,11 @@
 # Monitoring EKS using CloudWatch Container Insigths
 
+## Step-00: Introduction
+- What is CloudWatch?
+- What are CloudWatch Container Insights?
+- What is CloudWatch Agent and Fluentd?
+
+
 ## Step-01: Deploy our Sample to generate Load
 ```
 # Deploy
@@ -66,5 +72,12 @@ curl https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-i
 curl https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-insights/latest/k8s-deployment-manifest-templates/deployment-mode/daemonset/container-insights-monitoring/quickstart/cwagent-fluentd-quickstart.yaml | sed "s/{{cluster_name}}/eksdemo1/;s/{{region_name}}/us-east-1/" | kubectl delete -f -
 ```
 
+## Step-08: Clean-Up Application
+```
+# Delete Apps
+kubectl delete -f  kube-manifests/
+```
+
 ## References
 - https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/deploy-container-insights-EKS.html
+- https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/ContainerInsights-Prometheus-Setup.html
