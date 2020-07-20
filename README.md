@@ -2,14 +2,37 @@
 
 ## Course Modules
 
-## Docker Images 
-| Topics | Docker Image |
-| ------------- | ------------- |
-| Kube Fundamentals - Pods  | stacksimplify/kubenginx:1.0.0  |
-| Kube Fundamentals - Replica Sets  | stacksimplify/kube-helloworld:1.0.0  |
-| Kube Fundamentals - Deployments  | stacksimplify/kube-helloworld:1.0.0, 2.0.0, 3.0.0, 4.0.0  |
-| Kube Fundamentals - Services  | stacksimplify/kube-frontend-nginx:1.0.0,  stacksimplify/kube-helloworld:1.0.0  |
-| AWS ECR Integration  | 180789647333.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-kubenginx:1.0.0  |
+## List of Docker Images  on Docker Hub
+
+| Application Name  | Docker Image Name |
+| ----------------- | ----------------- |
+| Simple Nginx V1  | stacksimplify/kubenginx:1.0.0  |
+| Spring Boot Hello World API  | stacksimplify/kube-helloworld:1.0.0  |
+| Simple Nginx V2  | stacksimplify/kubenginx:2.0.0  |
+| Simple Nginx V3  | stacksimplify/kubenginx:3.0.0  |
+| Simple Nginx V4  | stacksimplify/kubenginx:4.0.0  |
+| Backend Application  | stacksimplify/kube-helloworld:1.0.0  |
+| Frontend Application  | stacksimplify/kube-frontend-nginx:1.0.0  |
+| Kube Nginx App1  | stacksimplify/kube-nginxapp1:1.0.0  |
+| Kube Nginx App2  | stacksimplify/kube-nginxapp2:1.0.0  |
+| Kube Nginx App2  | stacksimplify/kube-nginxapp2:1.0.0  |
+| User Management Microservice with MySQLDB  | stacksimplify/kube-usermanagement-microservice:1.0.0  |
+| User Management Microservice with H2 DB  | stacksimplify/kube-usermanagement-microservice:2.0.0-H2DB  |
+| User Management Microservice with MySQL DB and AWS X-Ray  | stacksimplify/kube-usermanagement-microservice:3.0.0-AWS-XRay-MySQLDB  |
+| User Management Microservice with H2 DB and AWS X-Ray  | stacksimplify/kube-usermanagement-microservice:4.0.0-AWS-XRay-H2DB  |
+| Notification Microservice V1  | stacksimplify/kube-notifications-microservice:1.0.0  |
+| Notification Microservice V2  | stacksimplify/kube-notifications-microservice:2.0.0  |
+| Notification Microservice V1 with AWS X-Ray  | stacksimplify/kube-notifications-microservice:3.0.0-AWS-XRay  |
+| Notification Microservice V2 with AWS X-Ray  | stacksimplify/kube-notifications-microservice:4.0.0-AWS-XRay  |
+
+
+## List of Docker Images you build in AWS ECR
+
+| Application Name  | Docker Image Name |
+| ----------------- | ----------------- |
+| AWS Elastic Container Registry  | YOUR-AWS-ACCOUNT-ID.dkr.ecr.us-east-1.amazonaws.com/aws-ecr-kubenginx:DATETIME-REPOID  |
+| DevOps Usecase  | YOUR-AWS-ACCOUNT-ID.dkr.ecr.us-east-1.amazonaws.com/eks-devops-nginx:DATETIME-REPOID  |
+
 
 ## AWS Services - Covered as part of this course
 1. AWS Elastic Kubernetes Service - EKS
