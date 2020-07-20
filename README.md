@@ -1,6 +1,105 @@
-# AWS Elastic Kubernetes Service - Masterclass
+# AWS EKS - Elastic Kubernetes Service - Masterclass
 
 ## Course Modules
+
+| S.No | AWS Service Name |
+| ---- | ---------------- |
+| 1.   | Create AWS EKS Cluster using eksctl CLI |
+| 2.   | [Docker Fundamentals](https://github.com/stacksimplify/docker-fundamentals) |
+| 3.   | [Kubernetes Fundamentals](https://github.com/stacksimplify/kubernetes-fundamentals) |
+| 4.   | EKS Storage with AWS EBS CSI Driver |
+| 5.   | Kubernetes Important Concepts for Application Deployments |
+| 5.1  | Kubernetes - Secrets |
+| 5.2  | Kubernetes - Init Containers |
+| 5.3  | Kubernetes - Liveness & Readiness Probes |
+| 5.4  | Kubernetes - Requests & Limits |
+| 5.5  | Kubernetes - Namespaces, Limit Range and Resource Quota |
+| 6.   | EKS Storage with AWS RDS MySQL Database |
+| 7.   | Load Balancing using CLB & NLB |
+| 7.1  | Load Balancing using CLB - AWS Classic Load Balancer |
+| 7.2  | Load Balancing using NLB - AWS Network Load Balancer |
+| 8.   | Load Balancing using ALB - AWS Application Load Balancer |
+| 8.1  | ALB Ingress Controller - Install |
+| 8.2  | ALB Ingress - Basics |
+| 8.3  | ALB Ingress - Context path based routing |
+| 8.4  | ALB Ingress - SSL |
+| 8.5  | ALB Ingress - SSL Redirect HTTP to HTTPS |
+| 8.6  | ALB Ingress - External DNS |
+| 9.   | Deploy Kubernetes workloads on AWS Fargate Serverless |
+| 9.1  | AWS Fargate Profiles - Basic |
+| 9.2  | AWS Fargate Profiles - Advanced using YAML |
+| 10.  | Build and Push Container to AWS ECR and use that in EKS |
+| 11.  | DevOps with AWS Developer Tools CodeCommit, CodeBuild and CodePipeline |
+| 12.  | Microservices Deployment on EKS - Service Discovery |
+| 13.  | Microservices Distributed Tracing using AWS X-Ray |
+| 14.  | Microservices Canary Deployments |
+| 15.  | EKS HPA - Horizontal Pod Autosaler |
+| 16.  | EKS VPA - Vertical Pod Autosaler |
+| 17.  | EKS CA - Cluster Autosaler |
+| 18.  | EKS Monitoring using CloudWatch Agent & Fluentd - Container Insights |
+
+
+## AWS Services Covered
+
+| S.No | AWS Service Name |
+| ---- | ---------------- |
+| 1.   | AWS EKS - Elastic Kubernetes Service  |
+| 2.   | AWS EBS - Elastic Block Store  |
+| 3.   | AWS RDS - Relational Database Service MySQL  |
+| 4.   | AWS CLB - Classic Load Balancer  |
+| 5.   | AWS NLB - Network Load Balancer  |
+| 6.   | AWS ALB - Application Load Balancer  |
+| 7.   | AWS Fargate - Serverless  |
+| 8.   | AWS ECR - Elastic Container Registry  |
+| 9.   | AWS Developer Tool - CodeCommit  |
+| 10.  | AWS Developer Tool - CodeBuild  |
+| 11.  | AWS Developer Tool - CodePipeline  |
+| 12.  | AWS Developer Tool - CodePipeline  |
+| 13.  | AWS X-Ray  |
+| 14.  | AWS CloudWatch - Container Insights  |
+| 15.  | AWS CloudWatch - Log Groups & Log Insights  |
+| 16.  | AWS CloudWatch - Alarms  |
+| 17.  | AWS Route53  |
+| 18.  | AWS Certificate Manager  |
+| 19.  | EKS CLI - eksctl  |
+
+
+## Kubernetes Concepts Covered
+
+| S.No | Kubernetes Concept Name |
+| ---- | ------------------- |
+| 1.   | Kubernetes Architecture  |
+| 2.   | Pods  |
+| 3.   | ReplicaSets  |
+| 4.   | Deployments  |
+| 5.   | Services - Node Port Service  |
+| 6.   | Services - Cluster IP Service  |
+| 7.   | Services - External Name Service  |
+| 8.   | Services - Ingress Service  |
+| 9.   | Services - Ingress SSL & SSL Redirect  |
+| 10.  | Services - Ingress & External DNS  |
+| 11.  | Imperative - with kubectl  |
+| 12.  | Declarative - Declarative with YAML  |
+| 13.  | Secrets |
+| 14.  | Init Containers |
+| 15.  | Liveness & Readiness Probes |
+| 16.  | Requests & Limits |
+| 17.  | Namespaces - Imperative |
+| 18.  | Namespaces - Limit Range |
+| 19.  | Namespaces - Resource Quota |
+| 20.  | Storage Classes |
+| 21.  | Persistent Volumes |
+| 22.  | Persistent Volume Claims |
+| 23.  | Services - Load Balancers |
+| 24.  | Annotations |
+| 25.  | Canary Deployments |
+| 26.  | HPA - Horizontal Pod Autoscaler |
+| 27.  | VPA - Vertical Pod Autoscaler |
+| 28.  | CA - Cluster Autoscaler |
+| 29.  | DaemonSets |
+| 30.  | DaemonSets - Fluentd for logs |
+| 31.  | Volumes |
+| 32.  | Config Maps |
 
 ## List of Docker Images  on Docker Hub
 
@@ -34,175 +133,44 @@
 | DevOps Usecase  | YOUR-AWS-ACCOUNT-ID.dkr.ecr.us-east-1.amazonaws.com/eks-devops-nginx:DATETIME-REPOID  |
 
 
-## AWS Services - Covered as part of this course
-1. AWS Elastic Kubernetes Service - EKS
-2. AWS EKS Fargate (Serverless)
-3. AWS Elastic Container Registry - ECR
-3. AWS Elastic Block Storage - EBS
-4. AWS Elastic File Storage - EFS
-5. AWS VPC - Virtual Private Cloud
-6. AWS ELB - Elastic Load Balancer
-    - CLB - Classic Load Balancer
-    - NLB - Network Load Balancer
-    - ALB - Application Load Balancer
-7. AWS RDS - Relation Database Service
-8. AWS EC2 Instances
-9. AWS EC2 Autoscaling
-10. AWS AppMesh
-11. AWS X-Ray
-12. AWS CloudFormation
-13. AWS CloudWatch
-14. AWS CloudTrial
-15. AWS Parameter Store (for secrets - CICD)
-16. AWS Lambda (For secrets - CICD)
+## Sample Applications
+- User Management Microservice
+- Notification Miroservice
+- Nginx Applications
 
-## AWS EFS with EKS
-17. AWS Datasync
-18. AWS S3 Buckets
-19. AWS EFS
-    - https://docs.aws.amazon.com/datasync/latest/userguide/creating-task.html#in-coud-setup
-20. Cerficate Manager (For ALB SSL)
+## What will students learn in your course?
+- You will slowly start by learning Docker Fundamentals and move on to ECS or Fargate. 
+- You will learn Docker fundamentals by implementing usecases like download image from Docker Hub and run on local desktop and build an image locally, test and push to Docker Hub.
+- You will master the Elastic Container Service core concepts like Task Definition, Task and Service.
+- You will learn using ECR - Elastic Container Registry in combination with ECS. 
+- You will learn Docker Image Build, Push to ECR, run it as Task on ECS or Fargate Clusters.
+- You will learn usage of Application Load Balancers in combination with ECS Tasks (Containers) and also implement URI based routing on ALB.
+- You will understand and implement Service Autoscaling concepts of ECS
+- You will implement Continuous Integration and Continuous Delivery concepts using AWS Developer Tools like CodeBuild, CodeCommit and CodePipeline.
+- You will learn to master microservices deployments on ECS in combination with AWS CloudMap (for Service Discovery) and with AWS App Mesh (Service Mesh).
+- You will learn to deploy Microservices Canary Deployments using AWS App Mesh.
+- You will write CloudFormation Templates for Fargate Deployments starting from Network stack (VPC) to Service Stack (ECS or Fargate). 
+- You will learn to implement Distributed Tracing using X-Ray without making any application level code changes when AWS App Mesh (Envoy Proxy) is in place with ECS Deployments.
 
-| S.No  | AWS Services | S.No |Kubernetes Concepts |
-| ------------- | ------------- | ------------- | -------------|
-| 1.  | AWS EKS - Elastic Kubernetes Service  | 1.  |Pods  |
-| 2.  | AWS EKS - Fargate (Serverless)  | 2. |ReplicaSets  |
-| 3.  | AWS ECR - Elastic Container Registry  | 3. |Deployments  |
-| 4.  | AWS EBS - Elastic Block Store  | 4. |Services - NodePort |  
-| 5.  | AWS EFS - Elastic File Store  | 5. |Services - ClusterIp |  
-| 6.  | AWS VPC - Virtual Private Cloud  | 6. |Imperative & Delcarative ways to create k8s objects |
-| 7.  | AWS ELB - Elastic Load Balancer - ALB  | 7. |YAML Basics - for writing k8s manifests |    
+## Are there any course requirements or prerequisites?
+- You must have an AWS account to follow with me for hands-on activities.
+- You dont need to have any basic Docker knowledge also to start this course.  As part of Docker Fundamentals we have covered that too. 
 
+## Who are your target students?
+- AWS Architects or Sysadmins or Developers who are planning to master Elastic Container Service (ECS) for Docker deployments.
+- Any beginner who is interested in learning Docker fundamentals and moving on to master Docker Container deployments on AWS Cloud. 
+- Technologists who want to implement Continuous Integration and Continuos Delivery/Deployment process (CI/CD) in AWS with Docker Container Images.
 
-# Kubernetes Topics - For Preparation
+## Each of my courses come with
+- Amazing Hands-on Step By Step Learning Experiences
+- Real Implementation Experience
+- Friendly Support in the Q&A section
+- 30 Day "No Questions Asked" Money Back Guarantee!
 
-## Foundation
-- YAML Basics
+## My Other AWS Courses
+- [Udemy Enroll](https://github.com/stacksimplify/udemy-enroll)
 
-## Kube Core Topics
-- PODs
-- Deployments
-- Services
-- Volumes
-- ConfigMaps
-- Replication Controller or Replica Sets
-- Declarative commands (kubectl)
-- Live Template writing for PODS, Deployments & Services
+## Stack Simplify Udemy Profile
+- [Udemy Profile](https://www.udemy.com/user/kalyan-reddy-9/)
 
-## AWS EKS Topics 
-- Create Cluster 
-    - AWS Management Console
-    - eksctl
-- Worker Nodes 
-    - Launch a Worker Node (Linux)
-    - Managed Node Groups (MNG)
-        - Updating (Patching) Managed Node Groups
-        - Editing Managed Node Groups
-        - Managed Node Group ERRORS
-        - Deleting MNG
-- Storage
-    - EBS CSI Driver
-    - EFS CSI Driver
-- Autoscaling
-    - Cluster Autoscaler
-    - Horizontal Pod Autoscaler
-    - Vertical Pod Autoscaler
-- Load Balancing and Ingress
-    - Load Balancing (CLB, NLB)    
-    - ALB Ingress Controller
-- Networking
-    - Creating a VPC for EKS
-    - Cluster VPC Considerations
-    - EKS Security Group Considerations
-    - Understand Pod Networking   
-    - CoreDNS (Already exists in new clusters - just intro about it will suffice)
-    - Calico (Multi-tenant environment - not needed) 
-- Managing Cluster Authentication (Optional)               
-    - Important Topic - Managing Users or IAM Roles for your cluster
-- Guest Book Application
-- Metrics Server
-- Prometheus Metrics
-- Using Helm
-- Deploy Kubernetes Dashboard
-- AppMesh Integration with Kubernetes
-- Security (IAM role to Kubernetes Service Accounts)       
-    - IAM
-    - Pod Security Policy
-- CloudTrial    
-- AWS Fargate (LAST)
-    - Important Note: Pods running on Fargate are only supported on private subnets (with NAT gateway access to AWS services, but not a direct route to an Internet Gateway), so your cluster's VPC must have private subnets available.
-    - Stateful applications are not recommended for pods running on Fargate. 
-    - Daemonsets are not supported on Fargate. 
-    - GPUs are currently not available on Fargate.
-- Troubleshooting
-
-## Monitoring & Logging
-- CloudWatch
-- CloudTrail 
-- AWS X-Ray
-
-## Kube Tools
-- Kubeapps 
-- Helm Charts
-    - https://github.com/aws/eks-charts
-    - https://docs.aws.amazon.com/eks/latest/userguide/helm.html 
-    - https://helm.sh/docs/intro/quickstart/
-- Kubeadm
-- Grafana, Prometheus
-- Istio
-- Kiali
-
-
-
-
-# Kube Topics List
-
-## Series -1
-- Cluster Setup (AWS)
-- Architecture
-- PODS
-- Deployments
-- Services
-- ReplicaSets
-- YAML
-
-## Series-2
-- ConfigMaps
-- Resources
-- Containers
-- P Volume Claims
-- Networking
-- Taints & 
-- 
-
-## Series-3
-- Ingress
-- Secrets
-- Persistent Volumes
-- Security
-- 
-
-## Series-4
-- StatefulSets
-- Storage
-- Administration
-- Federation
-- Jobs
-
-
-
-## Local Dev MySQL Server
-```
-docker run --name mysql-dev -p 3306:3306 -e MYSQL_ROOT_PASSWORD=redhat -d mysql:latest
-docker stop mysql-dev
-docker rm mysql-dev
-docker exec -it mysql-dev bash
-
-# Docker network
-docker network ls
-
-# Connect to MySQL
-docker run -it --network some-network --rm mysql mysql -hsome-mysql -uexample-user -p
-docker run -it --network host --rm mysql mysql -hmysql-dev -uroot -p
-```    
 
