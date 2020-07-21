@@ -98,8 +98,7 @@
 | 28.  | CA - Cluster Autoscaler |
 | 29.  | DaemonSets |
 | 30.  | DaemonSets - Fluentd for logs |
-| 31.  | Volumes |
-| 32.  | Config Maps |
+| 31.  | Config Maps |
 
 ## List of Docker Images  on Docker Hub
 
@@ -139,6 +138,7 @@
 - Nginx Applications
 
 ## What will students learn in your course?
+- You will 
 - You will slowly start by learning Docker Fundamentals and move on to ECS or Fargate. 
 - You will learn Docker fundamentals by implementing usecases like download image from Docker Hub and run on local desktop and build an image locally, test and push to Docker Hub.
 - You will master the Elastic Container Service core concepts like Task Definition, Task and Service.
