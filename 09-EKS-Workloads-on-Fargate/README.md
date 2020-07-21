@@ -1,6 +1,7 @@
 # AWS EKS - Fargate Profiles
 
-
+1. Fargate Profiles - Basic
+2. Fargate Profiles - Advanced using YAML
 
 ## References
 - https://eksctl.io/usage/fargate-support/

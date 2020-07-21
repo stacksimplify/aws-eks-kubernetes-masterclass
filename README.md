@@ -54,14 +54,13 @@
 | 9.   | AWS Developer Tool - CodeCommit  |
 | 10.  | AWS Developer Tool - CodeBuild  |
 | 11.  | AWS Developer Tool - CodePipeline  |
-| 12.  | AWS Developer Tool - CodePipeline  |
-| 13.  | AWS X-Ray  |
-| 14.  | AWS CloudWatch - Container Insights  |
-| 15.  | AWS CloudWatch - Log Groups & Log Insights  |
-| 16.  | AWS CloudWatch - Alarms  |
-| 17.  | AWS Route53  |
-| 18.  | AWS Certificate Manager  |
-| 19.  | EKS CLI - eksctl  |
+| 12.  | AWS X-Ray  |
+| 13.  | AWS CloudWatch - Container Insights  |
+| 14.  | AWS CloudWatch - Log Groups & Log Insights  |
+| 15.  | AWS CloudWatch - Alarms  |
+| 16.  | AWS Route53  |
+| 17.  | AWS Certificate Manager  |
+| 18.  | EKS CLI - eksctl  |
 
 
 ## Kubernetes Concepts Covered
@@ -138,28 +137,32 @@
 - Nginx Applications
 
 ## What will students learn in your course?
-- You will 
-- You will slowly start by learning Docker Fundamentals and move on to ECS or Fargate. 
+- You will write kubernetes manifests with confidence after going through live template writing sections
+- You will learn 30+ kubernetes concepts and use 18 AWS Services in combination with EKS
+- You will learn Kubernetes Fundamentals in both imperative and declarative approaches
+- You will learn writing & deploying k8s manifests for storage concepts like storage class, persistent volume claim pvc, mysql and EBS CSI Driver
+- You will learn to switch from native EBS Storage to RDS Database using k8s external name service
+- You will learn writing and deploying load balancer k8s manifests for Classic and Network load balancers
+- You will learn writing ingress k8s manifests by enabling features like context path based routing, SSL, SSL Redirect and External DNS. 
+- You will learn writing k8s manifests for advanced fargate profiles and do mixed mode workload deployments in both EC2 and Fargate Serverless
+- You will learn using ECR - Elastic Container Registry in combination with EKS. 
+- You will implement DevOps concepts with AWS Code Services like CodeCommit, CodeBuild and CodePipeline
+- You will implement microservices core cocepts like Service Discovery, Distributed Tracing using X-Ray and Canary Deployments
+- You will learn to enable Autoscaling features like HPA,VPA and Cluster Autoscaler
+- You will learn to enable monitoring and logging for EKS cluster and workloads in cluster using CloudWatch Container Insights
 - You will learn Docker fundamentals by implementing usecases like download image from Docker Hub and run on local desktop and build an image locally, test and push to Docker Hub.
-- You will master the Elastic Container Service core concepts like Task Definition, Task and Service.
-- You will learn using ECR - Elastic Container Registry in combination with ECS. 
-- You will learn Docker Image Build, Push to ECR, run it as Task on ECS or Fargate Clusters.
-- You will learn usage of Application Load Balancers in combination with ECS Tasks (Containers) and also implement URI based routing on ALB.
-- You will understand and implement Service Autoscaling concepts of ECS
-- You will implement Continuous Integration and Continuous Delivery concepts using AWS Developer Tools like CodeBuild, CodeCommit and CodePipeline.
-- You will learn to master microservices deployments on ECS in combination with AWS CloudMap (for Service Discovery) and with AWS App Mesh (Service Mesh).
-- You will learn to deploy Microservices Canary Deployments using AWS App Mesh.
-- You will write CloudFormation Templates for Fargate Deployments starting from Network stack (VPC) to Service Stack (ECS or Fargate). 
-- You will learn to implement Distributed Tracing using X-Ray without making any application level code changes when AWS App Mesh (Envoy Proxy) is in place with ECS Deployments.
+- You will slowly start by learning Docker Fundamentals and move on to Kubenetes. 
+
 
 ## Are there any course requirements or prerequisites?
 - You must have an AWS account to follow with me for hands-on activities.
-- You dont need to have any basic Docker knowledge also to start this course.  As part of Docker Fundamentals we have covered that too. 
+- You dont need to have any basic Docker or kubernetes knowledge also to start this course.  
+
 
 ## Who are your target students?
-- AWS Architects or Sysadmins or Developers who are planning to master Elastic Container Service (ECS) for Docker deployments.
-- Any beginner who is interested in learning Docker fundamentals and moving on to master Docker Container deployments on AWS Cloud. 
-- Technologists who want to implement Continuous Integration and Continuos Delivery/Deployment process (CI/CD) in AWS with Docker Container Images.
+- AWS Architects or Sysadmins or Developers who are planning to master Elastic Kubernetes Service (EKS) for running applications on Kubernetes
+- Any beginner who is interested in learning kubernetes on cloud using AWS EKS. 
+- Any beginner who is interested in learning Kubernetes DevOps and Microservices deployments on Kubernetes
 
 ## Each of my courses come with
 - Amazing Hands-on Step By Step Learning Experiences
