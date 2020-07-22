@@ -152,11 +152,11 @@
 - You will learn to enable monitoring and logging for EKS cluster and workloads in cluster using CloudWatch Container Insights
 - You will learn Docker fundamentals by implementing usecases like download image from Docker Hub and run on local desktop and build an image locally, test and push to Docker Hub.
 - You will slowly start by learning Docker Fundamentals and move on to Kubenetes. 
-
+- You will master many kubectl commands over the process
 
 ## Are there any course requirements or prerequisites?
 - You must have an AWS account to follow with me for hands-on activities.
-- You dont need to have any basic Docker or kubernetes knowledge also to start this course.  
+- You dont need to have any basic Docker or kubernetes knowledge to start this course.  
 
 
 ## Who are your target students?
