@@ -17,8 +17,8 @@
 ```
 # Create Cluster
 eksctl create cluster --name=eksdemo1 \
-                      --region=us-east-1 \
-                      --zones=us-east-1a,us-east-1b \
+                      --region=eu-central-1 \
+                      --zones=eu-central-1a,eu-central-1b \
                       --without-nodegroup 
 
 # Get List of clusters
