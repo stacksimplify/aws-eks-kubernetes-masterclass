@@ -53,8 +53,27 @@ eksctl utils associate-iam-oidc-provider \
 
 ## Step-04: Create Node Group with additional Add-Ons in Public Subnets
 - These add-ons will create the respective IAM policies for us automatically within our Node Group role.
-  
-- Create Node Group  
+
+```  
+# Create demo Node Group  
+ eksctl create nodegroup --cluster=EKS-Parent-cluster \
+                        --region=eu-central-1 \
+                        --name=eksparent-ng-demo \
+                        --node-type=t2.small \
+                        --nodes=2 \
+                        --nodes-min=2 \
+                        --nodes-max=3 \
+                        --node-volume-size=20 \
+                        --ssh-access \
+                        --ssh-public-key=kube-key \
+                        --managed \
+                        --asg-access \
+                        --external-dns-access \
+                        --full-ecr-access \
+                        --appmesh-access \
+                        --alb-ingress-access 
+```  
+# Create prod Node Group  
  eksctl create nodegroup --cluster=EKS-Parent-cluster \
                         --region=eu-central-1 \
                         --name=eksparent-ng-prod \
