@@ -22,7 +22,8 @@ eksctl create cluster --name=EKS-Parent-cluster \
                       --without-nodegroup 
 
 # Get List of clusters
-eksctl get clusters                  
+eksctl get clusters 
+aws eks update-kubeconfig --name EKS-Parent-cluster --region eu-central-1
 ```
 
 
