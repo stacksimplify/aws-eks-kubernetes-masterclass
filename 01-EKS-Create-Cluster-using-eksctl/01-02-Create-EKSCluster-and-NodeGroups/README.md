@@ -110,7 +110,7 @@ eksctl utils associate-iam-oidc-provider \
 eksctl get cluster
 
 # List NodeGroups in a cluster
-eksctl get nodegroup --cluster=<clusterName>
+eksctl get nodegroup --cluster=EKS-Parent-cluster
 
 # List Nodes in current kubernetes cluster
 kubectl get nodes -o wide
