@@ -58,10 +58,10 @@ eksctl utils associate-iam-oidc-provider \
 eksctl create nodegroup --cluster=eksdemo1 \
                         --region=eu-central-1 \
                         --name=eksparent-ng-public1 \
-                        --node-type=t3.medium \
+                        --node-type=c5.xlarge \
                         --nodes=2 \
                         --nodes-min=2 \
-                        --nodes-max=4 \
+                        --nodes-max=6 \
                         --node-volume-size=60 \
                         --ssh-access \
                         --ssh-public-key=kube-key \
