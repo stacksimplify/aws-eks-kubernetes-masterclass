@@ -16,7 +16,7 @@
 - It will take 15 to 20 minutes to create the Cluster Control Plane 
 ```
 # Create Cluster
-eksctl create cluster --name=eksdemo1 \
+eksctl create cluster --name=EKS-Parent-cluster \
                       --region=eu-central-1 \
                       --zones=eu-central-1a,eu-central-1b \
                       --without-nodegroup 
@@ -40,7 +40,7 @@ eksctl utils associate-iam-oidc-provider \
 # Replace with region & cluster name
 eksctl utils associate-iam-oidc-provider \
     --region eu-central-1 \
-    --cluster eksdemo1 \
+    --cluster EKS-Parent-cluster \
     --approve
 ```
 
@@ -57,12 +57,12 @@ eksctl utils associate-iam-oidc-provider \
 # Create Public Node Group   
 eksctl create nodegroup --cluster=eksdemo1 \
                         --region=eu-central-1 \
-                        --name=eksdemo1-ng-public1 \
+                        --name=eksparent-ng-public1 \
                         --node-type=t3.medium \
                         --nodes=2 \
                         --nodes-min=2 \
                         --nodes-max=4 \
-                        --node-volume-size=20 \
+                        --node-volume-size=60 \
                         --ssh-access \
                         --ssh-public-key=kube-key \
                         --managed \
