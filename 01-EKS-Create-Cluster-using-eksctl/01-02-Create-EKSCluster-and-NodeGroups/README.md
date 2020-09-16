@@ -23,6 +23,8 @@ eksctl create cluster --name=EKS-Parent-cluster \
 
 # Get List of clusters
 eksctl get clusters 
+
+# update-kubeconfig
 aws eks update-kubeconfig --name EKS-Parent-cluster --region eu-central-1
 ```
 
