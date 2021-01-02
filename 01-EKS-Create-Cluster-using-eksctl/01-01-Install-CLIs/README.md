@@ -6,36 +6,47 @@
 - Install eksctl CLI
 
 ## Step-01: Install AWS CLI
-- Reference-1: https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html
-- Reference-2: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
-### Step-01-01: MAC - Install and configure AWS CLI
-- Download the binary and install via command line using below two commands. 
-```
-# Download Binary
-curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+# Prerequisites
 
-# Install the binary
-sudo installer -pkg ./AWSCLIV2.pkg -target /
+* Python3 or Python2.7.9+
+* Python Pip3 / Pip
+
+# Install awscli
+## linux based system
+
+```bash 
+pip install --user awscli
+export PATH=$PATH:/home/$(whoami)/.local/bin
 ```
-- Verify the installation 
+
+_--user_ is used to install the awscli under your home directory, not to interfere with any existing libraries/installations
+
+create file _~/.aws/credentials_
+
+```bash
+[default]
+aws_access_key_id=###
+aws_secret_access_key=###
+region=us-east-1
+output=json
 ```
+
+## Windows, using Anaconda
+after Anaconda python distribution, goto "Start" => "Anaconda" => "open anaconda shell"
+
+```
+# potentially upgrade pip first
+python -m pip install --upgrade pip
+pip install --user awscli
+
+set path=%path%;c:\users\<<username>>\appdata\roaming\python\python37\scripts
+```
+
+## TEST
+
+```bash
 aws --version
-aws-cli/2.0.7 Python/3.7.4 Darwin/19.4.0 botocore/2.0.0dev11
-
-which aws
 ```
-- Reference: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-mac.html
-
-### Step-01-02: Windows 10 - Install and configure AWS CLI
-- The AWS CLI version 2 is supported on Windows XP or later.
-- The AWS CLI version 2 supports only 64-bit versions of Windows.
-- Download Binary: https://awscli.amazonaws.com/AWSCLIV2.msi
-- Install the downloaded binary (standard windows install)
-```
-aws --version
-aws-cli/2.0.8 Python/3.7.5 Windows/10 botocore/2.0.0dev12
-```
-- Reference: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2-windows.html
 
 ### Step-01-03: Configure AWS Command Line using Security Credentials
 - Go to AWS Management Console --> Services --> IAM
@@ -102,25 +113,20 @@ kubectl version --client
 ```
 
 ## Step-03: Install eksctl CLI
-### Step-03-01: eksctl on Mac
-```
-# Install Homebrew on MacOs
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+## Installation
+for non-Linux OS you can find a binary download here:
 
-# Install the Weaveworks Homebrew tap.
-brew tap weaveworks/tap
+https://github.com/weaveworks/eksctl/releases
 
-# Install the Weaveworks Homebrew tap.
-brew install weaveworks/tap/eksctl
+on Linux, you can just execute:
 
-# Verify eksctl version
-eksctl version
+```bash
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp  
+
+sudo mv /tmp/eksctl /usr/local/bin
 ```
 
-### Step-03-02: eksctl on windows or linux
-- For windows and linux OS, you can refer below documentation link. 
-- **Reference:** https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html#installing-eksctl
+This utility will use the same _credentials_ file as we explored for the AWS cli, located under '~/.aws/credentials'
 
-
-## References:
-- https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html
+## Test
+```eksctl version```

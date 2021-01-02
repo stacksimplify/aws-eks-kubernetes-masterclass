@@ -16,13 +16,16 @@
 - It will take 15 to 20 minutes to create the Cluster Control Plane 
 ```
 # Create Cluster
-eksctl create cluster --name=eksdemo1 \
-                      --region=us-east-1 \
-                      --zones=us-east-1a,us-east-1b \
+eksctl create cluster --name=EKS-Parent-cluster \
+                      --region=eu-central-1 \
+                      --zones=eu-central-1a,eu-central-1b \
                       --without-nodegroup 
 
 # Get List of clusters
-eksctl get clusters                  
+eksctl get clusters 
+
+# update-kubeconfig
+aws eks update-kubeconfig --name EKS-Parent-cluster --region eu-central-1
 ```
 
 
@@ -39,8 +42,8 @@ eksctl utils associate-iam-oidc-provider \
 
 # Replace with region & cluster name
 eksctl utils associate-iam-oidc-provider \
-    --region us-east-1 \
-    --cluster eksdemo1 \
+    --region eu-central-1 \
+    --cluster EKS-Parent-cluster \
     --approve
 ```
 
@@ -53,18 +56,37 @@ eksctl utils associate-iam-oidc-provider \
 
 ## Step-04: Create Node Group with additional Add-Ons in Public Subnets
 - These add-ons will create the respective IAM policies for us automatically within our Node Group role.
- ```
-# Create Public Node Group   
-eksctl create nodegroup --cluster=eksdemo1 \
-                        --region=us-east-1 \
-                        --name=eksdemo1-ng-public1 \
-                        --node-type=t3.medium \
+
+```  
+# Create demo Node Group  
+ eksctl create nodegroup --cluster=EKS-Parent-cluster \
+                        --region=eu-central-1 \
+                        --name=eksparent-ng-demo \
+                        --node-type=t2.small \
                         --nodes=2 \
                         --nodes-min=2 \
-                        --nodes-max=4 \
+                        --nodes-max=3 \
                         --node-volume-size=20 \
                         --ssh-access \
-                        --ssh-public-key=kube-demo \
+                        --ssh-public-key=kube-key \
+                        --managed \
+                        --asg-access \
+                        --external-dns-access \
+                        --full-ecr-access \
+                        --appmesh-access \
+                        --alb-ingress-access 
+```  
+# Create prod Node Group  
+ eksctl create nodegroup --cluster=EKS-Parent-cluster \
+                        --region=eu-central-1 \
+                        --name=eksparent-ng-prod \
+                        --node-type=c5.xlarge \
+                        --nodes=2 \
+                        --nodes-min=2 \
+                        --nodes-max=6 \
+                        --node-volume-size=60 \
+                        --ssh-access \
+                        --ssh-public-key=kube-key \
                         --managed \
                         --asg-access \
                         --external-dns-access \
@@ -91,7 +113,7 @@ eksctl create nodegroup --cluster=eksdemo1 \
 eksctl get cluster
 
 # List NodeGroups in a cluster
-eksctl get nodegroup --cluster=<clusterName>
+eksctl get nodegroup --cluster=EKS-Parent-cluster
 
 # List Nodes in current kubernetes cluster
 kubectl get nodes -o wide
