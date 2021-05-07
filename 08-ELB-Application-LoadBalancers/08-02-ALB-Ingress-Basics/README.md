@@ -89,6 +89,12 @@ kubectl logs -f $(kubectl get po -n kube-system | egrep -o 'alb-ingress-controll
 07:28:39.900001       1 controller.go:217] kubebuilder/controller "msg"="Reconciler error" "error"="failed to build LoadBalancer configuration due to unable to fetch subnets. Error: WebIdentityErr: failed to retrieve credentials\ncaused by: AccessDenied: Not authorized to perform sts:AssumeRoleWithWebIdentity\n\tstatus code: 403, request id: 3d54741a-4b85-4025-ad11-73d4a3661d09"  "controller"="alb-ingress-controller" "request"={"Namespace":"default","Name":"ingress-usermgmt-restapp-service"}
 ```
 
+- **VERY VERY IMPORTANT NOTE:** Additionally if you see any errors as below, please go to VPC -> EKS VPC -> Subnets -> For both Public Subnets, add the tag as `kubernetes.io/cluster/eksdemo1 =  shared` 
+```
+E0507 15:40:13.134304       1 controller.go:217] kubebuilder/controller "msg"="Reconciler error" "error"="failed to build LoadBalancer configuration due to failed to resolve 2 qualified subnet with at least 8 free IP Addresses for ALB. Subnets must contains these tags: 'kubernetes.io/cluster/eksdemo1': ['shared' or 'owned'] and 'kubernetes.io/role/elb': ['' or '1']. See https://kubernetes-sigs.github.io/aws-alb-ingress-controller/guide/controller/config/#subnet-auto-discovery for more details. Resolved qualified subnets: '[]'"  "controller"="alb-ingress-controller" "request"={"Namespace":"default","Name":"ingress-usermgmt-restapp-service"}
+
+```
+
 ## Step-05: Verify the ALB in AWS Management Console & Access Application using ALB DNS URL
 - Verify Load Balancer
     - In Listeners Tab, click on **View/Edit Rules** under Rules
