@@ -32,7 +32,7 @@ spec:
             name: "xray-config"
       containers:
         - name: xray-daemon
-          image: amazon/aws-xray-daemon
+          image: amazon/aws-xray-daemon:3.2.0
           command: ["/usr/bin/xray", "-c", "/aws/xray/config.yaml"]
           resources:
             requests:
