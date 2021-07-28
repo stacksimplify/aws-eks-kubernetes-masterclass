@@ -60,4 +60,3 @@ metadata:
     app.kubernetes.io/name: alb-ingress-controller
   name: alb-ingress-controller
   namespace: kube-system
-...
