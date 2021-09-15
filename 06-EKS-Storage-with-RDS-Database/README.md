@@ -76,7 +76,7 @@ metadata:
   name: mysql
 spec:
   type: ExternalName
-  externalName: usermgmtdb.c7hldelt9xfp.us-east-1.rds.amazonaws.com
+  externalName: usermgmtdb.c7hldelt9xfp.us-east-1.rds.amazonaws.com  #RDS database endpoint ...>RDS>Database>usermgmt
 ```
  - **Deploy Manifest**
 ```
