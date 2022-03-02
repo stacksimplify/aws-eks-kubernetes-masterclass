@@ -465,11 +465,14 @@ CHECK-3: Verify Volumes
       secretName: aws-load-balancer-tls
 ```
 
-### Step-04-07: UNINSTALL AWS Load Balancer Controller using Helm Command (Optional)
+### Step-04-07: UNINSTALL AWS Load Balancer Controller using Helm Command (Information Purpose - SHOULD NOT EXECUTE THIS COMMAND)
+- This step should not be implemented.
+- This is just put it here for us to know how to uninstall aws load balancer controller from EKS Cluster
 ```t
 # Uninstall AWS Load Balancer Controller
 helm uninstall aws-load-balancer-controller -n kube-system 
 ```
+
 
 
 ## Step-05: Ingress Class Concept
