@@ -112,7 +112,7 @@ http://<EKS-WorkerNode-Public-IP>:31231/usermgmt/health-status
 ## Step-05: Verify Users in MySQL Database
 ```
 # Connect to MYSQL Database
-kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -pdbpassword11
+kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -u root -pdbpassword11
 
 # Verify usermgmt schema got created which we provided in ConfigMap
 mysql> show schemas;
