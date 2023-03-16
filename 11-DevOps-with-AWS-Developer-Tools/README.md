@@ -109,6 +109,86 @@ aws iam put-role-policy --role-name EksCodeBuildKubectlRole --policy-name eks-de
 # Verify the same on Management Console
 ```
 
+### For Windows users who are using Powershell
+```t
+Here is a solutions to creating the Trust policy from AWS Tech Support
+
+I understand that you are following an instruction to create an IAM role for CodeBuild but the commands do not work for PowerShell.
+
+In PowerShell, the format is different from the scripts in Mac OS. Cmdlets are used in PowerShell. I have used Cmdlets in PowerShell to create a role and attach an inline policy. Please check the following for the details:
+
+1. Create IAM Role for CodeBuild to Interact with EKS
+
+First create a new file NewRoleTrustPolicy.json with the following contents:
+
+{
+
+"Version": "2012-10-17",
+
+"Statement": [
+
+{
+
+"Sid": "",
+
+"Effect": "Allow",
+
+"Principal": {
+
+"AWS": "arn:aws:iam::xxxxxxxxxxxx:root"
+
+},
+
+"Action": "sts:AssumeRole"
+
+}
+
+]
+
+}
+
+Note: please replace your account ID in the above Principal parameter.
+
+
+New-IAMRole -AssumeRolePolicyDocument (Get-Content -raw NewRoleTrustPolicy.json) -RoleName EksCodeBuildKubectlRole
+
+After the above command, you can check if the IAM role EksCodeBuildKubectlRole is created in your AWS account. Please check the New-IAMRole Cmdlet reference in [1].
+
+
+2. Define Inline Policy with eks Describe permission in a file iam-eks-describe-policy
+
+First create a new file iam-eks-describe-policy.json with the following contents:
+
+{ "Version": "2012-10-17",
+
+"Statement":
+
+[ { "Effect": "Allow",
+
+"Action": "eks:Describe*",
+
+"Resource": "*" }
+
+]
+
+}
+
+Write-IAMRolePolicy -RoleName EksCodeBuildKubectlRole -PolicyName eks-describe -PolicyDocument (Get-Content -Raw iam-eks-describe-policy.json)
+
+
+After the above command, you can check if the IAM role EksCodeBuildKubectlRole has the inline policy eks-describe attached. Please check the Write-IAMRolePolicy Cmdlet reference in [2].
+I hope the above information can help you.
+
+References
+================
+[1]: New-IAMRole
+https://docs.aws.amazon.com/powershell/latest/reference/items/New-IAMRole.html
+[2]: Write-IAMRolePolicy
+https://docs.aws.amazon.com/powershell/latest/reference/items/Write-IAMRolePolicy.html
+
+
+```
+
 ## Step-07: Update EKS Cluster aws-auth ConfigMap with new role created in previous step
 - We are going to add the role to the `aws-auth ConfigMap` for the EKS cluster.
 - Once the `EKS aws-auth ConfigMap` includes this new role, kubectl in the CodeBuild stage of the pipeline will be able to interact with the EKS cluster via the IAM role.
