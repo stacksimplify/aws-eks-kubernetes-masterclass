@@ -212,6 +212,42 @@ kubectl patch configmap/aws-auth -n kube-system --patch "$(cat /tmp/aws-auth-pat
 kubectl get configmap aws-auth -o yaml -n kube-system
 ```
 
+### This is for the changing the Configmap with Windows PowerShell 
+```t
+This is for the changing the Configmap and PowerShell
+
+In PowerShell, the following steps can be used:
+
+1. kubectl edit -n kube-system configmap/aws-auth
+2. In step1, there will be a file opened for you to edit configmap/aws-auth.
+In the opened file, there is a mapRoles field such as:
+data:
+mapRoles: |
+- rolearn: <ARN of instance role>
+username: system:node:{{EC2PrivateDNSName}}
+groups:
+- system:bootstrappers
+- system:nodes
+
+3. Add the EksCodeBuildKubectlRole information into the mapRoles field of the file such as:
+data:
+mapRoles: |
+- rolearn: arn:aws:iam::018185988195:role/EksCodeBuildKubectlRole
+username: build
+groups:
+- system:masters
+- rolearn: <ARN of instance role (not instance profile)>
+username: system:node:{{EC2PrivateDNSName}}
+groups:
+- system:bootstrappers
+- system:nodes
+
+Save the file.
+
+
+4. After the file is saved and closed, configmap/aws-auth has been edited. You can check configmap/aws-auth using the command "kubectl describe -n kube-system configmap/aws-auth".
+```
+
 ## Step-08: Review the buildspec.yml for CodeBuild & Environment Variables
 
 ### Code Build Introduction
