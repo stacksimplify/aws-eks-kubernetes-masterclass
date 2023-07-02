@@ -1,0 +1,14 @@
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: dev-user-access-rolebinding
+  namespace: dev
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: dev-user-full-access-role
+subjects:
+- kind: Group
+  namespace: dev
+  #name: groupObjectId # Your Azure AD Group Object ID: devaksteam
+  name: "4123d819-9ed6-460b-8321-39f02157536b"  

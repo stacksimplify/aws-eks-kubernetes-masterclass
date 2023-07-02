@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service 
+metadata:
+  name: deployment-loadbalancer-service
+spec:
+  type: LoadBalancer # ClusterIp, # NodePort
+  selector:
+    app: myapp3
+  ports: 
+    - name: http
+      port: 80 # Service Port
+      targetPort: 80 # Container Port

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-backend-service ## VERY VERY IMPORTANT - NGINX PROXYPASS needs this name
+  labels:
+    app: backend-restapp
+    tier: backend   
+spec:
+  #type: ClusterIP is a default service in k8s
+  selector:
+    app: backend-restapp
+  ports:
+    - name: http
+      port: 8080 # ClusterIP Service Port
+      targetPort: 8080 # Container Port

@@ -1,0 +1,22 @@
+
+stages:
+- stage: Stage-1
+  jobs:  
+  - job: Job-1
+    steps:
+    - script: echo Step-1
+    - script: echo Step-2
+  - job: Job-2
+    steps:
+    - task: some task step-1
+    - task: some task step-2
+- stage: Stage-2
+  jobs:  
+  - job: Job-1
+    steps:
+    - task: some task step-1
+    - task: some task step-2
+  - job: Job-2
+    steps:
+    - script: echo Step-1
+    - script: echo Step-2

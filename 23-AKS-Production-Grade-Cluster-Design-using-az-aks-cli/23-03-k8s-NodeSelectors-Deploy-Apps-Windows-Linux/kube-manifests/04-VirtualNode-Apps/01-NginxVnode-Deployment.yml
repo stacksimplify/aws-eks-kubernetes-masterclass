@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vnode-app-deployment
+  labels:
+    app: vnode-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vnode-nginx
+  template:
+    metadata:
+      labels:
+        app: vnode-nginx
+    spec:
+      containers:
+        - name: vnode-nginx
+          image: stacksimplify/kubenginx:1.0.0
+          ports:
+            - containerPort: 80
+# To schedule pods on Azure Virtual Nodes            
+      nodeSelector:
+        kubernetes.io/role: agent
+        beta.kubernetes.io/os: linux
+        type: virtual-kubelet
+      tolerations:
+      - key: virtual-kubelet.io/provider
+        operator: Exists
+      - key: azure.com/aci
+        effect: NoSchedule            
+
+   

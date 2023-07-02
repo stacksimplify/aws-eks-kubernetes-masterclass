@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html>
+   <body style="background-color:rgb(212, 240, 234);">
+      <h1>Welcome to Stack Simplify - Azure DevOps App1 - V1</h1>
+      <h2>Azure DevOps Demo App1</h2>
+      <h2>Application Version: V1</h2>
+   </body>
+</html>

@@ -1,0 +1,62 @@
+--------------------------------------------
+# Terraform State Storage Azure RM
+Resource Group: terraform-storage-rg
+Storage Account: terraformstatexlrwdrzs
+Container: tfstatefiles
+
+# Manifests Folder
+terraform-manifests
+
+# System Default Working Directory
+$(System.DefaultWorkingDirectory)/terraform-manifests
+$(Pipeline.Workspace)/terraform-manifests-out
+# List Files
+- bash: echo Contents in Pipeline Workspace Artifact Directory; ls -Ra $(System.DefaultWorkingDirectory)/terraform-manifests
+--------------------------------------------
+# Environment Name
+$(DEV_ENVIRONMENT)
+
+# Dev State File Name
+aks-$(DEV_ENVIRONMENT).tfstate
+
+# Pipeline Working Directory
+$(Pipeline.Workspace)/terraform-manifests-out
+
+# Dev Command Arguments for Terraform Plan
+-var ssh_public_key=$(sshkey.secureFilePath) 
+-var environment=$(DEV_ENVIRONMENT) 
+-out $(Pipeline.Workspace)/terraform-manifests-out/$(DEV_ENVIRONMENT)-$(Build.BuildId).out
+
+# 1- way
+terraform plan
+terraform apply
+
+# 2-way
+terraform plan -out v1plan.out
+terraform apply v1plan.out
+
+
+# Dev Command Arguments for Terraform Apply
+$(Pipeline.Workspace)/terraform-manifests-out/$(DEV_ENVIRONMENT)-$(Build.BuildId).out
+
+# List Files
+- bash: echo Contents in Pipeline Workspace Artifact Directory; ls -Ra $(Pipeline.Workspace)/terraform-manifests-out    
+--------------------------------------------
+# Environment Name
+$(QA_ENVIRONMENT)
+
+# QA State File
+aks-$(QA_ENVIRONMENT).tfstate
+
+# Pipeline Working Directory
+$(Pipeline.Workspace)/terraform-manifests-out
+
+# QA Command Arguments for Terraform Plan
+-var ssh_public_key=$(sshkey.secureFilePath) 
+-var environment=$(QA_ENVIRONMENT) 
+-out $(Pipeline.Workspace)/terraform-manifests-out/$(QA_ENVIRONMENT)-$(Build.BuildId).out
+
+# QA Command Arguments for Terraform Apply
+$(Pipeline.Workspace)/terraform-manifests-out/$(QA_ENVIRONMENT)-$(Build.BuildId).out
+--------------------------------------------
+

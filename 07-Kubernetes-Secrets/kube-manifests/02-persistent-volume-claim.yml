@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: azure-managed-disk-pvc
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: managed-premium-retain-sc 
+  resources:
+    requests:
+      storage: 5Gi      
+
+# AKS already provisioned Storage classes managed-premium and default as part of 
+# default cluster setup      

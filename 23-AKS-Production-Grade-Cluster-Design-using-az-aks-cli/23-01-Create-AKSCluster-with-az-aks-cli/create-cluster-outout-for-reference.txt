@@ -1,0 +1,213 @@
+Kalyans-Mac-mini:~ kalyanreddy$ az aks create --resource-group ${AKS_RESOURCE_GROUP} \
+>               --name ${AKS_CLUSTER} \
+>               --enable-managed-identity \
+>               --ssh-key-value  ${AKS_SSH_KEY_LOCATION} \
+>               --admin-username aksnodeadmin \
+>               --node-count 1 \
+>               --enable-cluster-autoscaler \
+>               --min-count 1 \
+>               --max-count 100 \
+>               --network-plugin azure \
+>               --service-cidr 10.0.0.0/16 \
+>               --dns-service-ip 10.0.0.10 \
+>               --docker-bridge-address 172.17.0.1/16 \
+>               --vnet-subnet-id ${AKS_VNET_SUBNET_DEFAULT_ID} \
+>               --enable-aad \
+>               --aad-admin-group-object-ids ${AKS_AD_AKSADMIN_GROUP_ID}\
+>               --aad-tenant-id ${AZURE_DEFAULT_AD_TENANTID} \
+>               --windows-admin-password ${AKS_WINDOWS_NODE_PASSWORD} \
+>               --windows-admin-username ${AKS_WINDOWS_NODE_USERNAME} \
+>               --node-osdisk-size 30 \
+>               --node-vm-size Standard_DS2_v2 \
+>               --nodepool-labels nodepool-type=system nodepoolos=linux app=system-apps \
+>               --nodepool-name systempool \
+>               --nodepool-tags nodepool-type=system nodepoolos=linux app=system-apps \
+>               --enable-addons monitoring \
+>               --workspace-resource-id ${AKS_MONITORING_LOG_ANALYTICS_WORKSPACE_ID} \
+>               --enable-ahub \
+>               --zones 3
+
+
+The cluster is an MSI cluster, please manually grant Network Contributor role to the system assigned identity after the cluster is created, see https://docs.microsoft.com/en-us/azure/aks/use-managed-identity
+
+
+AAD role propagation done[############################################]  100.0000%{
+  "aadProfile": {
+    "adminGroupObjectIds": [
+      "51c22abe-3626-4eed-9179-0721e8f2360a"
+    ],
+    "clientAppId": null,
+    "enableAzureRbac": null,
+    "managed": true,
+    "serverAppId": null,
+    "serverAppSecret": null,
+    "tenantId": "c81f465b-99f9-42d3-a169-8082d61c677a"
+  },
+  "addonProfiles": {
+    "KubeDashboard": {
+      "config": null,
+      "enabled": true,
+      "identity": {
+        "clientId": "a31a2c68-7242-4dc4-85d7-87e09dc69a8e",
+        "objectId": "5494d99d-b77b-46f5-bf51-d7c266611d6d",
+        "resourceId": "/subscriptions/82808767-144c-4c66-a320-b30791668b0a/resourcegroups/MC_aks-prod_aksprod1_centralus/providers/Microsoft.ManagedIdentity/userAssignedIdentities/kubedashboard-aksprod1"
+      }
+    },
+    "omsagent": {
+      "config": {
+        "logAnalyticsWorkspaceResourceID": "/subscriptions/82808767-144c-4c66-a320-b30791668b0a/resourcegroups/aks-prod/providers/microsoft.operationalinsights/workspaces/aksprod-loganalytics-workspace1"
+      },
+      "enabled": true,
+      "identity": {
+        "clientId": "d2fbc252-3329-41a4-afc4-6ca68d21b362",
+        "objectId": "00f6f0a1-0b3b-440a-beb8-30d795e926b3",
+        "resourceId": "/subscriptions/82808767-144c-4c66-a320-b30791668b0a/resourcegroups/MC_aks-prod_aksprod1_centralus/providers/Microsoft.ManagedIdentity/userAssignedIdentities/omsagent-aksprod1"
+      }
+    }
+  },
+  "agentPoolProfiles": [
+    {
+      "availabilityZones": [
+        "3"
+      ],
+      "count": 1,
+      "enableAutoScaling": true,
+      "enableNodePublicIp": false,
+      "maxCount": 100,
+      "maxPods": 30,
+      "minCount": 1,
+      "mode": "System",
+      "name": "systempool",
+      "nodeImageVersion": "AKSUbuntu-1604-2020.10.08",
+      "nodeLabels": {
+        "app": "system-apps",
+        "nodepool-type": "system",
+        "nodepoolos": "linux"
+      },
+      "nodeTaints": null,
+      "orchestratorVersion": "1.17.11",
+      "osDiskSizeGb": 30,
+      "osDiskType": "Managed",
+      "osType": "Linux",
+      "powerState": {
+        "code": "Running"
+      },
+      "provisioningState": "Succeeded",
+      "proximityPlacementGroupId": null,
+      "scaleSetEvictionPolicy": null,
+      "scaleSetPriority": null,
+      "spotMaxPrice": null,
+      "tags": {
+        "app": "system-apps",
+        "nodepool-type": "system",
+        "nodepoolos": "linux"
+      },
+      "type": "VirtualMachineScaleSets",
+      "upgradeSettings": null,
+      "vmSize": "Standard_DS2_v2",
+      "vnetSubnetId": "/subscriptions/82808767-144c-4c66-a320-b30791668b0a/resourceGroups/aks-prod/providers/Microsoft.Network/virtualNetworks/aks-vnet-prod/subnets/aks-prod-default"
+    }
+  ],
+  "apiServerAccessProfile": null,
+  "autoScalerProfile": {
+    "balanceSimilarNodeGroups": "false",
+    "expander": "random",
+    "maxEmptyBulkDelete": "10",
+    "maxGracefulTerminationSec": "600",
+    "maxTotalUnreadyPercentage": "45",
+    "newPodScaleUpDelay": "0s",
+    "okTotalUnreadyCount": "3",
+    "scaleDownDelayAfterAdd": "10m",
+    "scaleDownDelayAfterDelete": "10s",
+    "scaleDownDelayAfterFailure": "3m",
+    "scaleDownUnneededTime": "10m",
+    "scaleDownUnreadyTime": "20m",
+    "scaleDownUtilizationThreshold": "0.5",
+    "scanInterval": "10s",
+    "skipNodesWithLocalStorage": "false",
+    "skipNodesWithSystemPods": "true"
+  },
+  "diskEncryptionSetId": null,
+  "dnsPrefix": "aksprod1-aks-prod-828087",
+  "enablePodSecurityPolicy": null,
+  "enableRbac": true,
+  "fqdn": "aksprod1-aks-prod-828087-80d1f365.hcp.centralus.azmk8s.io",
+  "id": "/subscriptions/82808767-144c-4c66-a320-b30791668b0a/resourcegroups/aks-prod/providers/Microsoft.ContainerService/managedClusters/aksprod1",
+  "identity": {
+    "principalId": "dc80eb15-8121-469b-b038-46a32cd180b0",
+    "tenantId": "c81f465b-99f9-42d3-a169-8082d61c677a",
+    "type": "SystemAssigned",
+    "userAssignedIdentities": null
+  },
+  "identityProfile": {
+    "kubeletidentity": {
+      "clientId": "1f41c14b-48b4-4ba5-85ca-d48fb244a91d",
+      "objectId": "5744c032-ccfc-44a0-aabd-673d27a8b8ed",
+      "resourceId": "/subscriptions/82808767-144c-4c66-a320-b30791668b0a/resourcegroups/MC_aks-prod_aksprod1_centralus/providers/Microsoft.ManagedIdentity/userAssignedIdentities/aksprod1-agentpool"
+    }
+  },
+  "kubernetesVersion": "1.17.11",
+  "linuxProfile": {
+    "adminUsername": "aksnodeadmin",
+    "ssh": {
+      "publicKeys": [
+        {
+          "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDCJ7Jzwtf5cSrIF+Er6QVWlD/QEyG1xqoRIRCOqNz1HNJMeV6RCV8vh+gdA5a3mwlZ+Z3NNfVDnZREObMtyeOiwxcAVqrZonpJKa4CzRJrrsuPntngxueb44VdV8ivMcKvEx9WLJDrygF8OhCAFfO7AMd1xg9oP/31Zt5aRShTS13eeeIW9HO9QD/HufQEcrGls2aNXMyIcZr03oX6ttVawuTmqQi63/2gWUxmFueynTvFl2Ue/arPGYJgw4Us5QhsF0ewBVGR8K7P00YLqA92wPxoBNiEZjrytGUbi26RU35vScMUdLrrUb4eIJNorH9TEacjzx0HTzMNIafONLoPiqvkXYv5KHVnhSCMrxZlscCjQp11Jw06tX4uUZDkzrzzFJ3Fec7OCaKMTdrvmrvs9bnj+c2BfrU94pFpbEu63RZ7ewe0xbbUKjGvnjIz7JQUhULsp1J2RlF68cunJb4ATpZDnuo8K0RYlV4m7X2ab0L81Eew8WhALnvjA2+Hx0fzNWPeQY8+MrK0I9cjp5eAwlKUB+rYBBb4IdiFf+SrL6KSkuancqNfRPsj4qohgob1wuG3qLYsnJi4qjOXZTQ4XChHadnfVSGFJPAesXNC2PWdewNa7hP1eM5bh+5dm3JXbg4Z4VnoLdpIdmw38EE7sEik2kFIswnmb01hwthpAQ== azureuser@myserver\n"
+        }
+      ]
+    }
+  },
+  "location": "centralus",
+  "maxAgentPools": 10,
+  "name": "aksprod1",
+  "networkProfile": {
+    "dnsServiceIp": "10.0.0.10",
+    "dockerBridgeCidr": "172.17.0.1/16",
+    "loadBalancerProfile": {
+      "allocatedOutboundPorts": null,
+      "effectiveOutboundIps": [
+        {
+          "id": "/subscriptions/82808767-144c-4c66-a320-b30791668b0a/resourceGroups/MC_aks-prod_aksprod1_centralus/providers/Microsoft.Network/publicIPAddresses/bcd801ba-659a-408e-9fed-a57015c25822",
+          "resourceGroup": "MC_aks-prod_aksprod1_centralus"
+        }
+      ],
+      "idleTimeoutInMinutes": null,
+      "managedOutboundIps": {
+        "count": 1
+      },
+      "outboundIpPrefixes": null,
+      "outboundIps": null
+    },
+    "loadBalancerSku": "Standard",
+    "networkMode": null,
+    "networkPlugin": "azure",
+    "networkPolicy": null,
+    "outboundType": "loadBalancer",
+    "podCidr": null,
+    "serviceCidr": "10.0.0.0/16"
+  },
+  "nodeResourceGroup": "MC_aks-prod_aksprod1_centralus",
+  "powerState": {
+    "code": "Running"
+  },
+  "privateFqdn": null,
+  "provisioningState": "Succeeded",
+  "resourceGroup": "aks-prod",
+  "servicePrincipalProfile": {
+    "clientId": "msi",
+    "secret": null
+  },
+  "sku": {
+    "name": "Basic",
+    "tier": "Free"
+  },
+  "tags": null,
+  "type": "Microsoft.ContainerService/ManagedClusters",
+  "windowsProfile": {
+    "adminPassword": null,
+    "adminUsername": "azureuser",
+    "licenseType": "Windows_Server"
+  }
+}
+Kalyans-Mac-mini:~ kalyanreddy$ 
+Kalyans-Mac-mini:~ kalyanreddy$ 

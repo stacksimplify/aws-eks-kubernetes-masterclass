@@ -1,0 +1,59 @@
+# Stages
+# Stage-1:
+  # Task-1: Build Docker Image and push to Azure Container Registry ACR
+  # Task-2: Copy kube-manifest files to Build Artifact Directory
+  # Task-3: Publish build articats to Azure Pipelines
+# Pipeline Hierarchial Flow: Stages -> Stage -> Jobs -> Job -> Steps -> Task1, Task2, Task3  
+
+trigger:
+- master
+
+# Variables
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+# Build Stage 
+- stage: Build
+  displayName: Build Stage
+  jobs:
+  - job: Build
+    displayName: Build Job
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps: 
+
+    # Task-1: Build Docker Image and push to Azure Container Registry ACR
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'manual-aksdevopsacr-svc'
+        repository: 'custom2aksnginxapp1'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: |
+          $(tag)
+          $(Build.SourceVersion)
+## Publish Artifacts pipeline code in addition to Build and Push          
+    - bash: echo Contents in System Default Working Directory; ls -R $(System.DefaultWorkingDirectory)        
+    - bash: echo Before copying Contents in Build Artifact Directory; ls -R $(Build.ArtifactStagingDirectory)        
+    # Task-2: Copy files (Copy files from a source folder to target folder)
+    # Source Directory: $(System.DefaultWorkingDirectory)/kube-manifests
+    # Target Directory: $(Build.ArtifactStagingDirectory)
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '$(System.DefaultWorkingDirectory)/kube-manifests'
+        Contents: '**'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+        OverWrite: true
+    # List files from Build Artifact Staging Directory - After Copy
+    - bash: echo After copying to Build Artifact Directory; ls -R $(Build.ArtifactStagingDirectory)  
+    # Task-3: Publish build artifacts (Publish build to Azure Pipelines)           
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'kube-manifests'
+        publishLocation: 'Container'
+    
+
+
+

@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-ssl
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: letsencrypt    
+spec:
+  rules:
+  - host: sapp1.kubeoncloud.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: app1-nginx-clusterip-service
+          servicePort: 80
+  - host: sapp2.kubeoncloud.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: app2-nginx-clusterip-service
+          servicePort: 80          
+  tls:
+  - hosts:
+    - sapp1.kubeoncloud.com
+    secretName: sapp1-kubeoncloud-secret           
+  - hosts:
+    - sapp2.kubeoncloud.com
+    secretName: sapp2-kubeoncloud-secret           
+
+          

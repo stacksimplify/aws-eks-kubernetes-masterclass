@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app2-nginx-clusterip-service
+  labels:
+    app: app2-nginx
+  annotations:
+spec:
+  type: ClusterIP
+  selector:
+    app: app2-nginx
+  ports:
+    - port: 80
+      targetPort: 80
+
+   

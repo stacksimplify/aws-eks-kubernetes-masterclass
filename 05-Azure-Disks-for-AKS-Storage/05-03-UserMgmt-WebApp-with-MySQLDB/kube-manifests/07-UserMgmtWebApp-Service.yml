@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: usermgmt-webapp-service
+  labels: 
+    app: usermgmt-webapp
+spec: 
+  type: LoadBalancer
+  selector: 
+    app: usermgmt-webapp
+  ports: 
+    - port: 80
+      targetPort: 8080

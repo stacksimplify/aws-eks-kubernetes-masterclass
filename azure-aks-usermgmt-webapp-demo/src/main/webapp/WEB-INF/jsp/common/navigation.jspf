@@ -1,0 +1,30 @@
+
+<nav role="navigation" class="navbar navbar-inverse">
+	<div class="">
+		<a href="https://courses.stacksimplify.com" class="navbar-brand">STACKSIMPLIFY</a>
+	</div>
+	<div class="navbar-collapse">
+		<ul class="nav navbar-nav">
+			<li class="active"><a href="/">Home</a></li>
+			<li><a href="/list-users">Users</a></li>
+			<li><a href="/add-user">Create User</a></li>			
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="/logout">Logout</a></li>
+		</ul>
+			<ul class="nav navbar-nav navbar-right">
+			<li><a href="">${name}</a></li>
+		</ul>	
+	</div>
+</nav>
+
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
+  <div class="container-fluid">
+      <div class="footer-copyright text-center py-3" style="color:white;" >© Copyright 2020:
+    <a href="https://courses.stacksimplify.com/" style="color:white;" >www.stacksimplify.com</a>
+  </div>
+  
+
+
+  </div>
+</nav>

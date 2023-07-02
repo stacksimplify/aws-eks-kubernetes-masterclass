@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata: #Dictionary
+  name: myapp3-deployment
+spec: # Dictionary
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp3
+  template:  
+    metadata: # Dictionary
+      name: myapp3-pod
+      labels: # Dictionary
+        app: myapp3  # Key value paids
+    spec:
+      containers: # List
+        - name: myapp3-container
+          image: stacksimplify/kubenginx:3.0.0
+          ports: 
+            - containerPort: 80  
+    

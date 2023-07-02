@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-demo
+  annotations:
+    # Add ingress.class as addon-http-application-routing
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+    - host: app1.7b8803340f38495c8402.centralus.aksapp.io # Add Application DNS name to be registered in DNS
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: app1-nginx-clusterip-service
+                port: 
+                  number: 80
