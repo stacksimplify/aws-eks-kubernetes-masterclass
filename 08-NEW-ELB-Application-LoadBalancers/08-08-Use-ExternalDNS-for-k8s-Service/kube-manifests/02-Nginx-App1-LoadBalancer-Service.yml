@@ -5,6 +5,7 @@ metadata:
   labels:
     app: app1-nginx
   annotations:
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
     external-dns.alpha.kubernetes.io/hostname: externaldns-k8s-service-demo101.stacksimplify.com
 spec:
   type: LoadBalancer
