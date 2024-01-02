@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: notification-service
-          image: stacksimplify/kube-notifications-microservice:1.0.0
+          image: stacksimplify/kube-notifications-microservice:4.0.0-AWS-XRay
           ports:
             - containerPort: 8096
           imagePullPolicy: Always

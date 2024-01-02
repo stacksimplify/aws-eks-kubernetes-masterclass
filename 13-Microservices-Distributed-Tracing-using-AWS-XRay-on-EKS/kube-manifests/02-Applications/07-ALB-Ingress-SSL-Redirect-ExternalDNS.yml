@@ -31,6 +31,7 @@ metadata:
     # External DNS - For creating a Record Set in Route53
     external-dns.alpha.kubernetes.io/hostname: services-xray.kubeoncloud.com, xraydemo.kubeoncloud.com     
 spec:
+  ingressClassName: my-aws-ingress-class # Ingress Class
   rules:
     - http:
         paths:      
