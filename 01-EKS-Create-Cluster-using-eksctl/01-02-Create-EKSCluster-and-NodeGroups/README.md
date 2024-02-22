@@ -16,16 +16,25 @@
 - It will take 15 to 20 minutes to create the Cluster Control Plane 
 ```
 # Create Cluster
-eksctl create cluster --name=EKS-Parent-cluster \
+eksctl create cluster --name=ml \
                       --region=eu-central-1 \
                       --zones=eu-central-1a,eu-central-1b \
-                      --without-nodegroup 
+                      --without-nodegroup \
+                      --vpc-cidr="10.0.0.0/16" \
+                      --vpc-nat-mode=Single \
+                      --version=1.24 \
+                      --fargate \
+                      --alb-ingress-access \
+                      --full-ecr-access \
+                      --appmesh-access \
+                      --tags Environment=Prod,Project=ML \
+                      --kubeconfig=./ML-cluster.yaml
 
 # Get List of clusters
 eksctl get clusters 
 
 # update-kubeconfig
-aws eks update-kubeconfig --name EKS-Parent-cluster --region eu-central-1
+aws eks update-kubeconfig --name ml --region eu-central-1
 ```
 
 
@@ -37,14 +46,24 @@ aws eks update-kubeconfig --name EKS-Parent-cluster --region eu-central-1
 # Template
 eksctl utils associate-iam-oidc-provider \
     --region region-code \
-    --cluster <cluter-name> \
+    --cluster ml \
     --approve
 
 # Replace with region & cluster name
 eksctl utils associate-iam-oidc-provider \
     --region eu-central-1 \
-    --cluster EKS-Parent-cluster \
+    --cluster ml \
     --approve
+```  
+# Create an IAM service account with a specific IAM policy attached
+eksctl create iamserviceaccount \
+  --region eu-central-1 \
+  --name my-service-account \
+  --namespace default \
+  --cluster ml \
+  --attach-policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess \
+  --approve \
+  --override-existing-serviceaccounts
 ```
 
 
@@ -59,16 +78,16 @@ eksctl utils associate-iam-oidc-provider \
 
 ```  
 # Create demo Node Group  
- eksctl create nodegroup --cluster=EKS-Parent-cluster \
+ eksctl create nodegroup --cluster=ml \
                         --region=eu-central-1 \
-                        --name=eksparent-ng-demo \
-                        --node-type=t2.small \
+                        --name=ml-ng \
+                        --node-type=t3a.medium \
                         --nodes=2 \
                         --nodes-min=2 \
-                        --nodes-max=3 \
+                        --nodes-max=4 \
                         --node-volume-size=20 \
                         --ssh-access \
-                        --ssh-public-key=kube-key \
+                        --ssh-public-key=ml \
                         --managed \
                         --asg-access \
                         --external-dns-access \
