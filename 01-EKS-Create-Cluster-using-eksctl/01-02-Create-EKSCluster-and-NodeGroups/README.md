@@ -27,6 +27,7 @@ eksctl get cluster
 
 
 ## Step-02: Create & Associate IAM OIDC Provider for our EKS Cluster
+- In the context of EKS, OIDC is used to integrate Kubernetes with AWS Identity and Access Management (IAM). The purpose of OIDC in EKS is to establish a trust relationship between the Kubernetes cluster and AWS IAM, allowing you to use IAM roles to manage access to your EKS cluster.
 - To enable and use AWS IAM roles for Kubernetes service accounts on our EKS cluster, we must create &  associate OIDC identity provider.
 - To do so using `eksctl` we can use the  below command. 
 - Use latest eksctl version (as on today the latest version is `0.21.0`)
