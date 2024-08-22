@@ -24,3 +24,9 @@ spec:
       labels:
         app: mysql-master
     spec:
+    containers:
+    - name: mysql-master
+      image: mysql:5.7
+      ports:
+      - containerPort: 3306
+      env: 
