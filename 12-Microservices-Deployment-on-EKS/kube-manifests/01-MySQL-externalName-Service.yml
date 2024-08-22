@@ -5,3 +5,22 @@ metadata:
 spec:
   type: ExternalName
   externalName: usermgmtdb.cxojydmxwly6.us-east-1.rds.amazonaws.com
+
+
+
+## master server
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-master
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mysql-master
+  template:
+    metadata:
+      labels:
+        app: mysql-master
+    spec:
