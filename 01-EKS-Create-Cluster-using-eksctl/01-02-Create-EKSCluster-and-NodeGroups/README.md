@@ -3,9 +3,28 @@
 ## Step-00: Introduction
 - Understand about EKS Core Objects
   - Control Plane
+      -  eks runs a single tenant k8s control plane for each cluster, and control palne infra is not shared across clusters or aws accounts
+      -  this control plab consists of at least 2 api-server nodes and three etcd nodes that run across three az within a region
+      -  eks automatically detects and replaces unhealthy control plane instances, restarting them across the az within the region as needed.
   - Worker Nodes & Node Groups
+    - worker machines in k8s are called nodes. these are ec2 instances.
+    - eks worker nodes run in our aws account and connect to our cluster's control plane via cluster api-server endpoint
+    - a node group is one or more ec2 instances thar are deployed in an ec2 autoscaling group.
+    - All instances in a Node-group must
+        - be the same instance type.
+        - be running the same AMI
+        - use the same EKS worker node IAM role.
+
   - Fargate Profiles
+    - aws fargate is a technology that provides on-demand, right-sized compute capacity for containers.
+    - with fargate, we no longer have to provision, configure, or scale groups of virtual machines ot run containers
+    - each pod running on Fargate has its own isolation boundary and does not share the underlying kernel, cpu reources, memroy resources or elastic network interface with another pod.
+    - aws specially build Fargate controllers that recognizes the pods belonging to Fargate and schedules them on fargate profiles.
+    - 
   - VPC
+     - eks uses AWS VPC network policies to restrict traffic between control plane components to within a single cluser
+     - control Plane components for eks cluster cannot view or receive communication from other clusters or other aws accounts, except as autherized with k8s RBAC policies.
+     - this secure and highly avaialable configiuration makes EKS reliable and recommended for production workloads.
 - Create EKS Cluster
 - Associate EKS Cluster to IAM OIDC Provider
 - Create EKS Node Groups
