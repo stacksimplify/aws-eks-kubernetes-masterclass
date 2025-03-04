@@ -43,6 +43,9 @@
 
 ## Step-03: Get the IAM role Worker Nodes using and Associate this policy to that role
 ```
+Create an EKS cluster:
+eksctl create cluster --name my-eks-cluster --region us-east-1 --nodegroup-name my-nodes --nodes 2
+
 # Get Worker node IAM Role ARN
 kubectl -n kube-system describe configmap aws-auth
 
