@@ -17,16 +17,6 @@
   - `buildspec-deploy.yml` (Deploy to EKS)
 - Deploy the image to an **EKS Cluster** using `kubectl`
 - Use STS Assume Role pattern for secure EKS interaction
-- To achive all this we need also create or update few roles
-  - **STS Assume Role:** EksCodeBuildKubectlRole
-    - **Inline Policy:** eksdescribe
-  - **CodeBuild Role:** codebuild-eks-devops-cb-for-pipe-service-role    
-    - **ECR Full Access Policy:** AmazonEC2ContainerRegistryFullAccess
-    - **CloudWatch Full Access Policy:** CloudWatchLogsFullAccess
-    - **STS Assume Policy:** eks-codebuild-sts-assume-role
-        - **STS Assume Role:** EksCodeBuildKubectlRole
-  - **CodePipeline Role:** AWSCodePipelineServiceRole-us-east-1-eks-devops
-    - **CodeBuild Full Access:** AWSCodeBuildAdminAccess 
 
 ## Step-03: Pre-requisite check
 - We are going to deploy a application which will also have a `AWS Load Balancer Controller` and also will register its DNS name in Route53 using `External DNS`
