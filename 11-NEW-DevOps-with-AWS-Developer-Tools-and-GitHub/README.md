@@ -36,7 +36,7 @@ kubectl get pods
 - Scan On Push: Enable
 - Click on **Create Repository**
 - Make a note of Repository name
-```
+```t
 # Sample ECR Repository URI
 180789647333.dkr.ecr.us-east-1.amazonaws.com/eks-devops-app1
 ```
@@ -536,23 +536,6 @@ arn:aws:iam::<your-account-id>:role/EksCodeBuildKubectlRole
 #### Associate Policy to CodeBuild Role
 - Role Name: deployphase-codebuild-eks-devops-service-role
 - Policy to be associated:  `deployphase-codebuild-eks-devops-service-role`
-
-## Step-08: Make changes to index.html file
-- Make changes to index.html (Update as V3)
-- Commit the changes to local git repository and push to codeCommit Repository
-- Monitor the codePipeline
-- Test by accessing the static html page
-```sh
-# Git Commands
-git status
-git commit -am "V3"
-git push
-```
-- Verify CodeBuild Logs
-- Test by accessing the static html page
-```
-http://myapp101.devopsincloud.com/app1/index.html
-```
 
 
 ## Step-08: Test-1: END TO END FLOW (Build and Deploy Stages)
