@@ -17,5 +17,6 @@ spec:
       containers:
         - name: eks-devops
           image: CONTAINER_IMAGE
+          #image: ghcr.io/stacksimplify/kubenginx:4.0.0
           ports:
             - containerPort: 80
