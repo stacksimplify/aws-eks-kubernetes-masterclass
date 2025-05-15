@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: usermgmt-microservice
+  labels:
+    app: usermgmt-restapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: usermgmt-restapp
+  template:
+    metadata:
+      labels:
+        app: usermgmt-restapp
+    spec:
+      initContainers:
+        - name: init-db
+          image: busybox:1.31
+          command: ['sh', '-c', 'echo -e "Checking for the availability of MySQL Server deployment"; while ! nc -z mysql 3306; do sleep 1; printf "-"; done; echo -e "  >> MySQL DB Server has started";']
+      containers:
+        - name: usermgmt-restapp
+          image: stacksimplify/kube-usermanagement-microservice:1.0.0
+          ports:
+            - containerPort: 8095
+          env:
+            - name: DB_HOSTNAME
+              value: "mysql"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_NAME
+              value: "usermgmt"
+            - name: DB_USERNAME
+              value: "dbadmin"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-db-password
+                  key: db-password
+            - name: NOTIFICATION_SERVICE_HOST
+              value: "notification-clusterip-service"
+            - name: NOTIFICATION_SERVICE_PORT
+              value: "8096"                            
+          livenessProbe:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - nc -z localhost 8095
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /usermgmt/health-status
+              port: 8095
+            initialDelaySeconds: 60
+            periodSeconds: 10          
+---
+# Kubernetes Secrets
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-db-password
+#type: Opaque means that from kubernetes's point of view the contents of this Secret is unstructured, it can contain arbitrary key-value pairs. In contrast, there is the Secret storing ServiceAccount credentials, or the ones used as ImagePullSecret . These have a constrained contents.
+type: Opaque
+data:
+  # Output of echo -n 'dbpassword11' | base64
+  db-password: ZGJwYXNzd29yZDEx
+

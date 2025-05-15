@@ -1,0 +1,51 @@
+# buildspec-build.yml
+
+version: 0.2
+
+# Environment variables and values used across phases
+env:
+  variables:
+    # ECR URI where Docker image will be pushed
+    IMAGE_URI: "180789647333.dkr.ecr.us-east-1.amazonaws.com/eks-devops"
+  exported-variables:
+    # Variables that will be shared with downstream phases or pipelines
+    - IMAGE_URI
+    - IMAGE_TAG
+
+phases:
+  install:
+    commands:
+      # Install phase (empty here since the CodeBuild image has necessary tools)
+      - echo "Install Phase - Nothing to do using latest Amazon Linux Docker Image"
+
+  pre_build:
+    commands:
+      # Generate a short Docker image tag using GitHub commit SHA (7 characters)
+      - IMAGE_TAG="$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c1-7)"
+      - export IMAGE_TAG
+      # Authenticate Docker with ECR using AWS CLI
+      - echo "Logging into Amazon ECR at $IMAGE_URI..."
+      - aws ecr get-login-password | docker login --username AWS --password-stdin $IMAGE_URI
+
+  build:
+    commands:
+      # Build Docker image using Dockerfile in root directory
+      - echo "Building Docker image..."
+      - docker build -t $IMAGE_URI:$IMAGE_TAG .
+
+  post_build:
+    commands:
+      # Push the built Docker image to ECR repository
+      - echo "Pushing Docker image to ECR..."
+      - docker push $IMAGE_URI:$IMAGE_TAG
+      # Export image metadata to be used in the deploy stage
+      - echo "Exporting variables for downstream stages..."
+      - echo "IMAGE_URI=$IMAGE_URI" >> $CODEBUILD_SRC_DIR/exported-vars.env
+      - echo "IMAGE_TAG=$IMAGE_TAG" >> $CODEBUILD_SRC_DIR/exported-vars.env
+
+# Files that will be included as artifacts for the next stage
+artifacts:
+  files:
+    - exported-vars.env
+    - buildspec-deploy.yml
+    - '**/kube-manifests/**/*'

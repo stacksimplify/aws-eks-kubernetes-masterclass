@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    runon: fargate 
+  namespace: ns-ums
+spec:
+  type: ExternalName
+  externalName: usermgmtdb.cxojydmxwly6.us-east-1.rds.amazonaws.com

@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app: xray-daemon
+  name: xray-daemon
+  namespace: default
+  # Update IAM Role ARN created for X-Ray access
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::180789647333:role/eksctl-eksdemo1-addon-iamserviceaccount-defa-Role1-VR2R60B6MMDV
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: xray-daemon
+  namespace: default
+spec:
+  updateStrategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: xray-daemon
+  template:
+    metadata:
+      labels:
+        app: xray-daemon
+    spec:
+      serviceAccountName: xray-daemon
+      volumes:
+        - name: config-volume
+          configMap:
+            name: "xray-config"
+      containers:
+        - name: xray-daemon
+          image: amazon/aws-xray-daemon:3.2.0
+          command: ["/usr/bin/xray", "-c", "/aws/xray/config.yaml"]
+          resources:
+            requests:
+              cpu: 256m
+              memory: 32Mi
+            limits:
+              cpu: 512m
+              memory: 64Mi
+          ports:
+            - name: xray-ingest
+              containerPort: 2000
+              hostPort: 2000
+              protocol: UDP
+            - name: xray-tcp
+              containerPort: 2000
+              hostPort: 2000
+              protocol: TCP
+          volumeMounts:
+            - name: config-volume
+              mountPath: /aws/xray
+              readOnly: true
+---
+# Configuration for AWS X-Ray daemon
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: xray-config
+  namespace: default
+data:
+  config.yaml: |-
+    TotalBufferSizeMB: 24
+    Socket:
+      UDPAddress: "0.0.0.0:2000"
+      TCPAddress: "0.0.0.0:2000"
+    Version: 2
+---
+# k8s service definition for AWS X-Ray daemon headless service
+apiVersion: v1
+kind: Service
+metadata:
+  name: xray-service
+  namespace: default
+spec:
+  selector:
+    app: xray-daemon
+  clusterIP: None
+  ports:
+    - name: xray-ingest
+      port: 2000
+      protocol: UDP
+    - name: xray-tcp
+      port: 2000
+      protocol: TCP

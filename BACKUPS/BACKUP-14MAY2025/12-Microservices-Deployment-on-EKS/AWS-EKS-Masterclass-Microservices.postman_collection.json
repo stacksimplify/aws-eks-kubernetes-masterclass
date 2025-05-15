@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "ba15e203-a37e-4a31-a94e-e8bfe37ad588",
+		"name": "AWS-EKS-Masterclass-Microservices",
+		"description": "Microservices Deployed to EKS and Fargate clusters as part of Masterclass course",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "UserManagement-Service",
+			"item": [
+				{
+					"name": "UserManagement-HealthStatus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/usermgmt/health-status",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usermgmt",
+								"health-status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserManagement-CreateUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"username\": \"microtest1\",\n        \"email\": \"dkalyanreddy@gmail.com\",\n        \"role\": \"ROLE_ADMIN\",\n        \"enabled\": true,\n        \"firstname\": \"MicroFName\",\n        \"lastname\": \"MicroLname\",\n        \"password\": \"Pass@123\"\n    }",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/usermgmt/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usermgmt",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserManagement-ListAllUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/usermgmt/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usermgmt",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserManagement-UpdateUser",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\n        \"username\": \"admin1\",\n        \"email\": \"dkalyanreddy@gmail.com\",\n        \"role\": \"ROLE_ADMIN\",\n        \"enabled\": true,\n        \"firstname\": \"fname2\",\n        \"lastname\": \"lname2\",\n        \"password\": \"Pass@123\"\n    }",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/usermgmt/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usermgmt",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserManagement-DeleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/usermgmt/user/microtest2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usermgmt",
+								"user",
+								"microtest2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserMgmt-NotificationService-Health-Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/usermgmt/notification-health-status",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usermgmt",
+								"notification-health-status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserMgmt-NotificationService-Info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/usermgmt/notification-service-info",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usermgmt",
+								"notification-service-info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserMgmt-NotificationService-XRay",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/usermgmt/notification-xray",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"usermgmt",
+								"notification-xray"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a3134af0-60c9-44bb-b244-b5e5686d79dd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "a850eb0a-a6ae-413c-9106-4665240aae6b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

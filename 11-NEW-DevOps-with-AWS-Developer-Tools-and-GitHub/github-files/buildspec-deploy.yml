@@ -1,0 +1,64 @@
+# buildspec-deploy.yml
+
+version: 0.2
+
+# Environment variables required for EKS authentication
+env:
+  variables:
+    # Name of the EKS cluster
+    EKS_CLUSTER_NAME: "eksdemo1"
+    # IAM Role ARN used to assume access to EKS for kubectl
+    EKS_KUBECTL_ROLE_ARN: "arn:aws:iam::180789647333:role/EksCodeBuildKubectlRole"
+
+phases:
+  install:
+    commands:
+      # Install dependencies/tools (if any)
+      - echo "Install Phase - Installing tools and dependencies"
+
+  pre_build:
+    commands:
+      # Print info about environment setup
+      - echo "Setting up IMAGE_URI and IMAGE_TAG from previous stage..."
+      # List files to verify presence of artifacts
+      - echo "Listing all files in workspace for debugging:"
+      - ls -R .
+      # Source exported variables (IMAGE_URI and IMAGE_TAG)
+      - echo "Sourcing env variables from file"
+      - source ./exported-vars.env
+      - echo "IMAGE_URI=$IMAGE_URI"
+      - echo "IMAGE_TAG=$IMAGE_TAG"
+      # Replace placeholder in Kubernetes YAML with actual image URI and tag
+      - echo "Updating container image in the Kubernetes Deployment YAML file..."
+      - sed -i 's@CONTAINER_IMAGE@'"$IMAGE_URI:$IMAGE_TAG"'@' kube-manifests/01-DEVOPS-Nginx-Deployment.yml
+      - echo "Updated deployment manifest content:"
+      - cat kube-manifests/01-DEVOPS-Nginx-Deployment.yml
+
+  build:
+    commands:
+      # Assume IAM role to gain temporary credentials for kubectl access
+      - echo "Assuming IAM Role to access EKS cluster..."
+      - CREDENTIALS=$(aws sts assume-role --role-arn $EKS_KUBECTL_ROLE_ARN --role-session-name codebuild-kubectl --duration-seconds 900)
+      - export AWS_ACCESS_KEY_ID=$(echo $CREDENTIALS | jq -r '.Credentials.AccessKeyId')
+      - export AWS_SECRET_ACCESS_KEY=$(echo $CREDENTIALS | jq -r '.Credentials.SecretAccessKey')
+      - export AWS_SESSION_TOKEN=$(echo $CREDENTIALS | jq -r '.Credentials.SessionToken')
+      # Setup kubeconfig to interact with the EKS cluster
+      - echo "Updating kubeconfig with EKS cluster credentials..."
+      - aws eks update-kubeconfig --name $EKS_CLUSTER_NAME
+      # Deploy application manifests to EKS
+      - echo "Applying Kubernetes manifests..."
+      - kubectl apply -f kube-manifests/
+      # Wait for deployment rollout to complete
+      - echo "Waiting for deployment rollout to complete..."
+      - kubectl rollout status deployment/eks-devops-deployment --timeout=180s
+
+  post_build:
+    commands:
+      # Verification steps to ensure everything is deployed correctly
+      - echo "Verifying Kubernetes resources created:"
+      - echo "Pods Status:"
+      - kubectl get pods -o wide
+      - echo "Services Status:"
+      - kubectl get svc -o wide
+      - echo "Ingress Status:"
+      - kubectl get ingress -o wide

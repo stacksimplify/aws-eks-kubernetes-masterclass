@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eks-devops-deployment
+  labels:
+    app: eks-devops
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: eks-devops
+  template:
+    metadata:
+      labels:
+        app: eks-devops
+    spec:
+      containers:
+        - name: eks-devops
+          image: CONTAINER_IMAGE
+          ports:
+            - containerPort: 80

@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-nginx-deployment
+  labels:
+    app: sample-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-nginx
+  template:
+    metadata:
+      labels:
+        app: sample-nginx
+    spec:
+      containers:
+        - name: sample-nginx
+          image: stacksimplify/kubenginx:1.0.0
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "5m" 
+              memory: "5Mi"
+            limits:
+              cpu: "10m"
+              memory: "10Mi"       
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-nginx-service
+  labels:
+    app: sample-nginx
+spec:
+  selector:
+    app: sample-nginx
+  ports:
+  - port: 80
+    targetPort: 80         

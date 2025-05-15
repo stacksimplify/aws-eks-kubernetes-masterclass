@@ -1,0 +1,11 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: eksdemo1  # Name of the EKS Cluster
+  region: us-east-1
+fargateProfiles:
+  - name: fp-app3
+    selectors:
+      # All workloads in the "ns-app3" Kubernetes namespace will be
+      # scheduled onto Fargate:      
+      - namespace: ns-app3

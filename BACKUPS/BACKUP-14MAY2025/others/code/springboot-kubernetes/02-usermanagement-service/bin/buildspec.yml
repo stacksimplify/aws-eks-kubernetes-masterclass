@@ -1,0 +1,21 @@
+version: 0.2
+      
+phases:
+  install:
+    runtime-versions:
+      java: openjdk8
+    commands:
+      - echo  "Install Phase - using Open JDK 8"
+  pre_build:
+    commands:
+      - echo "Pre-build phase - No commands to execute"
+  build:
+    commands:
+      - mvn package
+      - echo "Build phase - mvn package execution completed"
+  post_build:
+    commands:
+      - echo "Post Build phase -  No commands to execute"
+artifacts:
+  files:
+    - 'target/usermgmt-react-backend-springboot-0.0.1-SNAPSHOT.jar'  
