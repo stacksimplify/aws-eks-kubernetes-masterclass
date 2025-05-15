@@ -635,7 +635,6 @@ kubectl delete -f kube-manifests/
 
 ## Additional References
 - https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html
-- https://github.com/aws/aws-codebuild-docker-images/blob/master/al2/x86_64/standard/3.0/Dockerfile
 - **STS Assume Role:** https://docs.aws.amazon.com/cli/latest/reference/sts/assume-role.html
 - https://docs.aws.amazon.com/IAM/latest/UserGuide/troubleshoot_roles.html
 
