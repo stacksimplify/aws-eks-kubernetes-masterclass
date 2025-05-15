@@ -48,7 +48,7 @@ kubectl get pods
 ```
 git clone git@github.com:stacksimplify/aws-eks-devops.git
 ```
-- Copy all files from course section **11-NEW-DevOps-with-AWS-Developer-Tools-and-GitHub/Application-Manifests** to local repository
+- Copy all files from course section **20-DevOps-with-AWS-Developer-Tools-and-GitHub/Application-Manifests** to local repository
   - buildspec-build.yml
   - buildspec-deploy.yml
   - Dockerfile
@@ -428,9 +428,9 @@ aws iam put-role-policy `
 * **Windows PowerShell**
 
 #### 📁 Directory Structure
-- Make sure you're in the project root (e.g., `11-NEW-DevOps-with-AWS-Developer-Tools-and-GitHub`) and there's a folder named `aws-auth/`:
+- Make sure you're in the project root (e.g., `20-DevOps-with-AWS-Developer-Tools-and-GitHub`) and there's a folder named `aws-auth/`:
 ```bash
-cd 11-NEW-DevOps-with-AWS-Developer-Tools-and-GitHub
+cd 20-DevOps-with-AWS-Developer-Tools-and-GitHub
 mkdir -p aws-auth
 ```
 
