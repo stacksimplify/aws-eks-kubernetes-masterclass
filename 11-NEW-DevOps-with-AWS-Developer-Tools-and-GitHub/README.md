@@ -420,71 +420,80 @@ aws iam put-role-policy `
 ```
 
 
-### Step-07-05: DEPLOY STAGE: Update EKS Cluster aws-auth ConfigMap with new role created in previous step
-- We are going to add the role to the `aws-auth ConfigMap` for the EKS cluster.
-- Once the `EKS aws-auth ConfigMap` includes this new role, kubectl in the CodeBuild stage of the pipeline will be able to interact with the EKS cluster via the IAM role.
-```t
-# Change Directory
+### Step-07-05: Update `aws-auth` ConfigMap with IAM Role for CodeBuild
+- In this step, we will automatically update the EKS cluster's `aws-auth` ConfigMap to include the IAM role created in the previous step (`EksCodeBuildKubectlRole`). This grants the role access to the cluster, which is required for `kubectl` commands in the CodeBuild deployment stage.
+
+#### ⚠️ Works on:
+* **macOS / Linux / WSL / Git Bash**
+* **Windows PowerShell**
+
+#### 📁 Directory Structure
+- Make sure you're in the project root (e.g., `11-NEW-DevOps-with-AWS-Developer-Tools-and-GitHub`) and there's a folder named `aws-auth/`:
+```bash
 cd 11-NEW-DevOps-with-AWS-Developer-Tools-and-GitHub
-
-# Verify what is present in aws-auth configmap before change
-kubectl get configmap aws-auth -o yaml -n kube-system
-
-# Backup aws-auth configmap
-kubectl get -n kube-system configmap/aws-auth -o yaml > aws-auth/backup-aws-auth-v1.yml
-
-# Export your Account ID
-export ACCOUNT_ID=180789647333
-
-# Set ROLE value
-ROLE="    - rolearn: arn:aws:iam::$ACCOUNT_ID:role/EksCodeBuildKubectlRole\n      username: build\n      groups:\n        - system:masters"
-
-# Get current aws-auth configMap data and attach new role info to it
-kubectl get -n kube-system configmap/aws-auth -o yaml | awk "/mapRoles: \|/{print;print \"$ROLE\";next}1" > aws-auth/aws-auth-patch-v1.yml
-
-
-# Patch the aws-auth configmap with new role
-kubectl patch configmap/aws-auth -n kube-system --patch "$(cat /aws-auth/aws-auth-patch-v1.yml)"
-
-# Verify what is updated in aws-auth configmap after change
-kubectl get configmap aws-auth -o yaml -n kube-system
+mkdir -p aws-auth
 ```
 
-#### This is for the changing the Configmap with Windows PowerShell 
-```t
-This is for the changing the Configmap and PowerShell
+#### 🧪 Step-by-step Commands
+##### 🖥️ macOS / Linux / Git Bash / WSL (Bash shell)
+```bash
+# Set variables
+ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+echo $ACCOUNT_ID
+ROLE_ARN="arn:aws:iam::$ACCOUNT_ID:role/EksCodeBuildKubectlRole"
+echo $ROLE_ARN
 
-In PowerShell, the following steps can be used:
+# Backup current aws-auth ConfigMap
+kubectl get configmap aws-auth -n kube-system -o yaml > aws-auth/aws-auth-backup.yml
 
-1. kubectl edit -n kube-system configmap/aws-auth
-2. In step1, there will be a file opened for you to edit configmap/aws-auth.
-In the opened file, there is a mapRoles field such as:
-data:
-mapRoles: |
-- rolearn: <ARN of instance role>
-username: system:node:{{EC2PrivateDNSName}}
-groups:
-- system:bootstrappers
-- system:nodes
+# Generate patched configmap YAML
+kubectl get configmap aws-auth -n kube-system -o yaml | \
+  awk -v role="    - rolearn: $ROLE_ARN\n      username: build\n      groups:\n        - system:masters" \
+  '/mapRoles: \|/ {print; print role; next} 1' > aws-auth/aws-auth-patch.yml
 
-3. Add the EksCodeBuildKubectlRole information into the mapRoles field of the file such as:
-data:
-mapRoles: |
-- rolearn: arn:aws:iam::018185988195:role/EksCodeBuildKubectlRole
-username: build
-groups:
-- system:masters
-- rolearn: <ARN of instance role (not instance profile)>
-username: system:node:{{EC2PrivateDNSName}}
-groups:
-- system:bootstrappers
-- system:nodes
+# Apply updated configmap
+kubectl apply -f aws-auth/aws-auth-patch.yml
 
-Save the file.
-
-
-4. After the file is saved and closed, configmap/aws-auth has been edited. You can check configmap/aws-auth using the command "kubectl describe -n kube-system configmap/aws-auth".
+# Verify updated config
+kubectl get configmap aws-auth -n kube-system -o yaml
 ```
+
+##### 🪟 Windows PowerShell
+
+```powershell
+# Set variables
+$ACCOUNT_ID = (aws sts get-caller-identity --query Account --output text)
+$ROLE_ARN = "arn:aws:iam::$ACCOUNT_ID:role/EksCodeBuildKubectlRole"
+$BackupPath = "aws-auth\aws-auth-backup.yml"
+$PatchPath = "aws-auth\aws-auth-patch.yml"
+
+# Backup current config
+kubectl get configmap aws-auth -n kube-system -o yaml > $BackupPath
+
+# Inject new role into mapRoles
+(Get-Content $BackupPath) | ForEach-Object {
+    if ($_ -match "mapRoles: \|") {
+        $_
+        "    - rolearn: $ROLE_ARN"
+        "      username: build"
+        "      groups:"
+        "        - system:masters"
+    } else {
+        $_
+    }
+} > $PatchPath
+
+# Apply updated configmap
+kubectl apply -f $PatchPath
+
+# Verify update
+kubectl get configmap aws-auth -n kube-system -o yaml
+```
+
+---
+
+### ✅ Outcome
+- The IAM role `EksCodeBuildKubectlRole` is now authorized to access the EKS cluster with `system:masters` permissions. This enables `kubectl` to be used in the CodeBuild stage of your pipeline.
 
 
 
