@@ -340,107 +340,85 @@ phases:
 - In an AWS CodePipeline, we are going to use AWS CodeBuild to deploy changes to our Kubernetes manifests. 
 - This requires an AWS IAM role capable of interacting with the EKS cluster.
 - In this step, we are going to create an IAM role and add an inline policy `EKS:Describe` that we will use in the CodeBuild stage to interact with the EKS cluster via kubectl.
+#### Option 1: **macOS / Linux / Windows Git Bash / WSL**
+##### ⚠️ Note:
+> ✅ This script is designed for **Bash-compatible environments**, such as **macOS Terminal**, **Linux shell**, **Windows Git Bash**, or **Windows Subsystem for Linux (WSL)**.
+> ❌ It **will not work in Windows PowerShell or Command Prompt** due to syntax differences.
+##### 💻 Script:
+```bash
+# Set variables
+ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+ROLE_NAME=EksCodeBuildKubectlRole
+
+# Create IAM Role with trust policy
+aws iam create-role \
+  --role-name $ROLE_NAME \
+  --assume-role-policy-document "{
+    \"Version\": \"2012-10-17\",
+    \"Statement\": [
+      {
+        \"Effect\": \"Allow\",
+        \"Principal\": { \"AWS\": \"arn:aws:iam::${ACCOUNT_ID}:root\" },
+        \"Action\": \"sts:AssumeRole\"
+      }
+    ]
+  }"
+
+# Attach inline policy to allow EKS describe actions
+aws iam put-role-policy \
+  --role-name $ROLE_NAME \
+  --policy-name eks-describe \
+  --policy-document "{
+    \"Version\": \"2012-10-17\",
+    \"Statement\": [
+      {
+        \"Effect\": \"Allow\",
+        \"Action\": \"eks:Describe*\",
+        \"Resource\": \"*\"
+      }
+    ]
+  }"
 ```
-# Export your Account ID
-export ACCOUNT_ID=180789647333
+#### Option 2: **Windows PowerShell**
+##### ⚠️ Note:
+> ✅ This script is designed for **Windows PowerShell**.
+> ❌ Do not use it in Git Bash, WSL, macOS, or Linux — it will fail due to syntax and escaping differences.
+##### Script:
+```powershell
+# Set variables
+$ACCOUNT_ID = (aws sts get-caller-identity --query Account --output text)
+$ROLE_NAME = "EksCodeBuildKubectlRole"
 
-# Set Trust Policy
-TRUST="{ \"Version\": \"2012-10-17\", \"Statement\": [ { \"Effect\": \"Allow\", \"Principal\": { \"AWS\": \"arn:aws:iam::${ACCOUNT_ID}:root\" }, \"Action\": \"sts:AssumeRole\" } ] }"
+# Create IAM Role with trust policy
+aws iam create-role `
+  --role-name $ROLE_NAME `
+  --assume-role-policy-document "{
+    `"Version`": `"2012-10-17`",
+    `"Statement`": [
+      {
+        `"Effect`": `"Allow`",
+        `"Principal`": { `"AWS`": `"arn:aws:iam::${ACCOUNT_ID}:root`" },
+        `"Action`": `"sts:AssumeRole`"
+      }
+    ]
+  }"
 
-# Verify inside Trust policy, your account id got replacd
-echo $TRUST
-
-# Create IAM Role for CodeBuild to Interact with EKS
-aws iam create-role --role-name EksCodeBuildKubectlRole --assume-role-policy-document "$TRUST" --output text --query 'Role.Arn'
-
-# Define Inline Policy with eks Describe permission in a file iam-eks-describe-policy
-echo '{ "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Action": "eks:Describe*", "Resource": "*" } ] }' > /tmp/iam-eks-describe-policy
-
-# Associate Inline Policy to our newly created IAM Role
-aws iam put-role-policy --role-name EksCodeBuildKubectlRole --policy-name eks-describe --policy-document file:///tmp/iam-eks-describe-policy
-
-# Verify the same on Management Console
+# Attach inline policy to allow EKS Describe actions
+aws iam put-role-policy `
+  --role-name $ROLE_NAME `
+  --policy-name "eks-describe" `
+  --policy-document "{
+    `"Version`": `"2012-10-17`",
+    `"Statement`": [
+      {
+        `"Effect`": `"Allow`",
+        `"Action`": `"eks:Describe*`",
+        `"Resource`": `"*`"
+      }
+    ]
+  }"
 ```
 
-#### For Windows users who are using Powershell
-```t
-Here is a solutions to creating the Trust policy from AWS Tech Support
-
-I understand that you are following an instruction to create an IAM role for CodeBuild but the commands do not work for PowerShell.
-
-In PowerShell, the format is different from the scripts in Mac OS. Cmdlets are used in PowerShell. I have used Cmdlets in PowerShell to create a role and attach an inline policy. Please check the following for the details:
-
-1. Create IAM Role for CodeBuild to Interact with EKS
-
-First create a new file NewRoleTrustPolicy.json with the following contents:
-
-{
-
-"Version": "2012-10-17",
-
-"Statement": [
-
-{
-
-"Sid": "",
-
-"Effect": "Allow",
-
-"Principal": {
-
-"AWS": "arn:aws:iam::xxxxxxxxxxxx:root"
-
-},
-
-"Action": "sts:AssumeRole"
-
-}
-
-]
-
-}
-
-Note: please replace your account ID in the above Principal parameter.
-
-
-New-IAMRole -AssumeRolePolicyDocument (Get-Content -raw NewRoleTrustPolicy.json) -RoleName EksCodeBuildKubectlRole
-
-After the above command, you can check if the IAM role EksCodeBuildKubectlRole is created in your AWS account. Please check the New-IAMRole Cmdlet reference in [1].
-
-
-2. Define Inline Policy with eks Describe permission in a file iam-eks-describe-policy
-
-First create a new file iam-eks-describe-policy.json with the following contents:
-
-{ "Version": "2012-10-17",
-
-"Statement":
-
-[ { "Effect": "Allow",
-
-"Action": "eks:Describe*",
-
-"Resource": "*" }
-
-]
-
-}
-
-Write-IAMRolePolicy -RoleName EksCodeBuildKubectlRole -PolicyName eks-describe -PolicyDocument (Get-Content -Raw iam-eks-describe-policy.json)
-
-
-After the above command, you can check if the IAM role EksCodeBuildKubectlRole has the inline policy eks-describe attached. Please check the Write-IAMRolePolicy Cmdlet reference in [2].
-I hope the above information can help you.
-
-References
-================
-[1]: New-IAMRole
-https://docs.aws.amazon.com/powershell/latest/reference/items/New-IAMRole.html
-[2]: Write-IAMRolePolicy
-https://docs.aws.amazon.com/powershell/latest/reference/items/Write-IAMRolePolicy.html
-
-
-```
 
 ### Step-07-05: DEPLOY STAGE: Update EKS Cluster aws-auth ConfigMap with new role created in previous step
 - We are going to add the role to the `aws-auth ConfigMap` for the EKS cluster.
