@@ -8,6 +8,7 @@
   - GitHub
   - AWS CodeBuild
   - AWS CodePipeline
+- GitHub Repsitory used for Demo: [aws-eks-devops](https://github.com/stacksimplify/aws-eks-devops)  
 
 ## Step-02: What are we going to learn?
 - We are going to create a AWS Elastic Container Registry (ECR) for our Docker Images
