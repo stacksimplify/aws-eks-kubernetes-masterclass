@@ -10,6 +10,10 @@
   - AWS CodePipeline
 - GitHub Repsitory used for Demo: [aws-eks-devops](https://github.com/stacksimplify/aws-eks-devops)  
 
+### We are going to implement the following AWS EKS DevOps Pipeline
+![AWS EKS DevOps Pipeline](../images/aws-eks-devops-pipeline.png)
+
+
 ## Step-02: What are we going to learn?
 - We are going to create a AWS Elastic Container Registry (ECR) for our Docker Images
 - We are going to create GitHub Repository and check-in the below to Github Repo
@@ -698,6 +702,7 @@ kubectl delete -f kube-manifests/
 - Delete Roles and Policies created
 - Delete SNS Subscription
 - Delete SNS Topic
+- Delete AWS Elastic Container Registry (ECR)
 
 ## Additional References
 - https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html
