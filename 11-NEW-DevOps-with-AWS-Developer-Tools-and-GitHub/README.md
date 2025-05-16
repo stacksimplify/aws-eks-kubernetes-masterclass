@@ -19,14 +19,36 @@
 - Use STS Assume Role pattern for secure EKS interaction
 
 ## Step-03: Pre-requisite check
+### Step-03-01: Verify AWS Load Balancer Controller and External DNS
 - We are going to deploy a application which will also have a `AWS Load Balancer Controller` and also will register its DNS name in Route53 using `External DNS`
 - Which means we should have both related pods running in our cluster. 
-```t
+```sh
 # Verify aws-load-balancer-controller pod running in namespace kube-system
 kubectl get pods -n kube-system
 
 # Verify external-dns pod running in default namespace
 kubectl get pods
+```
+### Step-03-02: Verify Kubernetes Manifests working as expected before implementing DevOps Pipelines
+```sh
+# Verify if all templates are working
+## Step-01: Update 01-DEVOPS-Nginx-Deployment.yml image
+image: ghcr.io/stacksimplify/kube-nginxapp1:1.0.0 # FOR TESTING
+## Step-02: DEPLOY AND VERIFY
+cd 11-NEW-DevOps-with-AWS-Developer-Tools-and-GitHub/github-files
+kubectl apply -f kube-manifets/
+## Step-03: Verify Pods, Deployment, svc, ingress
+kubectl get pods
+kubectl get deploy
+kubectl get svc
+kubectl get ingress
+## Step-04: Verify External DNS Logs and Route53 Records
+kubectl logs -f $(kubectl get po | egrep -o 'external-dns[A-Za-z0-9-]+')
+Go to Route53 -> Hosted Zones -> stacksimplify.com -> Verify DNS records "eksdevops1.stacksimplify.com, eksdevops2.stacksimplify.com"
+## Step-05: Access Application
+http://eksdevops1.stacksimplify.com/app1/index.html
+## Step-06: Clean-up
+kubectl delete -f kube-manifets/
 ```
 
 ## Step-04: Create ECR Repository for our Application Docker Images
