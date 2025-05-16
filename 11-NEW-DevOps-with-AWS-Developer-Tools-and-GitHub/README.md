@@ -12,10 +12,17 @@
 ## Step-02: What are we going to learn?
 - We are going to create a AWS Elastic Container Registry (ECR) for our Docker Images
 - We are going to create GitHub Repository and check-in the below to Github Repo
-  - Application code 
-  - Dockerfile 
-  - Kubernetes Manifests 
-  - Build Spec files
+  - **Application code** 
+    - app1/index.html
+  - **Docker File** 
+    - Dockerfile
+  - **Kubernetes Manifests**
+    - kube-manifests/01-DEVOPS-Nginx-Deployment.yml
+    - kube-manifests/02-DEVOPS-Nginx-NodePortService.yml
+    - kube-manifests/03-DEVOPS-Nginx-ALB-IngressService.yml
+  - **Build Spec files** 
+    - buildspec-build.yml
+    - buildspec-deploy.yml
 - We are going to have two `buildspec yaml` files for build and deploy stages:
   - **Phase-1:** Build Container Image and Push to ECR - `buildspec-build.yml` 
   - **Phase-2:** Authenticate to EKS using STS Assume Role (Secure EKS interaction) and deploy kube-manifests to EKS - `buildspec-deploy.yml`
