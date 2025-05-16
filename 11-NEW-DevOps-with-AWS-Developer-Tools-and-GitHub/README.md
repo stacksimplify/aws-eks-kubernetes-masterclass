@@ -44,20 +44,29 @@ kubectl get pods
 # Verify if all templates are working
 ## Step-01: Update 01-DEVOPS-Nginx-Deployment.yml image
 image: ghcr.io/stacksimplify/kube-nginxapp1:1.0.0 # FOR TESTING
-## Step-02: DEPLOY AND VERIFY
+
+## Step-02: Verify and Update Ingress manifest (03-DEVOPS-Nginx-ALB-IngressService.yml) with DNS Names and SSL Cert
+alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:180789647333:certificate/126847a6-a5ee-41d0-8deb-2d8a85217c73
+external-dns.alpha.kubernetes.io/hostname: eksdevops1.stacksimplify.com, eksdevops2.stacksimplify.com
+
+## Step-03: DEPLOY AND VERIFY
 cd 11-NEW-DevOps-with-AWS-Developer-Tools-and-GitHub/github-files
 kubectl apply -f kube-manifets/
-## Step-03: Verify Pods, Deployment, svc, ingress
+
+## Step-04: Verify Pods, Deployment, svc, ingress
 kubectl get pods
 kubectl get deploy
 kubectl get svc
 kubectl get ingress
-## Step-04: Verify External DNS Logs and Route53 Records
+
+## Step-05: Verify External DNS Logs and Route53 Records
 kubectl logs -f $(kubectl get po | egrep -o 'external-dns[A-Za-z0-9-]+')
 Go to Route53 -> Hosted Zones -> stacksimplify.com -> Verify DNS records "eksdevops1.stacksimplify.com, eksdevops2.stacksimplify.com"
-## Step-05: Access Application
+
+## Step-06: Access Application
 http://eksdevops1.stacksimplify.com/app1/index.html
-## Step-06: Clean-up
+
+## Step-07: Clean-up
 kubectl delete -f kube-manifets/
 ```
 
