@@ -15,6 +15,7 @@
 - We are going to have two `buildspec yaml` files for build and deploy stages:
   - **Phase-1:** Build Container Image and Push to ECR - `buildspec-build.yml` 
   - **Phase-2:** Authenticate to EKS using STS Assume Role (Secure EKS interaction) and deploy kube-manifests to EKS - `buildspec-deploy.yml`
+ 
 
 ## Step-03: Pre-requisite check
 ### Step-03-01: Verify AWS Load Balancer Controller and External DNS
