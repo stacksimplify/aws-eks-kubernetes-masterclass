@@ -11,12 +11,10 @@
 
 ## Step-02: What are we going to learn?
 - We are going to create a ECR Repository for our Docker Images
-- We are going to create GitHub Repository and check-in our Docker and Kubernetes Manifests
-- Separate `buildspec yaml` files for build and deploy:
-  - `buildspec-build.yml` (Build & Push)
-  - `buildspec-deploy.yml` (Deploy to EKS)
-- Deploy the image to an **EKS Cluster** using `kubectl`
-- Use STS Assume Role pattern for secure EKS interaction
+- We are going to create GitHub Repository and check-in our code, Dockerfile and Kubernetes Manifests to GitHub Repo
+- We are going to have two `buildspec yaml` files for build and deploy stages:
+  - **Phase-1:** Build Container Image and Push to ECR - `buildspec-build.yml` 
+  - **Phase-2:** Authenticate to EKS using STS Assume Role (Secure EKS interaction) and deploy kube-manifests to EKS - `buildspec-deploy.yml`
 
 ## Step-03: Pre-requisite check
 ### Step-03-01: Verify AWS Load Balancer Controller and External DNS
