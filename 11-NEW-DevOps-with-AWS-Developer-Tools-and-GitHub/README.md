@@ -668,7 +668,24 @@ git push
 http://myapp1.stacksimplify.com/app1/index.html
 ```
 
-## Step-12: Clean-Up
+Here’s a clean and simple way to add that to your `readme.md` as **Step-12**:
+
+---
+
+## Step-12: Why does every alternate build fail in the Build Phase?
+- This happens because the Docker base image (`nginx:latest`) is being pulled from Docker Hub, which has rate limits for anonymous users. The first build fails due to hitting this limit (`429 Too Many Requests`), but the second one might pass if the image gets cached.
+
+### ✅ Fix: Use Amazon ECR Public image instead of Docker Hub
+- Update your `Dockerfile` like this:
+
+```Dockerfile
+#FROM nginx
+FROM public.ecr.aws/nginx/nginx:latest
+COPY app1 /usr/share/nginx/html/app1
+```
+- This uses AWS's public registry, which has no rate limits in CodeBuild.
+
+## Step-13: Clean-Up
 - Delete All kubernetes Objects in EKS Cluster
 ```sh
 # Delete all Kubernetes Resources created as part of this demo
