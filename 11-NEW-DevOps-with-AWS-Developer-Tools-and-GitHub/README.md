@@ -381,7 +381,7 @@ phases:
 - Add Policy **AWSCodeBuildAdminAccess** to this role
 
 ### Step-07-04: DEPLOY STAGE: Create STS Assume IAM Role for CodeBuild to interact with AWS EKS
-- In an AWS CodePipeline, we are going to use AWS CodeBuild to deploy changes to our Kubernetes manifests. 
+- In an AWS CodePipeline, we are going to use AWS CodeBuild to deploy Kubernetes manifests to EKS Cluster. 
 - This requires an AWS IAM role capable of interacting with the EKS cluster.
 - In this step, we are going to create an IAM role and add an inline policy `EKS:Describe` that we will use in the CodeBuild stage to interact with the EKS cluster via kubectl.
 #### Option 1: **macOS / Linux / Windows Git Bash / WSL**
