@@ -42,7 +42,7 @@ kubectl get pods
 ### Step-03-02: Verify Kubernetes Manifests working as expected before implementing DevOps Pipelines
 ```sh
 # Verify if all templates are working
-## Step-01: Update 01-DEVOPS-Nginx-Deployment.yml image
+## Step-01: Update 01-DEVOPS-Nginx-Deployment.yml - "image" 
 image: ghcr.io/stacksimplify/kube-nginxapp1:1.0.0 # FOR TESTING
 
 ## Step-02: Verify and Update Ingress manifest (03-DEVOPS-Nginx-ALB-IngressService.yml) with DNS Names and SSL Cert
@@ -68,6 +68,9 @@ http://eksdevops1.stacksimplify.com/app1/index.html
 
 ## Step-07: Clean-up
 kubectl delete -f kube-manifets/
+
+## Step-08: Update 01-DEVOPS-Nginx-Deployment.yml - "image" 
+image: CONTAINER_IMAGE # FOR DEVOPS Pipeline
 ```
 
 ## Step-04: Create ECR Repository for our Application Docker Images

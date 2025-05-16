@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: eks-devops
-          image: CONTAINER_IMAGE
-          #image: ghcr.io/stacksimplify/kube-nginxapp1:1.0.0 # FOR TESTING
+          #image: CONTAINER_IMAGE # FOR DEVOPS Pipeline
+          image: ghcr.io/stacksimplify/kube-nginxapp1:1.0.0 # FOR TESTING
           ports:
             - containerPort: 80
