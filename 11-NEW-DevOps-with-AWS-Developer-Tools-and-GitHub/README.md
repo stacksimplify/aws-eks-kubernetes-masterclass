@@ -642,6 +642,10 @@ http://myapp1.stacksimplify.com/app1/index.html
 - REST ALL LEAVE TO DEFAULTS
 - Click on **DONE**
 - Click on **SAVE** to save pipeline
+### Step-10-04: Give SNS Full access to AWS CodePipeline Role
+- Go to AWS CodePipeline -> eks-devops -> Settings -> Service role ARN
+- In IAM for ROLE: **AWSCodePipelineServiceRole-us-east-1-eks-devops-pipeline-551**
+- Attach Permissions: **AmazonSNSFullAccess**
 
 
 ## Step-11: Test-3: END TO END FLOW (Build, Approval and Deploy Stages)
