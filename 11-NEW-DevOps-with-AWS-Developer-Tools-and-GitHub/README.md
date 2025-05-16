@@ -330,7 +330,7 @@ phases:
       - echo "Ingress Status:"
       - kubectl get ingress -o wide
 ```
-### Step-07-02: DEPLOY STAGE: DEPLOY PHASE: EDIT CodePipeline - BUILD PHASE
+### Step-07-02: DEPLOY STAGE: DEPLOY PHASE: EDIT CodePipeline 
 #### EDIT CodePipeline
 - EDIT CodePipeline
 - Go to Services -> CodePipeline ->  eks-devops -> EDIT
