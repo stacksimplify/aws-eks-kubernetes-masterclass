@@ -276,19 +276,16 @@ brew install helm
 helm version
 ```
 ### Step-04-02: Install AWS Load Balancer Controller
-- **Important Note 1:** If you're deploying the controller to Amazon EC2 nodes that have restricted access to the Amazon EC2 instance metadata service (IMDS), or if you're deploying to Fargate, then add the following flags to the command that you run:
+- **Important-Note-1:** If you're deploying the controller to Amazon EC2 nodes that have restricted access to the Amazon EC2 instance metadata service (IMDS), or if you're deploying to Fargate, then add the following flags to the command that you run:
 ```t
 --set region=region-code
 --set vpcId=vpc-xxxxxxxx
 ```
-- **Important Note 2:** **DEPRECATED** 
-  - If you're deploying to any Region other than us-west-2, then add the following flag to the command that you run, replacing account and region-code with the values for your region listed in Amazon EKS add-on container image addresses.
+- **Important-Note-2:** If you're deploying to any Region other than us-west-2, then add the following flag to the command that you run, replacing account and region-code with the values for your region listed in Amazon EKS add-on container image addresses.
 - [Get Region Code and Account info](https://docs.aws.amazon.com/eks/latest/userguide/add-ons-images.html)
 ```t
 --set image.repository=account.dkr.ecr.region-code.amazonaws.com/amazon/aws-load-balancer-controller
 ```
-- **Important Note 3:** **ADDED NEWLY - RECOMMENDED** 
-  - You no longer need to use region-specific image URIs.
 ```t
 # Add the eks-charts repository.
 helm repo add eks https://aws.github.io/eks-charts
@@ -305,7 +302,7 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   --set serviceAccount.name=aws-load-balancer-controller \
   --set region=<region-code> \
   --set vpcId=<vpc-xxxxxxxx> \
-  --set image.repository=public.ecr.aws/eks/aws-load-balancer-controller
+  --set image.repository=<account>.dkr.ecr.<region-code>.amazonaws.com/amazon/aws-load-balancer-controller
 
 ## Replace Cluster Name, Region Code, VPC ID, Image Repo Account ID and Region Code  
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
@@ -315,7 +312,7 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   --set serviceAccount.name=aws-load-balancer-controller \
   --set region=us-east-1 \
   --set vpcId=vpc-0165a396e41e292a3 \
-  --set image.repository=public.ecr.aws/eks/aws-load-balancer-controller
+  --set image.repository=602401143452.dkr.ecr.us-east-1.amazonaws.com/amazon/aws-load-balancer-controller
 ```
 - **Sample output for AWS Load Balancer Controller Install steps**
 ```t
@@ -327,7 +324,7 @@ Kalyans-MacBook-Pro:08-01-Load-Balancer-Controller-Install kdaida$ helm install 
 >   --set serviceAccount.name=aws-load-balancer-controller \
 >   --set region=us-east-1 \
 >   --set vpcId=vpc-0570fda59c5aaf192 \
->   --set image.repository=public.ecr.aws/eks/aws-load-balancer-controller
+>   --set image.repository=602401143452.dkr.ecr.us-east-1.amazonaws.com/amazon/aws-load-balancer-controller
 NAME: aws-load-balancer-controller
 LAST DEPLOYED: Wed Feb  2 10:33:57 2022
 NAMESPACE: kube-system
