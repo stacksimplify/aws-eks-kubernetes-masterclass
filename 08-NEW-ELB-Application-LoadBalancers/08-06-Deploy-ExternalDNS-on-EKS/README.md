@@ -126,7 +126,7 @@ Kalyans-Mac-mini:08-06-ALB-Ingress-ExternalDNS kalyanreddy$
 ```yaml
     eks.amazonaws.com/role-arn: arn:aws:iam::180789647333:role/eksctl-eksdemo1-addon-iamserviceaccount-defa-Role1-JTO29BVZMA2N
 ```
-### Chnage-2: Line 55, 56: Commented them
+### Change-2: Line 55, 56: Commented them
 - We used eksctl to create IAM role and attached the `AllowExternalDNSUpdates` policy
 - We didnt use KIAM or Kube2IAM so we don't need these two lines, so commented
 ```yaml
