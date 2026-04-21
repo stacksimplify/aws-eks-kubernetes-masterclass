@@ -112,7 +112,7 @@ kubectl config view --minify
 - Verify Control Plane Stack & Events
 - Verify NodeGroup Stack & Events
 
-### Login to Worker Node using Keypai kube-demo
+### Login to Worker Node using Key pair kube-demo
 - Login to worker node
 ```
 # For MAC or Linux or Windows10
